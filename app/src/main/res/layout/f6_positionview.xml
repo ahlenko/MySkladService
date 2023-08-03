@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftlite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstLogo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/headerline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="9dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_centr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <ImageButton
+            android:id="@+id/button_beck"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:scaleType="fitCenter"
+            android:stateListAnimator="@animator/def_animator"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:srcCompat="@drawable/sel_back"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/LogoText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_left"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ico_logotext" />
+
+        <ImageButton
+            android:id="@+id/button_ring"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ico_bell"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/ring_notify"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/button_ring"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ellipse_purple" />
+
+        <TextView
+            android:id="@+id/notify_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="16"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_wht"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/headerline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <TextView
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="Реестрація співробітника"
+        android:textAlignment="center"
+        android:textColor="@color/fonts_color_blc"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ConstLogo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leftlite"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/infostate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:textAlignment="center"
+            android:textColor="@color/red_note"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/LineContentTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.095" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/lineContentBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/LineContentTop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/border_top_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.366" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.634" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/enter_border_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32962963" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/barcode_border"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.88" />
+
+                <TextView
+                    android:id="@+id/title_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Найменування"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line2"
+                    app:layout_constraintStart_toStartOf="@+id/title_group"
+                    app:layout_constraintTop_toTopOf="@+id/input1line1" />
+
+                <EditText
+                    android:id="@+id/input_name"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line2"
+                    app:layout_constraintEnd_toEndOf="@+id/border_top_1"
+                    app:layout_constraintStart_toStartOf="@+id/enter_border_1"
+                    app:layout_constraintTop_toTopOf="@+id/input1line1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/title_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Група товарів"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line3"
+                    app:layout_constraintStart_toStartOf="@+id/title_barcode"
+                    app:layout_constraintTop_toTopOf="@+id/input1line2" />
+
+                <EditText
+                    android:id="@+id/input_group"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line3"
+                    app:layout_constraintEnd_toEndOf="@+id/input_name"
+                    app:layout_constraintStart_toStartOf="@+id/enter_border_1"
+                    app:layout_constraintTop_toTopOf="@+id/input1line2" />
+
+                <TextView
+                    android:id="@+id/title_barcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Код пакування"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line4"
+                    app:layout_constraintStart_toStartOf="@+id/border_bottom_2"
+                    app:layout_constraintTop_toTopOf="@+id/input1line3" />
+
+                <EditText
+                    android:id="@+id/input_barcode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="40dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line4"
+                    app:layout_constraintEnd_toEndOf="@+id/input_group"
+                    app:layout_constraintStart_toStartOf="@+id/enter_border_1"
+                    app:layout_constraintTop_toTopOf="@+id/input1line3" />
+
+                <ImageButton
+                    android:id="@+id/button_scanbarcode"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="#00FFFFFF"
+                    android:backgroundTint="#00FFFFFF"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_barcode"
+                    app:layout_constraintEnd_toEndOf="@+id/input_barcode"
+                    app:layout_constraintStart_toStartOf="@+id/barcode_border"
+                    app:layout_constraintTop_toTopOf="@+id/input_barcode"
+                    app:srcCompat="@drawable/sel_scancode" />
+
+                <ImageView
+                    android:id="@+id/border_bottom_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.29" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input1"
+                app:layout_constraintVertical_bias="1.0">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.022" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.22" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.34" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.508" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.567" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.743" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.805" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/hline9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9781022" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="11dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linephoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.22" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lineenter1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.29" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lineenter2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.52" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lineenter3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.66" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/lineenter4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.89" />
+
+                <TextView
+                    android:id="@+id/packingtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Пакування"
+                    android:textAlignment="center"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetitle"
+                    app:layout_constraintTop_toTopOf="@+id/linetitle"
+                    tools:layout_editor_absoluteX="10dp" />
+
+                <TextView
+                    android:id="@+id/title_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Фото"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linephoto"
+                    app:layout_constraintEnd_toStartOf="@+id/hline2"
+                    app:layout_constraintStart_toStartOf="@+id/hline1"
+                    app:layout_constraintTop_toTopOf="@+id/linephoto" />
+
+                <ImageButton
+                    android:id="@+id/button_addphoto"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#00FFFFFF"
+                    android:backgroundTint="#00FFFFFF"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline2"
+                    app:layout_constraintStart_toStartOf="@+id/hline1"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter1"
+                    app:srcCompat="@drawable/sel_addphoto" />
+
+                <TextView
+                    android:id="@+id/title_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Вага"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter2"
+                    app:layout_constraintStart_toStartOf="@+id/hline2"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter1" />
+
+                <EditText
+                    android:id="@+id/enter_weihgt"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/inpt_weight"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter2"
+                    app:layout_constraintEnd_toStartOf="@+id/hline9"
+                    app:layout_constraintStart_toStartOf="@+id/hline3"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter1" />
+
+                <TextView
+                    android:id="@+id/text_kg1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="(кг)"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@+id/hline6"
+                    app:layout_constraintStart_toStartOf="@+id/hline5"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter2" />
+
+                <TextView
+                    android:id="@+id/title_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Розмір"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintStart_toStartOf="@+id/hline2"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <EditText
+                    android:id="@+id/enter_size1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/inpt_size"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline4"
+                    app:layout_constraintStart_toStartOf="@+id/hline3"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <TextView
+                    android:id="@+id/text_cm1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="(см)"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@+id/hline4"
+                    app:layout_constraintStart_toStartOf="@+id/hline3"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter4" />
+
+                <TextView
+                    android:id="@+id/text_x1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="X"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline5"
+                    app:layout_constraintStart_toStartOf="@+id/hline4"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <EditText
+                    android:id="@+id/enter_size2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/inpt_size"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline6"
+                    app:layout_constraintStart_toStartOf="@+id/hline5"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <TextView
+                    android:id="@+id/text_cm2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="(см)"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@+id/hline6"
+                    app:layout_constraintStart_toStartOf="@+id/hline5"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter4" />
+
+                <TextView
+                    android:id="@+id/text_x2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="X"
+                    android:textColor="@color/grey"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline8"
+                    app:layout_constraintStart_toStartOf="@+id/hline6"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <EditText
+                    android:id="@+id/enter_size3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/inpt_size"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineenter4"
+                    app:layout_constraintEnd_toStartOf="@+id/hline9"
+                    app:layout_constraintStart_toStartOf="@+id/hline8"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter3" />
+
+                <TextView
+                    android:id="@+id/text_cm3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="(см)"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toStartOf="@+id/hline9"
+                    app:layout_constraintStart_toStartOf="@+id/hline8"
+                    app:layout_constraintTop_toTopOf="@+id/lineenter4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.56" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input2">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/enter_border_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32962963" />
+
+                <ImageView
+                    android:id="@+id/border_top_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input3line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input3line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.50" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input3line4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <TextView
+                    android:id="@+id/title_startcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Початкова к-сть"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input3line2"
+                    app:layout_constraintStart_toStartOf="@+id/title_provider"
+                    app:layout_constraintTop_toTopOf="@+id/input3line1" />
+
+                <EditText
+                    android:id="@+id/enter_startcount"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="number"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input3line2"
+                    app:layout_constraintEnd_toEndOf="@+id/border_top_3"
+                    app:layout_constraintStart_toStartOf="@+id/enter_border_3"
+                    app:layout_constraintTop_toTopOf="@+id/input3line1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/title_provider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Постачальник"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input3line4"
+                    app:layout_constraintStart_toStartOf="@+id/border_bottom_3"
+                    app:layout_constraintTop_toTopOf="@+id/input3line2" />
+
+                <EditText
+                    android:id="@+id/enter_provider"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input3line4"
+                    app:layout_constraintEnd_toEndOf="@+id/enter_startcount"
+                    app:layout_constraintStart_toStartOf="@+id/enter_border_3"
+                    app:layout_constraintTop_toTopOf="@+id/input3line2" />
+
+                <ImageView
+                    android:id="@+id/border_bottom_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.76" />
+
+            <TextView
+                android:id="@+id/title_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="Опис (не обов’язково)"
+                android:textAlignment="textStart"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/input3line4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input3" />
+
+            <EditText
+                android:id="@+id/entercomment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/inpt_opis"
+                android:ems="10"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="18dp"
+                android:textCursorDrawable="@drawable/line_input"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title_comment" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/counter_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/counter_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.86" />
+
+            <TextView
+                android:id="@+id/viewcountchars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:text="0 / 90"
+                android:textAlignment="center"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/entercomment"
+                app:layout_constraintEnd_toEndOf="@+id/entercomment"
+                app:layout_constraintStart_toStartOf="@+id/counter_border"
+                app:layout_constraintTop_toTopOf="@+id/counter_top" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineContentBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.84" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineBtnTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/lineBtnBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lineBtnTop">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/button_centre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageButton
+                android:id="@+id/button_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_centre"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sel_smallbtnred" />
+
+            <ImageButton
+                android:id="@+id/button_renew"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button_centre"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sel_smallbtnpurple" />
+
+            <TextView
+                android:id="@+id/button_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="Видалити"
+                android:textAlignment="center"
+                android:textColor="@color/back_white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_centre"
+                app:layout_constraintStart_toStartOf="@+id/button_delete"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/button_title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="Оновити"
+                android:textAlignment="center"
+                android:textColor="@color/back_white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/button_centre"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineBtnBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

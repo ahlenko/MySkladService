@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="340dp"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/textOld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Старий текст"
+        android:textAlignment="textStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/enterOld"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Новий текст"
+        android:textAlignment="textStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/enterNew"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/enterOld"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/inpt_frame1"
+        android:ems="10"
+        android:fontFamily="@font/roboto_light"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/akcent_purple"
+        android:textCursorDrawable="@drawable/line_input"
+        app:layout_constraintBottom_toTopOf="@+id/textNew"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+        android:id="@+id/enterNew"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/inpt_frame1"
+        android:ems="10"
+        android:fontFamily="@font/roboto_light"
+        android:inputType="textPassword"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textColor="@color/akcent_purple"
+        android:textCursorDrawable="@drawable/line_input"
+        app:layout_constraintBottom_toTopOf="@+id/lineHor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Заголовок"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textOld"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/negative_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/lineVer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lineHor"
+        app:srcCompat="@drawable/sel_smallbtnred" />
+
+    <TextView
+        android:id="@+id/neg_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="Так"
+        android:textAlignment="center"
+        android:textColor="@color/back_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/negative_button"
+        app:layout_constraintEnd_toStartOf="@+id/lineVer"
+        app:layout_constraintStart_toStartOf="@+id/negative_button"
+        app:layout_constraintTop_toTopOf="@+id/negative_button" />
+
+    <ImageButton
+        android:id="@+id/positive_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lineVer"
+        app:layout_constraintTop_toTopOf="@+id/lineHor"
+        app:srcCompat="@drawable/sel_smallbtnpurple" />
+
+    <TextView
+        android:id="@+id/pos_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="Ні"
+        android:textAlignment="center"
+        android:textColor="@color/back_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/positive_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lineVer"
+        app:layout_constraintTop_toTopOf="@+id/positive_button" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/lineVer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/lineHor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.74" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

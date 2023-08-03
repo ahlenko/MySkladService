@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingMode="stack"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+        <item
+            android:gravity="end|fill_vertical"
+            android:width="26dp"
+            android:bottom="3dp"
+            android:drawable="@drawable/animation" />
+        <item
+            android:drawable="@drawable/strilka_down"
+            android:gravity="end|center_vertical"
+            android:width="16dp"
+            android:height="10dp"
+            android:end="5dp" />
+    </layer-list>

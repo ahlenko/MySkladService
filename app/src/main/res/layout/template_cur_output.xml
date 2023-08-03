@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.88" />
+
+        <ImageButton
+            android:id="@+id/button_checkcur"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:backgroundTint="@color/fonts_color_wht"
+            app:layout_constraintBottom_toBottomOf="@+id/cur_border"
+            app:layout_constraintEnd_toEndOf="@+id/cur_border"
+            app:layout_constraintStart_toStartOf="@+id/cur_border"
+            app:layout_constraintTop_toTopOf="@+id/cur_border" />
+
+        <CheckBox
+            android:id="@+id/cur_state"
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="2dp"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false"
+            android:drawableLeft="@drawable/variabled_check_check"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Отримувач:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/title_number"
+            app:layout_constraintStart_toEndOf="@+id/cur_state" />
+
+        <TextView
+            android:id="@+id/view_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Ахленко Д. А."
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/title_number"
+            app:layout_constraintEnd_toStartOf="@+id/line_right" />
+
+        <TextView
+            android:id="@+id/title_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="№ Замовлення:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cur_state"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/view_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="00542560"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_ttncode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="№ TTH:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/cur_state"
+            app:layout_constraintTop_toBottomOf="@+id/title_number" />
+
+        <TextView
+            android:id="@+id/view_ttncode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="00532563456757"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toBottomOf="@+id/title_number" />
+
+        <TextView
+            android:id="@+id/view_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="x 4"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/cur_border"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cur_state"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/chose_big" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

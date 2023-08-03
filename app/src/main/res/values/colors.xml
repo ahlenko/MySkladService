@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- My Program Colors. -->
+    <color name="akcent_yellow">#D95F1B</color>
+    <color name="akcent_purple">#6059B6</color>
+    <color name="back_white">#FFF6F6</color>
+    <color name="back_dark">#333030</color>
+    <color name="fonts_color_blc">#000000</color>
+    <color name="fonts_color_wht">#FFF6F6</color>
+    <color name="scroling_color">#7F7F7F</color>
+    <color name="red_note">#DA5E56</color>
+    <color name="purple_note">#6059B6</color>
+    <color name="green_note">#53C157</color>
+    <color name="grey">#FF9C9797</color>
+    <color name="grey2">#FF6C6767</color>
+    <color name="grey_lite">#66D9D9D9</color>
+    <color name="atpha0">#00FFFFFF</color>
+</resources>

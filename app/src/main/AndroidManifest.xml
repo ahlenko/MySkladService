@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MySkladService"
+        tools:targetApi="31">
+        <activity
+            android:name=".screens.chaise.A_S_Option"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Input"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_UserView"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Users"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Table"
+            android:exported="false" />
+        <activity
+            android:name=".screens.register.A_R_User"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Packing"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Output"
+            android:exported="false" />
+        <activity
+            android:name=".screens.insert.A_I_AddPosition"
+            android:exported="false" />
+        <activity
+            android:name=".screens.chaise.A_S_Login"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Checking"
+            android:exported="false" />
+        <activity
+            android:name=".screens.chaise.A_S_Analitics"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Task"
+            android:exported="false" />
+        <activity
+            android:name=".screens.insert.A_I_AddUser"
+            android:exported="false" />
+        <activity
+            android:name=".screens.register.A_R_Company"
+            android:exported="false" />
+        <activity
+            android:name=".screens.chaise.A_S_Menu"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Checking"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Input"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Output"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Packing"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Position"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_User"
+            android:exported="false" />
+        <activity
+            android:name=".screens.current.A_C_Work"
+            android:exported="false" />
+        <activity
+            android:name=".screens.insert.A_I_AddWork"
+            android:exported="false" />
+        <activity
+            android:name=".screens.chaise.A_S_Menu_N"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Table_N"
+            android:exported="false" />
+        <activity
+            android:name=".screens.table.A_T_Users_N"
+            android:exported="false" />
+        <activity
+            android:name=".AM_Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

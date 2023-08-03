@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_white"
+    tools:context=".AM_Login">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottomLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLine"
+        app:layout_constraintEnd_toStartOf="@+id/rightLine"
+        app:layout_constraintStart_toStartOf="@+id/leftLine"
+        app:layout_constraintTop_toTopOf="@+id/topLine">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/logoTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/logoBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.26" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/inputTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.29" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/inputBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.76" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/buttonsTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.79" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/buttonsBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1.0" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstLogo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/logoBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/logoTop">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/logoCentr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <ImageView
+                android:id="@+id/Logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/logoCentr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ico_logo"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/LogoText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/logoCentr"
+                app:srcCompat="@drawable/ico_logotext"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstBTN"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonsBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buttonsTop">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/lbtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/lbtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/lbtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.72" />
+
+            <ImageButton
+                android:id="@+id/button_enter"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:contentDescription="@string/enterbtn"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toTopOf="@+id/lbtn1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sel_smallbtn" />
+
+            <TextView
+                android:id="@+id/button_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/enter"
+                android:textAlignment="center"
+                android:textColor="@color/back_white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/button_enter"
+                app:layout_constraintEnd_toEndOf="@+id/button_enter"
+                app:layout_constraintStart_toStartOf="@+id/button_enter"
+                app:layout_constraintTop_toTopOf="@+id/button_enter" />
+
+            <TextView
+                android:id="@+id/TextOR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/or_text"
+                android:textAlignment="center"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/lbtn2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbtn2" />
+
+            <ImageButton
+                android:id="@+id/RegBTN"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#00FFFFFF"
+                android:contentDescription="@string/registerbtn"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbtn3"
+                app:srcCompat="@drawable/sel_reg" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/inputBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/inputTop">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/leftLineInpt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.01" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightLineInpt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.99" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/linpt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.125" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/linpt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/linpt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/linpt4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <TextView
+                android:id="@+id/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/enter_title0"
+                android:textAlignment="center"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/linpt1"
+                app:layout_constraintEnd_toStartOf="@+id/rightLineInpt"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toTopOf="@+id/linpt1" />
+
+            <TextView
+                android:id="@+id/TextEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/email_text"
+                android:textAlignment="textStart"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/linpt2"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toTopOf="@+id/linpt2" />
+
+            <EditText
+                android:id="@+id/EnterEmail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/inpt_frame1"
+                android:ems="10"
+                android:fontFamily="@font/roboto_light"
+                android:inputType="textEmailAddress"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/akcent_purple"
+                android:textCursorDrawable="@drawable/line_input"
+                app:layout_constraintBottom_toTopOf="@+id/TextLogin"
+                app:layout_constraintEnd_toStartOf="@+id/rightLineInpt"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toBottomOf="@+id/TextEmail"
+                tools:ignore="Autofill,LabelFor" />
+
+            <TextView
+                android:id="@+id/TextLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/log_text"
+                android:textAlignment="textStart"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/linpt3"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toTopOf="@+id/linpt3" />
+
+            <EditText
+                android:id="@+id/EnterLogin"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/inpt_frame1"
+                android:ems="10"
+                android:fontFamily="@font/roboto_light"
+                android:inputType="text|textEmailAddress"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/akcent_purple"
+                android:textCursorDrawable="@drawable/line_input"
+                app:layout_constraintBottom_toTopOf="@+id/TextPassword"
+                app:layout_constraintEnd_toStartOf="@+id/rightLineInpt"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toBottomOf="@+id/TextLogin"
+                tools:ignore="Autofill,LabelFor" />
+
+            <TextView
+                android:id="@+id/TextPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="@string/pass_text"
+                android:textAlignment="textStart"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/linpt4"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toTopOf="@+id/linpt4" />
+
+            <EditText
+                android:id="@+id/EnterPassword"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/inpt_frame1"
+                android:ems="10"
+                android:fontFamily="@font/roboto_light"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/akcent_purple"
+                android:textCursorDrawable="@drawable/line_input"
+                app:layout_constraintBottom_toTopOf="@+id/TextInvisible"
+                app:layout_constraintEnd_toStartOf="@+id/rightLineInpt"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                app:layout_constraintTop_toBottomOf="@+id/TextPassword"
+                tools:ignore="Autofill,LabelFor" />
+
+            <TextView
+                android:id="@+id/TextInvisible"
+                android:layout_width="4dp"
+                android:layout_height="10dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="@font/roboto_light"
+                android:textAlignment="textStart"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="7sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/leftLineInpt"
+                tools:ignore="SmallSp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

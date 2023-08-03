@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.171" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.829" />
+
+        <ImageView
+            android:id="@+id/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/line_yellow" />
+
+        <ImageButton
+            android:id="@+id/button_checkcur"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginBottom="-2dp"
+            android:backgroundTint="@color/back_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/cur_state"
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="5dp"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="false"
+            android:drawableLeft="@drawable/variabled_check_check"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/photo_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_img_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ico_picture" />
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Найменування:"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/view_name"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/view_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="АКБ Baseus Qpow 20000mAh 15W"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey2"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Код товару:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toBottomOf="@+id/view_name" />
+
+        <TextView
+            android:id="@+id/view_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="948139"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toBottomOf="@+id/view_name" />
+
+        <TextView
+            android:id="@+id/title_countorig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Заявлена"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/line_img_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/view_countorig"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="150"
+            android:textAlignment="center"
+            android:textColor="@color/grey2"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/title_countfact"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/line_img_right"
+            app:layout_constraintTop_toBottomOf="@+id/title_countorig" />
+
+        <TextView
+            android:id="@+id/title_countfact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Фактична"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/line_img_right"
+            app:layout_constraintTop_toBottomOf="@+id/title_countorig"
+            app:layout_constraintVertical_bias="0.51" />
+
+        <TextView
+            android:id="@+id/view_countfact"
+            android:layout_width="30dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/inpt_count"
+            android:clickable="false"
+            android:fontFamily="@font/roboto_light"
+            android:text="--"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.567"
+            app:layout_constraintStart_toEndOf="@+id/line_img_right"
+            app:layout_constraintTop_toBottomOf="@+id/title_countfact"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/line_img_left"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_left"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/line_tableline2" />
+
+        <ImageView
+            android:id="@+id/line_img_right"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/line_tableline2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

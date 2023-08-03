@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_white">
+
+    <ImageButton
+        android:id="@+id/button_changelogin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changelogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changelogin"
+        app:layout_constraintVertical_bias="0.483" />
+
+    <ImageView
+        android:id="@+id/logo_changelogin"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changelogin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changelogin"
+        app:srcCompat="@drawable/ico_loginreset" />
+
+    <ImageView
+        android:id="@+id/strilka_changelogin"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changelogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changelogin"
+        app:srcCompat="@drawable/strilka_right"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text_changelogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Зміна логіну"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_changelogin"
+        app:layout_constraintTop_toBottomOf="@+id/text_security" />
+
+    <ImageButton
+        android:id="@+id/button_changephone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changephone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changephone"
+        app:layout_constraintVertical_bias="0.483" />
+
+    <ImageView
+        android:id="@+id/logo_changephone"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changephone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changephone"
+        app:srcCompat="@drawable/ico_phonereset" />
+
+    <TextView
+        android:id="@+id/text_changephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Зміна номеру телефону"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_changelogin"
+        app:layout_constraintTop_toBottomOf="@+id/text_changelogin" />
+
+    <ImageView
+        android:id="@+id/strilka_changephone"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changephone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changephone"
+        app:srcCompat="@drawable/strilka_right"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/button_changepass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changepass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changepass"
+        app:layout_constraintVertical_bias="0.483" />
+
+    <ImageView
+        android:id="@+id/logo_changepass"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changepass"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changepass"
+        app:srcCompat="@drawable/ico_passreset" />
+
+    <TextView
+        android:id="@+id/text_changepass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Зміна паролю"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_changelogin"
+        app:layout_constraintTop_toBottomOf="@+id/text_changephone" />
+
+    <ImageView
+        android:id="@+id/strilka_changepass"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_changepass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_changepass"
+        app:srcCompat="@drawable/strilka_right"
+        tools:ignore="ContentDescription" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstLogo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/headerline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="9dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_centr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <ImageButton
+            android:id="@+id/button_beck"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:scaleType="fitCenter"
+            android:stateListAnimator="@animator/def_animator"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:srcCompat="@drawable/sel_back"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/LogoText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_left"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ico_logotext" />
+
+        <ImageButton
+            android:id="@+id/button_ring"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ico_bell"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/ring_notify"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/button_ring"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ellipse_purple" />
+
+        <TextView
+            android:id="@+id/notify_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="16"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_wht"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/headerline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <TextView
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="Налаштування"
+        android:textAlignment="center"
+        android:textColor="@color/fonts_color_blc"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/headerline"
+        tools:layout_editor_absoluteX="130dp" />
+
+    <ImageButton
+        android:id="@+id/button_support"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/text_support"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_support" />
+
+    <ImageView
+        android:id="@+id/logo_support"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_support"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_support"
+        app:srcCompat="@drawable/ico_headphones" />
+
+    <TextView
+        android:id="@+id/text_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Підтримка"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_support"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout" />
+
+    <ImageView
+        android:id="@+id/strilka_support"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_support"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_support"
+        app:srcCompat="@drawable/strilka_right"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/select_lang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/text_lang"
+        app:layout_constraintTop_toTopOf="@+id/text_lang">
+
+
+        <TextView
+            android:id="@+id/view_lang"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@color/back_white"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center"
+            android:text="Українська"
+            android:textAlignment="textEnd"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/selector_lang"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/strilka_spinner"
+            android:spinnerMode="dropdown" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logo_lang"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_lang"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_lang"
+        app:srcCompat="@drawable/ico_planet" />
+
+    <TextView
+        android:id="@+id/text_lang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Мова"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_lang"
+        app:layout_constraintTop_toBottomOf="@+id/text_support" />
+
+    <ImageView
+        android:id="@+id/logo_notify"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_notify"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_notify"
+        app:srcCompat="@drawable/ico_bellmini" />
+
+    <TextView
+        android:id="@+id/text_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Сповіщення"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_notify"
+        app:layout_constraintTop_toBottomOf="@+id/text_lang" />
+
+    <Switch
+        android:id="@+id/switch_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginEnd="12dp"
+        android:checked="true"
+        android:thumbTint="@color/akcent_purple"
+        android:trackTint="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/text_notify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_notify"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+    <LinearLayout
+        android:id="@+id/select_security"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/text_security"
+        app:layout_constraintTop_toTopOf="@+id/text_security">
+
+
+        <TextView
+            android:id="@+id/viev_security"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@color/back_white"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center"
+            android:text="Запит паролю"
+            android:textAlignment="textEnd"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/selector_security"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/strilka_spinner"
+            android:spinnerMode="dropdown" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logo_security"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_security"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_security"
+        app:srcCompat="@drawable/ico_lock" />
+
+    <TextView
+        android:id="@+id/text_security"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Безпека"
+        android:textAlignment="viewStart"
+        android:textColor="@color/back_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_security"
+        app:layout_constraintTop_toBottomOf="@+id/text_notify" />
+
+    <ImageButton
+        android:id="@+id/button_exit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/back_white"
+        app:layout_constraintBottom_toBottomOf="@+id/text_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_exit" />
+
+    <TextView
+        android:id="@+id/text_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Вихід з аккаунта"
+        android:textAlignment="viewStart"
+        android:textColor="@color/red_note"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/logo_exit"
+        app:layout_constraintTop_toBottomOf="@+id/text_changepass" />
+
+    <ImageView
+        android:id="@+id/logo_exit"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_exit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_exit"
+        app:srcCompat="@drawable/ico_exit" />
+
+    <ImageView
+        android:id="@+id/strilka_exit"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_exit"
+        app:srcCompat="@drawable/strilka_right"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton
+        android:id="@+id/button_information"
+        android:layout_width="140dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="3dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sel_addinfo"
+        android:stateListAnimator="@animator/def_animator"
+        app:layout_constraintBottom_toTopOf="@+id/title_information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/title_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="155dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Version: 1.0.37 (93)"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

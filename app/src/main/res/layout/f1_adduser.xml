@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftlite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstLogo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/headerline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_notify_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_centr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <ImageButton
+            android:id="@+id/button_beck"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:scaleType="fitCenter"
+            android:stateListAnimator="@animator/def_animator"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:srcCompat="@drawable/sel_back"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/LogoText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_left"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ico_logotext" />
+
+        <ImageButton
+            android:id="@+id/button_ring"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#00FFFFFF"
+            android:backgroundTint="#00FFF6F6"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/line_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ico_bell"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/ring_notify"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/button_ring"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ellipse_purple" />
+
+        <TextView
+            android:id="@+id/notify_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="16"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_wht"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/headerline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <TextView
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="Реестрація співробітника"
+        android:textAlignment="center"
+        android:textColor="@color/fonts_color_blc"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ConstLogo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rightline"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/leftlite"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/infostate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:textAlignment="center"
+            android:textColor="@color/red_note"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constButton" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/LineContentTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.095" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ConstInput"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/lineContentBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/LineContentTop">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/borderTop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.366" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.634" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input1line4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <ImageView
+                    android:id="@+id/borderBottom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <TextView
+                    android:id="@+id/textlastname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="По батькові"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line4"
+                    app:layout_constraintStart_toStartOf="@+id/textname"
+                    app:layout_constraintTop_toTopOf="@+id/input1line3" />
+
+                <TextView
+                    android:id="@+id/textname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Ім'я"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line3"
+                    app:layout_constraintStart_toStartOf="@+id/textsurname"
+                    app:layout_constraintTop_toTopOf="@+id/input1line2" />
+
+                <TextView
+                    android:id="@+id/textsurname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Прізвище"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line2"
+                    app:layout_constraintStart_toStartOf="@+id/borderBottom"
+                    app:layout_constraintTop_toTopOf="@+id/input1line1" />
+
+                <EditText
+                    android:id="@+id/inputlastname"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line4"
+                    app:layout_constraintEnd_toEndOf="@+id/borderTop"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical"
+                    app:layout_constraintTop_toTopOf="@+id/input1line3"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <EditText
+                    android:id="@+id/inputname"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line3"
+                    app:layout_constraintEnd_toEndOf="@+id/inputlastname"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical"
+                    app:layout_constraintTop_toTopOf="@+id/input1line2" />
+
+                <EditText
+                    android:id="@+id/inputsurname"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input1line2"
+                    app:layout_constraintEnd_toEndOf="@+id/inputname"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical"
+                    app:layout_constraintTop_toTopOf="@+id/input1line1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linevertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32962963" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.26" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input2"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input1">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input2line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.45" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input2line4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <ImageView
+                    android:id="@+id/borderBottom2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <TextView
+                    android:id="@+id/textworkstate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Посада"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input2line2"
+                    app:layout_constraintStart_toStartOf="@+id/textworkplace"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/inputworkstate"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="text|textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input2line2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textworkplace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Робоче місце"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input2line4"
+                    app:layout_constraintStart_toStartOf="@+id/borderBottom2"
+                    app:layout_constraintTop_toTopOf="@+id/input2line2" />
+
+                <EditText
+                    android:id="@+id/inputworkplace"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="text|textPersonName"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input2line4"
+                    app:layout_constraintEnd_toEndOf="@+id/inputworkstate"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical2"
+                    app:layout_constraintTop_toTopOf="@+id/input2line2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linevertical2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32962963" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.41" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input2">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.08" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.44" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.56" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.68" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.80" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/chline8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.92" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linecentre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linegtime1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.098" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linegtime2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.42" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linegtime3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.58" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linegtime4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.902" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linetitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="12dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linetime1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.50289017" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linetime2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.73" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linetime3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.96" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linecheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.34" />
+
+                <TextView
+                    android:id="@+id/timetabletitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Графік роботи"
+                    android:textAlignment="center"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetitle"
+                    app:layout_constraintTop_toTopOf="@+id/linetitle"
+                    tools:layout_editor_absoluteX="10dp" />
+
+                <CheckBox
+                    android:id="@+id/day1_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d1_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline2"
+                    app:layout_constraintStart_toStartOf="@+id/chline1"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day2_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d2_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline3"
+                    app:layout_constraintStart_toStartOf="@+id/chline2"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day3_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d3_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline4"
+                    app:layout_constraintStart_toStartOf="@+id/chline3"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day4_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d4_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline5"
+                    app:layout_constraintStart_toStartOf="@+id/chline4"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day5_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d5_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline6"
+                    app:layout_constraintStart_toStartOf="@+id/chline5"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day6_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d6_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline7"
+                    app:layout_constraintStart_toStartOf="@+id/chline6"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <CheckBox
+                    android:id="@+id/day7_checker"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="4dp"
+                    android:button="@null"
+                    android:checked="false"
+                    android:drawableRight="@drawable/variabled_d7_state"
+                    android:stateListAnimator="@animator/def_animator"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toStartOf="@+id/chline8"
+                    app:layout_constraintStart_toStartOf="@+id/chline7"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/noworkdaystitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Вихідні дні"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime1"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime4"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime3"
+                    app:layout_constraintTop_toTopOf="@+id/linecheckbox" />
+
+                <TextView
+                    android:id="@+id/workdaystitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Робочі дні"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime1"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime2"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime1"
+                    app:layout_constraintTop_toTopOf="@+id/linecheckbox" />
+
+                <TextView
+                    android:id="@+id/timeStarttitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="з"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime2"
+                    app:layout_constraintEnd_toStartOf="@+id/linecentre"
+                    app:layout_constraintStart_toStartOf="@+id/linecentre"
+                    app:layout_constraintTop_toTopOf="@+id/linetime1" />
+
+                <TextView
+                    android:id="@+id/timeEndtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="по"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime3"
+                    app:layout_constraintEnd_toStartOf="@+id/linecentre"
+                    app:layout_constraintStart_toStartOf="@+id/linecentre"
+                    app:layout_constraintTop_toTopOf="@+id/linetime2" />
+
+                <EditText
+                    android:id="@+id/timeStartW_enter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:amPmTextColor="@color/fonts_color_blc"
+                    android:background="@drawable/inpt_frame3"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:timePickerMode="spinner"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime2"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime2"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime1"
+                    app:layout_constraintTop_toTopOf="@+id/linetime1" />
+
+                <EditText
+                    android:id="@+id/timeEndW_enter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame3"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime3"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime2"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime1"
+                    app:layout_constraintTop_toTopOf="@+id/linetime2" />
+
+                <EditText
+                    android:id="@+id/timeStartN_enter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame3"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime2"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime4"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime3"
+                    app:layout_constraintTop_toTopOf="@+id/linetime1" />
+
+                <EditText
+                    android:id="@+id/timeEndN_enter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/inpt_frame3"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linetime3"
+                    app:layout_constraintEnd_toStartOf="@+id/linegtime4"
+                    app:layout_constraintStart_toStartOf="@+id/linegtime3"
+                    app:layout_constraintTop_toTopOf="@+id/linetime2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.71" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_input4"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input3"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp">
+
+                <ImageView
+                    android:id="@+id/borderTop4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <TextView
+                    android:id="@+id/texttel4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Телефон"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line3"
+                    app:layout_constraintStart_toStartOf="@+id/borderBottom4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line1" />
+
+                <EditText
+                    android:id="@+id/inputtel4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:hint="093-554-7878"
+                    android:inputType="phone"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line3"
+                    app:layout_constraintEnd_toEndOf="@+id/inputlogin4"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input4line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input4line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.634" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input4line3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.366" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/input4line4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
+
+                <ImageView
+                    android:id="@+id/borderBottom4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/line_yellow" />
+
+                <TextView
+                    android:id="@+id/textlogin4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/log_text"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line2"
+                    app:layout_constraintStart_toStartOf="@+id/textpassword4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line3"
+                    tools:ignore="DuplicateIds" />
+
+                <EditText
+                    android:id="@+id/inputlogin4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="text|textEmailAddress"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line2"
+                    app:layout_constraintEnd_toEndOf="@+id/borderTop4"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line3"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/textpassword4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="@string/pass_text"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line4"
+                    app:layout_constraintStart_toStartOf="@+id/borderBottom4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line2" />
+
+                <EditText
+                    android:id="@+id/inputpassword4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/inpt_frame2"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_light"
+                    android:inputType="text|textPassword"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/fonts_color_blc"
+                    android:textCursorDrawable="@drawable/line_input"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/input4line4"
+                    app:layout_constraintEnd_toEndOf="@+id/inputlogin4"
+                    app:layout_constraintStart_toStartOf="@+id/linevertical4"
+                    app:layout_constraintTop_toTopOf="@+id/input4line2" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/linevertical4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.32962963" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottom_input4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.96" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rightline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <TextView
+                android:id="@+id/title_fullacess"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:text="Надати розширений доступ"
+                android:textAlignment="center"
+                android:textColor="@color/fonts_color_blc"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/rightline2"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input4" />
+
+            <CheckBox
+                android:id="@+id/select_fullacess"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="5dp"
+                android:button="@null"
+                android:checked="false"
+                android:drawableRight="@drawable/variabled_ch_box_state"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/rightline2"
+                app:layout_constraintTop_toTopOf="@+id/bottom_input4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineContentBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.88" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineBtnTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/lineBtnBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lineBtnTop">
+
+            <ImageButton
+                android:id="@+id/button_adduser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:scaleType="fitCenter"
+                android:stateListAnimator="@animator/def_animator"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sel_bigbtn" />
+
+            <TextView
+                android:id="@+id/button_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="Додати співробітника"
+                android:textAlignment="center"
+                android:textColor="@color/back_white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lineBtnBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

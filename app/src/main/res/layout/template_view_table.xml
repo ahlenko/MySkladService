@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_position1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.17" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.83" />
+
+        <ImageButton
+            android:id="@+id/button_positionselect"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-2dp"
+            android:layout_marginTop="-4dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginBottom="-2dp"
+            android:backgroundTint="@color/back_white"
+            android:onClick="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/line_img_left"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_left"
+            app:layout_constraintStart_toStartOf="@+id/line_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/line_tableline1" />
+
+        <ImageView
+            android:id="@+id/line_img_right"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintStart_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/line_tableline1" />
+
+        <ImageView
+            android:id="@+id/border_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/line_tablehline" />
+
+        <ImageView
+            android:id="@+id/photo_img"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_img_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ico_picture" />
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Найменування:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toTopOf="@+id/view_name"
+            app:layout_constraintStart_toEndOf="@+id/line_img_left" />
+
+        <TextView
+            android:id="@+id/view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="АКБ Baseus Qpow 20000mAh 15W"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toTopOf="@+id/title_code"
+            app:layout_constraintStart_toEndOf="@+id/line_img_left" />
+
+        <TextView
+            android:id="@+id/title_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Код товару:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toTopOf="@+id/border_bottom"
+            app:layout_constraintStart_toEndOf="@+id/line_img_left"
+            app:layout_constraintTop_toTopOf="@+id/line_img_right" />
+
+        <TextView
+            android:id="@+id/view_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="948139"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Вага:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintStart_toEndOf="@+id/line_img_left"
+            app:layout_constraintTop_toBottomOf="@+id/title_code" />
+
+        <TextView
+            android:id="@+id/view_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="0,3 кг"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toBottomOf="@+id/view_code" />
+
+        <TextView
+            android:id="@+id/title_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Розмір пакування:"
+            android:textAlignment="textStart"
+            android:textColor="@color/fonts_color_blc"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintStart_toEndOf="@+id/line_img_left"
+            app:layout_constraintTop_toBottomOf="@+id/title_weight" />
+
+        <TextView
+            android:id="@+id/view_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="10х15х8 см"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:typeface="sans"
+            app:layout_constraintEnd_toStartOf="@+id/line_right"
+            app:layout_constraintTop_toBottomOf="@+id/view_weight" />
+
+        <TextView
+            android:id="@+id/view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150"
+
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line_img_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.506" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

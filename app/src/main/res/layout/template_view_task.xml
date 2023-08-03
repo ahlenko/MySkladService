@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:background="@color/back_white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.334" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.667" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.02" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <ImageButton
+        android:id="@+id/button_taskselect"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="1dp"
+        android:backgroundTint="@color/back_white"
+        android:onClick="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_performer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="ПІБ виконавця:"
+        android:textAlignment="viewStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line_1"
+        app:layout_constraintStart_toStartOf="@+id/title_tasktype"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/view_performer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto"
+        android:text="Ахленко Д. А."
+        android:textAlignment="viewEnd"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line_1"
+        app:layout_constraintEnd_toStartOf="@+id/line_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_tasktype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Тип завдання:"
+        android:textAlignment="viewStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line_2"
+        app:layout_constraintStart_toStartOf="@+id/line_left"
+        app:layout_constraintTop_toTopOf="@+id/line_1"
+        app:layout_constraintVertical_bias="0.492" />
+
+    <TextView
+        android:id="@+id/view_tasktype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Інше"
+        android:textAlignment="textEnd"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line_2"
+        app:layout_constraintEnd_toStartOf="@+id/line_right"
+        app:layout_constraintTop_toTopOf="@+id/line_1" />
+
+    <TextView
+        android:id="@+id/title_tasktime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="Час доручення / на виконання:"
+        android:textAlignment="viewStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/title_tasktype"
+        app:layout_constraintTop_toTopOf="@+id/line_2" />
+
+    <TextView
+        android:id="@+id/view_tasktime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="14:20 / 30 хв."
+        android:textAlignment="viewEnd"
+        android:textColor="@color/fonts_color_blc"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/line_right"
+        app:layout_constraintTop_toTopOf="@+id/line_2" />
+
+    <ImageView
+        android:id="@+id/border_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/line_black" />
+</androidx.constraintlayout.widget.ConstraintLayout>

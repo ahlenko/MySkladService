@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">MySkladService</string>
+    <string name="registerbtn">RegisterBTN</string>
+    <string name="enterbtn">enterBTN</string>
+    <string name="or_text">або</string>
+    <string name="pass_text">Пароль</string>
+    <string name="log_text">Логін</string>
+    <string name="email_text">Email</string>
+    <string name="enter_title0">Увійти як співробітник</string>
+    <string name="enter__akk">Вхід</string>
+    <string name="enter">Увійти</string>
+    <string-array name="language">
+        <item>Українська</item>
+        <item>Англійська</item>
+    </string-array>
+
+    <string-array name="enter_type">
+        <item>Вхід з паролем</item>
+        <item>Сканер відбитків</item>
+        <item>Автоматичний вхід</item>
+    </string-array>
+    <string-array name="task_type">
+        <item>Надходження товарів</item>
+        <item>Видаток товарів</item>
+        <item>Збірка  замовлень</item>
+        <item>Проведення обліку</item>
+        <item>Інше завдання</item>
+    </string-array>
+
+    <string-array name="month">
+        <item>Січень</item>
+        <item>Лютий</item>
+        <item>Березень</item>
+        <item>Квітень</item>
+        <item>Травень</item>
+        <item>Червень</item>
+        <item>Липень</item>
+        <item>Серпень</item>
+        <item>Вересень</item>
+        <item>Жовтень</item>
+        <item>Листопад</item>
+        <item>Грудень</item>
+    </string-array>
+
+    <string-array name="month2">
+        <item>Січня</item>
+        <item>Лютого</item>
+        <item>Березня</item>
+        <item>Квітня</item>
+        <item>Травня</item>
+        <item>Червня</item>
+        <item>Липня</item>
+        <item>Серпня</item>
+        <item>Вересня</item>
+        <item>Жовтня</item>
+        <item>Листопада</item>
+        <item>Грудня</item>
+    </string-array>
+
+</resources>
