@@ -3,12 +3,12 @@
     <item android:state_pressed="true">
         <set>
             <objectAnimator android:propertyName="scaleX"
-                android:valueTo="0.97"
+                android:valueTo="0.94"
                 android:valueType="floatType"
                 android:duration="200"
                 android:interpolator="@android:anim/decelerate_interpolator"/>
             <objectAnimator android:propertyName="scaleY"
-                android:valueTo="0.97"
+                android:valueTo="0.94"
                 android:valueType="floatType"
                 android:duration="200"
                 android:interpolator="@android:anim/decelerate_interpolator"/>

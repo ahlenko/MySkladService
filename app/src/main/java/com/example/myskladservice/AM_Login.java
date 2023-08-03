@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -153,7 +154,7 @@ public class AM_Login extends AppCompatActivity {
                 return;
             });
 
-            ImageButton reg_btn = findViewById(R.id.RegBTN);
+            Button reg_btn = findViewById(R.id.RegBTN);
             reg_btn.setOnClickListener(enter -> {
                 vibrator.vibrate(50);
                 Intent intent = new Intent(this, A_R_Company.class);

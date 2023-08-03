@@ -200,19 +200,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lbtn2" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/RegBTN"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="@string/registerbtn"
-                android:scaleType="fitCenter"
-                android:stateListAnimator="@animator/def_animator"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-3dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:stateListAnimator="@animator/anim_for_text"
+                android:text="Зареєструвати\nвзасну компанію"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/akcent_purple"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:typeface="normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lbtn3"
-                app:srcCompat="@drawable/sel_reg" />
+                app:layout_constraintTop_toTopOf="@+id/lbtn3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
