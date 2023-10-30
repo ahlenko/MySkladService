@@ -66,72 +66,70 @@ public class A_S_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a2_login);
         AppWorkData data = new AppWorkData(this);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
 
-        View customLayout = getLayoutInflater().inflate(R.layout.dialog_simple, null);
+        Intent two_btn_intent = new Intent(A_S_Login.this, A_S_Login.class);
         AppCompatActivity activity = this;
         Context context = this;
 
         TextView text_login = findViewById(R.id.TextLogin);
         TextView text_pass = findViewById(R.id.TextPassword);
-
         EditText edit_login = findViewById(R.id.EnterLogin);
         EditText edit_pass = findViewById(R.id.EnterPassword);
+        ImageButton enter_btn = findViewById(R.id.button_enter);
+
 
         class EnterTask extends AsyncTask<Void, Void, Void> {
             private ConfirmableException exception;
-
             protected Void doInBackground(Void... params) {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet;
+                    ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                            mssqlConnection, data.getCompany(), data.getUserLogin());
 
-                    resultSet = MS_SQLSelect.HasCompanyEmail(mssqlConnection, data.getCompany());
-                    if (!resultSet.isBeforeFirst()) {
-                        throw new ConfirmableException(3, "Помилка",
-                                "Компанію зі збереженим Email було видалено або" +
-                                " змінено дані для входу.\n Вийдіть з додатку або" +
-                                " увійдіть повторно:", "Вийти", "Увійти"
+                    if (!resultSet.isBeforeFirst())
+                        throw new ConfirmableException(3, getString(R.string.problem),
+                                getString(R.string.company_deleted), getString(R.string.exit),
+                                getString(R.string.btn_enter)
                         );
-                    } resultSet.next();
-                    resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, data.getUserLogin(), resultSet.getInt("id"));
-                    if (!resultSet.isBeforeFirst()) {
-                        throw new ConfirmableException(2, "Помилка",
-                                "Збережений логін співробітника \n більше недійсний.\n " +
-                                "Бажаєте здійснити вхід з іншим логіном або до іншої компанії?",
-                                "Інша", "Вхід"
+
+                    resultSet.next(); if (resultSet.getString("login") == null)
+                        throw new ConfirmableException(2, getString(R.string.problem),
+                                getString(R.string.employee_deleted), getString(R.string.second),
+                                getString(R.string.enter)
                         );
-                    } resultSet.next();
-                    edit_login.setText(data.getUserLogin());
-                    if (data.getEnterType() != 0){
-                        if (Objects.equals(data.getUserPass(), resultSet.getString("password"))){
-                            data.ChangeUserType(resultSet.getBoolean("fullacess"));
+
+                    boolean pass_correct = Objects.equals(data.getUserPass(), resultSet.getString("password"));
+                    boolean full_access = resultSet.getBoolean("fullacess");
+
+                    msc.disconnect(); if (data.getEnterType() != 0){
+                        if (pass_correct){
+                            data.ChangeUserType(full_access);
                             if (data.getEnterType() == 2){
-                                edit_pass.setText(resultSet.getString("password"));
-                                Intent intent;
-                                vibrator.vibrate(50);
+                                 edit_pass.setText(data.getUserPass());
+                                Intent intent; vibrator.vibrate(50);
                                 if (data.getUserType())
                                     intent = new Intent(A_S_Login.this, A_S_Menu.class);
                                 else intent = new Intent(A_S_Login.this, A_S_Menu_N.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
+                                startActivity(intent); finish();
+                            } else
                                 throw new ConfirmableException(4, "", "", "", "");
-                            }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Помилка входу, пароль було змінено", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.prob_passport_renew), Toast.LENGTH_SHORT).show();
                             data.ChangeEnterType(0);
                         }
                     }
                     throw new ConfirmableException(0, "", "", "", "");
                 } catch (SQLException e) {
-                    exception = new ConfirmableException(1, "Помилка", "Невдале підключення до бази даних." +
-                            "\nПовторіть спробу або вийдіть:", "Вийти", "Повторити");
+                    exception = new ConfirmableException(1, getString(R.string.problem),
+                            getString(R.string.non_connected), getString(R.string.exit),
+                            getString(R.string.repeate));
                 } catch (ConfirmableException e) {
                     exception = e;
-                }
-                return null;
+                } return null;
             }
 
             protected void onPostExecute(Void result) {
@@ -145,48 +143,57 @@ public class A_S_Login extends AppCompatActivity {
                                 exception.getErrorNegative(), exception.getErrorPositive(),
                                 exception.getErrorType()
                         ); break;
-                    case 2:
-                    case 3:
+                    case 2: case 3:
                         DialogsViewer.twoButtonDialog(
                                 context,  new Intent(A_S_Login.this, AM_Login.class),
                                 activity, exception.getErrorTitle(), exception.getErrorMessage(),
                                 exception.getErrorNegative(), exception.getErrorPositive(),
                                 exception.getErrorType()
                         ); break;
-                    case 4:FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(Context.FINGERPRINT_SERVICE);
+                    case 4:
+                        edit_login.setText(data.getUserLogin());
+                        FingerprintManager fingerprintManager = (FingerprintManager)
+                            getSystemService(Context.FINGERPRINT_SERVICE);
                         if (!fingerprintManager.isHardwareDetected() || !fingerprintManager.hasEnrolledFingerprints()) {
-                            Toast.makeText(getApplicationContext(), "Помилка входу, сканер відбитків не знайдено, або відбиток пальця не зареестровано", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.prob_scanner), Toast.LENGTH_SHORT).show();
                             data.ChangeEnterType(0);
                         } else {
-                            FingerprintManager.AuthenticationCallback authenticationCallback = new FingerprintManager.AuthenticationCallback() {
+                            FingerprintManager.AuthenticationCallback authenticationCallback =
+                                    new FingerprintManager.AuthenticationCallback() {
                                 @Override
                                 public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
                                     edit_pass.setText(data.getUserPass());
-                                    Intent intent;
-                                    vibrator.vibrate(50);
+                                    Intent intent; vibrator.vibrate(50);
                                     if (data.getUserType())
                                         intent = new Intent(A_S_Login.this, A_S_Menu.class);
                                     else intent = new Intent(A_S_Login.this, A_S_Menu_N.class);
-                                    startActivity(intent);
-                                    finish();
+                                    startActivity(intent); finish();
                                 }
 
                                 @Override
                                 public void onAuthenticationFailed() {
-                                    Toast.makeText(getApplicationContext(), "Помилка розпізнавання відбитку пальця", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),
+                                            getString(R.string.prob_scanned),
+                                            Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onAuthenticationError(int errorCode, CharSequence errString) {
-                                    Toast.makeText(getApplicationContext(), "Помилка розпізнавання відбитку пальця", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),
+                                            getString(R.string.prob_scanned),
+                                            Toast.LENGTH_SHORT).show();
                                 }
                             };
                             try {
                                 KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
                                 keyStore.load(null);
                                 if (!keyStore.containsAlias("my_key_alias")) {
-                                    KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-                                    KeyGenParameterSpec keyGenParameterSpec = new KeyGenParameterSpec.Builder("my_key_alias",
+                                    KeyGenerator keyGenerator =
+                                            KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,
+                                                    "AndroidKeyStore");
+                                    KeyGenParameterSpec keyGenParameterSpec =
+                                            new KeyGenParameterSpec.Builder("my_key_alias",
                                             KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                                             .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                                             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
@@ -197,42 +204,40 @@ public class A_S_Login extends AppCompatActivity {
                                 SecretKey key = (SecretKey) keyStore.getKey("my_key_alias", null);
                                 Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
                                 cipher.init(Cipher.ENCRYPT_MODE, key);
-                                FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
-                                fingerprintManager.authenticate(cryptoObject, new CancellationSignal(), 0, authenticationCallback, null);
+                                FingerprintManager.CryptoObject cryptoObject =
+                                        new FingerprintManager.CryptoObject(cipher);
+                                fingerprintManager.authenticate(cryptoObject, new CancellationSignal(),
+                                        0, authenticationCallback, null);
                             } catch (NoSuchPaddingException | NoSuchAlgorithmException |
                                      InvalidKeyException | UnrecoverableKeyException |
                                      CertificateException | KeyStoreException | IOException |
                                      InvalidAlgorithmParameterException | NoSuchProviderException e) {
-                                Toast.makeText(getApplicationContext(), "Помилка біометрії", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), getString(R.string.prob_biom),
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        break;
+                        } break;
                 }
             }
         }
 
-        EnterTask enterTask = new EnterTask();
-        enterTask.execute();
+        EnterTask enterTask = new EnterTask(); enterTask.execute();
 
-        ImageButton enter_btn = findViewById(R.id.button_enter);
+
         enter_btn.setOnClickListener(enter -> {
             text_login.setText(R.string.log_text);
-            text_login.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+            text_login.setTextColor(getColor(R.color.fonts_color_blc));
             text_pass.setText(R.string.pass_text);
-            text_pass.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+            text_pass.setTextColor(getColor(R.color.fonts_color_blc));
 
             String login = edit_login.getText().toString().trim();
             String pass = edit_pass.getText().toString().trim();
 
             int enter_err = 0;
+
             if(InputChecker.isNotEmail(login, text_login, 35,  this)) {
-                text_login.setText("Не відповідає формату Email");
-                enter_err++;
-            }
+                text_login.setText(R.string.non_format_login); enter_err++; }
             if(InputChecker.isNotPassword(pass, text_pass,  this)) {
-                text_login.setText("Неправильний пароль");
-                enter_err++;
-            }
+                text_pass.setText(R.string.non_current_password); enter_err++; }
 
             if (enter_err == 0) {
                 new Thread(new Runnable() {
@@ -240,41 +245,35 @@ public class A_S_Login extends AppCompatActivity {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
-                            ResultSet resultSet;
+                            ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                                    mssqlConnection, data.getCompany(), login);
 
-                            resultSet = MS_SQLSelect.HasCompanyEmail(mssqlConnection, data.getCompany()); resultSet.next();
-                            resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, login, resultSet.getInt("id"));
-                            if (!resultSet.isBeforeFirst())
-                                throw new SmallException(0, "Неправильний логін співробітника");
-                            resultSet.next();
+                            resultSet.next(); if (resultSet.getString("login") == null)
+                                throw new SmallException(0, getString(R.string.non_current_login));
 
                             if (!resultSet.getString("password").equals(pass))
-                                throw new SmallException(1, "Неправильний пароль");
+                                throw new SmallException(1, getString(R.string.non_current_password));
                             data.Enter(resultSet.getBoolean("fullacess"), login, pass);
 
                             runOnUiThread(new Runnable() {
                                 public void run() {
-                                    Intent intent;
-                                    vibrator.vibrate(50);
+                                    Intent intent; vibrator.vibrate(50);
                                     if (data.getUserType())
                                          intent = new Intent(A_S_Login.this, A_S_Menu.class);
                                     else intent = new Intent(A_S_Login.this, A_S_Menu_N.class);
-                                    startActivity(intent);
-                                    finish();
+                                    startActivity(intent); finish();
                                 }
-                            });
-                            return;
+                            }); return;
                         } catch (SQLException e) {
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     DialogsViewer.twoButtonDialog(
-                                            context,  new Intent(A_S_Login.this, A_S_Login.class),
-                                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                            "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
+                                            context,  two_btn_intent, activity, getString(R.string.problem),
+                                            getString(R.string.non_connected), getString(R.string.exit),
+                                            getString(R.string.repeate), 1
                                     );
                                 }
-                            });
-                            return;
+                            }); return;
                         } catch (SmallException e) {
                             runOnUiThread(new Runnable() {
                                 public void run() {

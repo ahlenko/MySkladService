@@ -46,6 +46,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btn_style_packing" />
 
+            <TextView
+                android:id="@+id/btn_zbirka_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_zbirka"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:translationY="-12dp"
+                app:layout_constraintBottom_toTopOf="@+id/centreg"
+                app:layout_constraintEnd_toStartOf="@+id/img_line_centr1"
+                app:layout_constraintStart_toStartOf="@+id/btn_zbirka" />
+
             <ImageView
                 android:id="@+id/img_line_centr1"
                 android:layout_width="wrap_content"
@@ -71,6 +87,22 @@
                 app:layout_constraintStart_toStartOf="@+id/centrev"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btn_style_output" />
+
+            <TextView
+                android:id="@+id/btn_output_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_output"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:translationY="-12dp"
+                app:layout_constraintBottom_toTopOf="@+id/centreg"
+                app:layout_constraintEnd_toEndOf="@+id/btn_output"
+                app:layout_constraintStart_toEndOf="@+id/img_line_centr1" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/centreg"
@@ -103,6 +135,22 @@
                 app:layout_constraintTop_toTopOf="@+id/centreg"
                 app:srcCompat="@drawable/btn_style_input" />
 
+            <TextView
+                android:id="@+id/btn_input_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_input"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:translationY="-12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_input"
+                app:layout_constraintEnd_toStartOf="@+id/img_line_centr1"
+                app:layout_constraintStart_toStartOf="@+id/btn_zbirka" />
+
             <ImageView
                 android:id="@+id/img_line_centr2"
                 android:layout_width="wrap_content"
@@ -128,6 +176,22 @@
                 app:layout_constraintStart_toStartOf="@+id/centrev"
                 app:layout_constraintTop_toTopOf="@+id/centreg"
                 app:srcCompat="@drawable/btn_style_checklarge" />
+
+            <TextView
+                android:id="@+id/btn_taskmanager_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_check2"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14.5sp"
+                android:textStyle="bold"
+                android:translationY="-12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_output"
+                app:layout_constraintStart_toEndOf="@+id/img_line_centr1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -172,6 +236,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/sel_big_work" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_condensed_regular"
+                android:text="@string/btn_start_work"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:typeface="serif"
+                app:layout_constraintBottom_toBottomOf="@+id/button_rest"
+                app:layout_constraintEnd_toEndOf="@+id/button_rest"
+                app:layout_constraintStart_toStartOf="@+id/button_rest"
+                app:layout_constraintTop_toTopOf="@+id/button_rest" />
+
             <ImageButton
                 android:id="@+id/btn_table"
                 android:layout_width="0dp"
@@ -185,6 +263,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btn_style_table" />
+
+            <TextView
+                android:id="@+id/btn_table_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_table"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:translationY="-8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_table"
+                app:layout_constraintStart_toStartOf="@+id/btn_table" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/left"
@@ -220,6 +314,22 @@
                 app:layout_constraintStart_toStartOf="@+id/right"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btn_style_addfunction" />
+
+            <TextView
+                android:id="@+id/btn_settings_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:text="@string/ttl_settings"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:translationY="-8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/btn_settings"
+                app:layout_constraintStart_toStartOf="@+id/right" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

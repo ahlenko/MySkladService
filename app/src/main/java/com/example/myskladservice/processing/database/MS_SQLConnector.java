@@ -9,7 +9,7 @@ public class MS_SQLConnector extends Exception{
 
     public Connection connection = null;
 
-    private static String ip = "192.140.0.117";
+    private static String ip = "192.140.0.118";
     private static String port = "57611";
     private static String classe = "net.sourceforge.jtds.jdbc.Driver";
     private static String database = "MySkladService";
@@ -29,5 +29,10 @@ public class MS_SQLConnector extends Exception{
     public static MS_SQLConnector getConect() throws SQLException {
         conect = new MS_SQLConnector();
         return conect;
+    }
+
+    public void disconnect() throws SQLException {
+        if (connection != null && !connection.isClosed())
+            connection.close();
     }
 }

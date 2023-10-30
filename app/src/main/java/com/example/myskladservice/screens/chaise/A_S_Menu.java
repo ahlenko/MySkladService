@@ -57,8 +57,6 @@ public class A_S_Menu extends AppCompatActivity {
         ImageButton work_btn = findViewById(R.id.button_work);
         ImageButton rest_btn = findViewById(R.id.button_rest);
 
-        AppCreateOr create = new AppCreateOr(this);
-        AppTableChecker checker = new AppTableChecker(this);
         TextView infostate = findViewById(R.id.infostate);
         LinearLayout container = findViewById(R.id.TableView);
         Deque<View> Tasks = new ArrayDeque<>();

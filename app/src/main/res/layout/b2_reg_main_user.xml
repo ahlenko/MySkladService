@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_light"
-                android:text="2 / 2"
+                android:text="@string/regSecond"
                 android:textColor="#80000000"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -587,12 +587,28 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="4dp"
                     android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/variabled_d1_state"
+                    android:checked="true"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline2"
                     app:layout_constraintStart_toStartOf="@+id/chline1"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day1_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day1"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day1_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day1_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <CheckBox
@@ -602,12 +618,28 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="4dp"
                     android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/variabled_d2_state"
+                    android:checked="true"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline3"
                     app:layout_constraintStart_toStartOf="@+id/chline2"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day2_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day2"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day2_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day2_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <CheckBox
@@ -617,27 +649,60 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="4dp"
                     android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/variabled_d3_state"
+                    android:checked="true"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline4"
                     app:layout_constraintStart_toStartOf="@+id/chline3"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
+                <TextView
+                    android:id="@+id/day3_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day3"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day3_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day3_checker"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
                 <CheckBox
+
                     android:id="@+id/day4_checker"
                     style="@style/Widget.AppCompat.CompoundButton.CheckBox"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="4dp"
                     android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/variabled_d4_state"
+                    android:checked="true"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline5"
                     app:layout_constraintStart_toStartOf="@+id/chline4"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day4_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day4"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day4_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day4_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <CheckBox
@@ -647,12 +712,28 @@
                     android:layout_height="30dp"
                     android:layout_marginTop="4dp"
                     android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/variabled_d5_state"
+                    android:checked="true"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline6"
                     app:layout_constraintStart_toStartOf="@+id/chline5"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day5_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day5"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day5_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day5_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <CheckBox
@@ -663,11 +744,27 @@
                     android:layout_marginTop="4dp"
                     android:button="@null"
                     android:checked="false"
-                    android:drawableRight="@drawable/variabled_d6_state"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline7"
                     app:layout_constraintStart_toStartOf="@+id/chline6"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day6_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day6"
+                    android:textAlignment="center"
+                    android:textColor="@color/akcent_purple"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day6_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day6_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <CheckBox
@@ -678,11 +775,27 @@
                     android:layout_marginTop="4dp"
                     android:button="@null"
                     android:checked="false"
-                    android:drawableRight="@drawable/variabled_d7_state"
+                    android:drawableRight="@drawable/variabled_day_state"
                     android:stateListAnimator="@animator/def_animator"
                     app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
                     app:layout_constraintEnd_toStartOf="@+id/chline8"
                     app:layout_constraintStart_toStartOf="@+id/chline7"
+                    app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
+
+                <TextView
+                    android:id="@+id/day7_text"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/day7"
+                    android:textAlignment="center"
+                    android:textColor="@color/akcent_purple"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/linecheckbox"
+                    app:layout_constraintEnd_toEndOf="@+id/day7_checker"
+                    app:layout_constraintStart_toStartOf="@+id/day7_checker"
                     app:layout_constraintTop_toBottomOf="@+id/timetabletitle" />
 
                 <TextView

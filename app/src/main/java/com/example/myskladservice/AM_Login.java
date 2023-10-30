@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,18 +28,19 @@ import com.example.myskladservice.screens.register.A_R_Company;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class AM_Login extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a1_login_first);
         AppWorkData data = new AppWorkData(this);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
 
         Intent two_btn_intent = new Intent(AM_Login.this, AM_Login.class);
         AppCompatActivity activity = this;
@@ -54,15 +53,15 @@ public class AM_Login extends AppCompatActivity {
             EditText edit_email = findViewById(R.id.EnterEmail);
             EditText edit_login = findViewById(R.id.EnterLogin);
             EditText edit_pass = findViewById(R.id.EnterPassword);
-
             ImageButton enter_btn = findViewById(R.id.button_enter);
+
             enter_btn.setOnClickListener(enter -> {
                 text_email.setText(R.string.email_text);
-                text_email.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+                text_email.setTextColor(getColor(R.color.fonts_color_blc));
                 text_login.setText(R.string.log_text);
-                text_login.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+                text_login.setTextColor(getColor(R.color.fonts_color_blc));
                 text_pass.setText(R.string.pass_text);
-                text_pass.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+                text_pass.setTextColor(getColor(R.color.fonts_color_blc));
 
                 String email = edit_email.getText().toString().trim();
                 String login = edit_login.getText().toString().trim();
@@ -71,17 +70,11 @@ public class AM_Login extends AppCompatActivity {
                 int enter_err = 0;
 
                 if (InputChecker.isNotEmail(email, text_email, 35, this)) {
-                    text_email.setText("Email не відповідає формату");
-                    enter_err++;
-                }
+                    text_email.setText(R.string.non_format_email); enter_err++; }
                 if (InputChecker.isNotEmail(login, text_login, 35, this)) {
-                    text_login.setText("Login не відповідає формату Email");
-                    enter_err++;
-                }
+                    text_login.setText(R.string.non_format_login); enter_err++; }
                 if (InputChecker.isNotPassword(pass, text_pass, this)) {
-                    text_pass.setText("Неправильний пароль");
-                    enter_err++;
-                }
+                    text_pass.setText(R.string.non_current_password); enter_err++; }
 
                 if (enter_err == 0) {
                     new Thread(new Runnable() {
@@ -89,45 +82,38 @@ public class AM_Login extends AppCompatActivity {
                             try {
                                 MS_SQLConnector msc = MS_SQLConnector.getConect();
                                 Connection mssqlConnection = msc.connection;
-                                ResultSet resultSet;
+                                ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                                        mssqlConnection, email, login);
 
-                                resultSet = MS_SQLSelect.HasCompanyEmail(mssqlConnection, email);
                                 if (!resultSet.isBeforeFirst())
-                                    throw new SmallException(0, "Email не зареестровано в системі");
-                                resultSet.next();
+                                    throw new SmallException(0, String.valueOf(R.string.non_reg_email));
 
-                                resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, login, resultSet.getInt("id"));
-                                if (!resultSet.isBeforeFirst())
-                                    throw new SmallException(1, "Неправильний логін співробітника");
-                                resultSet.next();
+                                resultSet.next(); if (resultSet.getString("login") == null)
+                                    throw new SmallException(1, getString(R.string.non_current_login));
 
                                 if (!resultSet.getString("password").equals(pass))
-                                    throw new SmallException(2, "Неправильний пароль");
+                                    throw new SmallException(2, getString(R.string.non_current_password));
                                 data.FirstEnter(resultSet.getBoolean("fullacess"), email, login, pass);
 
-                                runOnUiThread(new Runnable() {
+                                msc.disconnect(); runOnUiThread(new Runnable() {
                                     public void run() {
-                                        Intent intent;
-                                        vibrator.vibrate(50);
+                                        Intent intent; vibrator.vibrate(50);
                                         if (data.getUserType())
                                             intent = new Intent(AM_Login.this, A_S_Menu.class);
                                         else intent = new Intent(AM_Login.this, A_S_Menu_N.class);
-                                        startActivity(intent);
-                                        finish();
+                                        startActivity(intent); finish();
                                     }
-                                });
-                                return;
+                                }); return;
                             } catch (SQLException e) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         DialogsViewer.twoButtonDialog(
-                                                context,  two_btn_intent, activity, "Помилка",
-                                                "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                                "Вийти", "Повторити", 1
+                                                context,  two_btn_intent, activity, getString(R.string.problem),
+                                                getString(R.string.non_connected), getString(R.string.exit),
+                                                getString(R.string.repeate), 1
                                         );
                                     }
-                                });
-                                return;
+                                }); return;
                             } catch (SmallException e) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
@@ -150,23 +136,20 @@ public class AM_Login extends AppCompatActivity {
                             }
                         }
                     }).start();
-                }
-                return;
+                } return;
             });
 
             Button reg_btn = findViewById(R.id.RegBTN);
             reg_btn.setOnClickListener(enter -> {
                 vibrator.vibrate(50);
                 Intent intent = new Intent(this, A_R_Company.class);
-                startActivity(intent);
-                finish();
+                startActivity(intent); finish();
             });
 
         } else {
             Intent intent = new Intent(this, A_S_Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         }
     }
 }
