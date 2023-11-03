@@ -8,6 +8,19 @@ import java.sql.Statement;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MS_SQLUpdate {
+    public static void UPDUserATWork (Connection connection, boolean onwork, String email, String login) throws SQLException {
+        String query = "UPDATE MYAppData.Employee SET onwork = ?" +
+                " WHERE login = ? AND company_id = (SELECT" +
+                " id FROM MYAppData.Company WHERE email = ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setBoolean(1, onwork);
+        statement.setString(2, login);
+        statement.setString(3, email);
+
+        statement.executeUpdate();
+    }
+
     public static void UpdManagerID(Connection connection, int manager_id, int company_id) throws SQLException {
         String query = "UPDATE MYAppData.[Company] SET [manager_id] = " + manager_id + " WHERE [ID] = " + company_id;
         PreparedStatement statement = connection.prepareStatement(query);
@@ -65,11 +78,7 @@ public class MS_SQLUpdate {
         stmt.executeUpdate();
     }
 
-    public static void UPDUserATWork (Connection connection, boolean onwork, int id) throws SQLException {
-        String query = "UPDATE MYAppData.[Employee] SET [onwork] = '" + onwork + "' WHERE [ID] = " + id;
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
-    }
+
 
     public static void UPDPosition(Connection connection, int company, String s_name, String s_group, String s_code, float s_kg, int s_sm1, int s_sm2, int s_sm3, int s_count, String s_provider, String s_comment, int id) throws SQLException {
         String query = "UPDATE MYAppData.[Product] SET [company_id] = ?, [name] = ?, [group] = ?, [code] = ?, [weignt] = ?, [sizeh] = ?, [sizew] = ?, [sized] = ?, [count] = ?, [provider] = ?, [comment] = ? WHERE [ID] = " + id;

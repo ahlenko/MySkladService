@@ -17,8 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.database.MS_SQLUpdate;
+import com.example.myskladservice.processing.datastruct.UserData;
 import com.example.myskladservice.processing.dialogs.DialogsViewer;
 import com.example.myskladservice.processing.shpreference.AppCreateOr;
 import com.example.myskladservice.processing.shpreference.AppTableChecker;
@@ -49,175 +51,29 @@ public class A_S_Menu_N extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.c2_main_menu_non);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState); setContentView(R.layout.c2_main_menu_non);
 
+        Intent two_btn_intent = new Intent(A_S_Menu_N.this, A_S_Menu_N.class);
         AppWorkData data = new AppWorkData(this);
-
+        Deque<View> Tasks = new ArrayDeque<>();
         AppCompatActivity activity = this;
         Context context = this;
 
+        ImageButton settings_btn = findViewById(R.id.btn_settings);
+        TextView notify_count = findViewById(R.id.notify_count);
+        ImageButton users_btn = findViewById(R.id.button_users);
+        TextView work_state_t = findViewById(R.id.work_state_t);
+        ImageView ring_notify = findViewById(R.id.ring_notify);
+        ImageButton output_btn = findViewById(R.id.btn_output);
+        ImageButton zbirka_btn = findViewById(R.id.btn_zbirka);
         ImageButton work_btn = findViewById(R.id.button_work);
         ImageButton rest_btn = findViewById(R.id.button_rest);
-
-        ImageView ring_notify = findViewById(R.id.ring_notify);
-        TextView notify_count = findViewById(R.id.notify_count);
-
-        AppCreateOr create = new AppCreateOr(this);
-        AppTableChecker checker = new AppTableChecker(this);
-        TextView infostate = findViewById(R.id.infostate);
         LinearLayout container = findViewById(R.id.TableView);
-        Deque<View> Tasks = new ArrayDeque<>();
-
-        class TaskPrint extends AsyncTask<Void, Void, Void> {
-
-            private TaskInterface listener;
-            public TaskPrint(TaskInterface listener) {
-                this.listener = listener;
-            }
-
-            protected Void doInBackground(Void... params) {
-                try {
-                    MS_SQLConnector msc = MS_SQLConnector.getConect();
-                    Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet;
-                    resultSet = MS_SQLSelect.CompanyManager(mssqlConnection, data.getCompany());
-                    resultSet.next();
-                    int company = resultSet.getInt("id");
-                    resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, data.getUserLogin(), resultSet.getInt("id"));
-                    resultSet.next();
-                    int performer = resultSet.getInt("id");
-                    resultSet = MS_SQLSelect.ReadTaskPrintedPR(mssqlConnection, company, performer);
-                    while (resultSet.next()) {
-                        View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre_n, container, false);
-                        TextView taskType = temp.findViewById(R.id.title_receivetime);
-                        TextView taskTime = temp.findViewById(R.id.view_receivetime);
-                        TextView adresserName = temp.findViewById(R.id.view_adresser);
-                        TextView complitetime = temp.findViewById(R.id.view_complitetime);
-                        ImageButton button = temp.findViewById(R.id.button_taskselect);
-                        taskType.setText(resultSet.getString("type"));
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            LocalTime currentTime = LocalTime.now();
-                            LocalTime startTime = LocalTime.parse(resultSet.getString("starttime").substring(0, resultSet.getString("starttime").length() - 11));
-                            long minutesBetween = startTime.until(currentTime, ChronoUnit.MINUTES);
-                            String time = minutesBetween + " хв. тому";
-                            taskTime.setText(time);
-                        }
-                        adresserName.setText(MS_SQLSelect.ReadUserName(mssqlConnection, resultSet.getInt("adresser_id")));
-                        String time = resultSet.getInt("endtime") + " (хв)";
-                        complitetime.setText(time);
-                        button.setId(resultSet.getInt("id"));
-                        Tasks.add(temp);
-                    }
-                } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context, new Intent(A_S_Menu_N.this, A_S_Menu_N.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
-                }
-                return null;
-            }
-
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                if (listener != null) {
-                    listener.onTaskComplete();
-                }
-            }
-        }
-
-        TaskPrint taskPrint = new TaskPrint(new TaskInterface() {
-            @Override
-            public void onTaskComplete() {
-                if (Tasks.isEmpty()) infostate.setText("Вам ще не було доручено завдань");
-                Iterator<View> iterator = Tasks.iterator();
-                int msg_count = 0;
-                while (iterator.hasNext()) {
-                    View userView = iterator.next();
-                    msg_count ++;
-                    container.addView(userView);
-                }
-                if (msg_count == 0){
-                    ring_notify.setVisibility(View.INVISIBLE);
-                    notify_count.setText("");
-                } else notify_count.setText(String.valueOf(msg_count));
-            }
-        });
-
-        taskPrint.execute();
-
-        work_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        MS_SQLConnector msc = MS_SQLConnector.getConect();
-                        Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
-
-                        resultSet = MS_SQLSelect.HasCompanyEmail(
-                                mssqlConnection, data.getCompany());
-                        resultSet.next();
-                        resultSet = MS_SQLSelect.UserATWork(
-                                mssqlConnection, data.getUserLogin(),
-                                resultSet.getInt("id"));
-                        resultSet.next();
-                        MS_SQLUpdate.UPDUserATWork(
-                                mssqlConnection, false,
-                                resultSet.getInt("id"));
-                    }catch (SQLException ignored){}
-                }
-            }).start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    work_btn.setVisibility(View.INVISIBLE);
-                    work_btn.setEnabled(false);
-                    rest_btn.setVisibility(View.VISIBLE);
-                    rest_btn.setEnabled(true);
-                }
-            }, 100);
-
-        });
-
-
-        rest_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        MS_SQLConnector msc = MS_SQLConnector.getConect();
-                        Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
-
-                        resultSet = MS_SQLSelect.HasCompanyEmail(
-                                mssqlConnection, data.getCompany());
-                        resultSet.next();
-                        resultSet = MS_SQLSelect.UserATWork(
-                                mssqlConnection, data.getUserLogin(),
-                                resultSet.getInt("id"));
-                        resultSet.next();
-                        MS_SQLUpdate.UPDUserATWork(
-                                mssqlConnection, true,
-                                resultSet.getInt("id"));
-                    }catch (SQLException e){
-                        int a = 5;
-                    }
-                }
-            }).start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    rest_btn.setVisibility(View.INVISIBLE);
-                    rest_btn.setEnabled(false);
-                    work_btn.setVisibility(View.VISIBLE);
-                    work_btn.setEnabled(true);
-                }
-            }, 100);
-
-        });
+        ImageButton table_btn = findViewById(R.id.btn_table);
+        ImageButton check_btn = findViewById(R.id.btn_check);
+        ImageButton input_btn = findViewById(R.id.btn_input);
+        TextView infostate = findViewById(R.id.infostate);
 
         class UserAccess_Tasker extends AsyncTask<Void, Void, Void> {
             boolean onWork;
@@ -226,32 +82,22 @@ public class A_S_Menu_N extends AppCompatActivity {
                 try{
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet;
-                    resultSet = MS_SQLSelect.HasCompanyEmail(
-                            mssqlConnection, data.getCompany());
-                    resultSet.next();
-                    resultSet = MS_SQLSelect.UserATWork(
-                            mssqlConnection, data.getUserLogin(),
-                            resultSet.getInt("id"));
-                    resultSet.next();
-                    onWork = resultSet.getBoolean("onwork");
+                    onWork = MS_SQLSelect.IsUserAtWork(mssqlConnection,
+                            data.getCompany(), data.getUserLogin());
+                    msc.disconnect();
                 } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context,  new Intent(A_S_Menu_N.this, A_S_Menu_N.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
-                }
-                return null;
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                } return null;
             }
-
             protected void onPostExecute(Void result) {
                 if (onWork){
+                    work_state_t.setText(R.string.btn_complite_work);
                     rest_btn.setVisibility(View.INVISIBLE);
                     rest_btn.setEnabled(false);
                     work_btn.setVisibility(View.VISIBLE);
                     work_btn.setEnabled(true);
                 } else {
+                    work_state_t.setText(R.string.btn_start_work);
                     work_btn.setVisibility(View.INVISIBLE);
                     work_btn.setEnabled(false);
                     rest_btn.setVisibility(View.VISIBLE);
@@ -263,60 +109,144 @@ public class A_S_Menu_N extends AppCompatActivity {
         UserAccess_Tasker userAccess_tasker = new UserAccess_Tasker();
         userAccess_tasker.execute();
 
-        ImageButton users_btn = findViewById(R.id.button_users);
-        users_btn.setOnClickListener (enter -> {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MS_SQLConnector msc = MS_SQLConnector.getConect();
+                    Connection mssqlConnection = msc.connection;
+                    ResultSet resultSet = MS_SQLSelect.ReadTaskPrinted(
+                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Adr");
+                    while (resultSet.next()) {
+                        View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre, container, false);
+                        TextView complitetime = temp.findViewById(R.id.view_complitetime);
+                        ImageButton button = temp.findViewById(R.id.button_taskselect);
+                        TextView taskType = temp.findViewById(R.id.title_receivetime);
+                        TextView adresserName = temp.findViewById(R.id.view_adresser);
+                        TextView taskTime = temp.findViewById(R.id.view_receivetime);
+                        taskType.setText(resultSet.getString("type"));
+
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            LocalTime currentTime = LocalTime.now(); LocalTime startTime =
+                                    LocalTime.parse(resultSet.getString("starttime").substring(0,
+                                            resultSet.getString("starttime").length() - 11));
+                            long minutesBetween = startTime.until(currentTime, ChronoUnit.MINUTES);
+                            String time = minutesBetween + " " +
+                                    getString(R.string.time_points_before);taskTime.setText(time); }
+
+                        adresserName.setText(UserData.getUserName(resultSet));
+                        String time = resultSet.getInt("endtime") + " " +
+                                getString(R.string.time_points); complitetime.setText(time);
+                        button.setId(resultSet.getInt("id")); Tasks.add(temp);
+                    } msc.disconnect();
+                } catch (SQLException e) {
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                }
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (Tasks.isEmpty()) infostate.setText(R.string.not_have_task);
+                        Iterator<View> iterator = Tasks.iterator(); int msg_count = 0;
+                        while (iterator.hasNext()) {
+                            View userView = iterator.next(); msg_count++;
+                            container.addView(userView);
+                        } if (msg_count == 0){
+                            ring_notify.setVisibility(View.INVISIBLE);
+                            notify_count.setText("");
+                        } else notify_count.setText(String.valueOf(msg_count));
+                    }
+                });
+            }
+        }).start();
+
+        work_btn.setOnClickListener (enter -> {
             vibrator.vibrate(50);
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                        Connection mssqlConnection = msc.connection;
+                        MS_SQLUpdate.UPDUserATWork( mssqlConnection, false,
+                                data.getCompany(), data.getUserLogin());
+                        msc.disconnect();
+                    }catch (SQLException e){
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                    }
+                }
+            }).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    work_state_t.setText(R.string.btn_start_work);
+                    work_btn.setVisibility(View.INVISIBLE);
+                    work_btn.setEnabled(false);
+                    rest_btn.setVisibility(View.VISIBLE);
+                    rest_btn.setEnabled(true);
+                }
+            }, 100);
+
+        });
+
+        rest_btn.setOnClickListener (enter -> {
+            vibrator.vibrate(50);
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                        Connection mssqlConnection = msc.connection;
+                        MS_SQLUpdate.UPDUserATWork( mssqlConnection, true,
+                                data.getCompany(), data.getUserLogin());
+                        msc.disconnect();
+                    }catch (SQLException e){
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                    }
+                }
+            }).start();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    work_state_t.setText(R.string.btn_complite_work);
+                    rest_btn.setVisibility(View.INVISIBLE);
+                    rest_btn.setEnabled(false);
+                    work_btn.setVisibility(View.VISIBLE);
+                    work_btn.setEnabled(true);
+                }
+            }, 100);
+
+        });
+
+        users_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Users_N.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton zbirka_btn = findViewById(R.id.btn_zbirka);
-        zbirka_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        zbirka_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Packing.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton output_btn = findViewById(R.id.btn_output);
-        output_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        output_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Output.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton input_btn = findViewById(R.id.btn_input);
-        input_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        input_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Input.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton check_btn = findViewById(R.id.btn_check);
-        check_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        check_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Checking.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton table_btn = findViewById(R.id.btn_table);
-        table_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        table_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_T_Table_N.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
-        ImageButton settings_btn = findViewById(R.id.btn_settings);
-        settings_btn.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
+        settings_btn.setOnClickListener (enter -> { vibrator.vibrate(50);
             Intent intent = new Intent(this, A_S_Option.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
     }
 
@@ -326,7 +256,6 @@ public class A_S_Menu_N extends AppCompatActivity {
         AppCreateOr create = new AppCreateOr(this);
         create.ChangeCreate(false);
         Intent intent = new Intent(this, A_I_AddWork.class);
-        check.ChangeChecker(view.getId());
-        startActivity(intent);
+        check.ChangeChecker(view.getId()); startActivity(intent);
     }
 }

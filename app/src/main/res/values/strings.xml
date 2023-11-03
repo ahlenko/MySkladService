@@ -136,6 +136,7 @@
     <string name="weight_points">(кг)</string>
     <string name="size_points">(см)</string>
     <string name="delimer">X</string>
+    <string name="delimer_s">x</string>
     <string name="char_counter2">0 / 90</string>
     <string name="btn_addposition">Додати позицію</string>
     <string name="ttl_refactor_position">Редагування позиції</string>
@@ -220,6 +221,52 @@
     <string name="prob_scanner">Помилка входу, сканер відбитків не знайдено, або відбиток пальця не зареестровано</string>
     <string name="prob_biom">Помилка біометрії</string>
     <string name="prob_scanned">Помилка розпізнавання відбитку пальця</string>
+
+    <string name="not_have_task">Вам ще не було доручено завдань</string>
+    <string name="time_points">(хв)</string>
+    <string name="time_points_before">хв. тому</string>
+
+    <string name="confirmation">Підтвердження:</string>
+    <string name="cancel">Відмінити</string>
+
+    <string name="ttl_newr_pass">Зміна паролю</string>
+    <string name="ttl_newr_phone">Зміна номеру</string>
+    <string name="ttl_newr_login">Зміна логіну</string>
+    <string name="ttl_new_pass">Новий пароль</string>
+    <string name="ttl_new_phone">Новий номер телефону</string>
+    <string name="ttl_new_login">Новий Email</string>
+    <string name="old_new_pass">Старий пароль</string>
+    <string name="old_new_phone">Старий номер телефону</string>
+    <string name="old_new_login">Старий Email</string>
+
+    <string name="confirmation_exit">Ви дійсно хочете здійснити вихід з аккаунту</string>
+    <string name="link">https://t.me/ahlenko</string>
+
+    <string name="position_list_empty">Список товарів порожній</string>
+    <string name="position_search_empty">Товарів не знайдено</string>
+
+    <string name="packing_state_0">Не оброблено</string>
+    <string name="packing_state_1">Обробляється</string>
+    <string name="packing_state_2">Оброблено</string>
+    <string name="packing_not_search">Дані про замовлення відсутні</string>
+
+    <string name="output_empty_count">___</string>
+    <string name="output_state_0">Доручено</string>
+    <string name="output_state_1">В роботі</string>
+    <string name="output_state_2">Відправлення видано</string>
+    <string name="output_not_search">Дані про відправлення відсутні</string>
+
+    <string name="input_state_0">Доручено</string>
+    <string name="input_state_1">В роботі</string>
+    <string name="input_state_2">Надходження опрацьовано</string>
+    <string name="input_not_search">Дані про надходження відсутні</string>
+
+    <string name="ch_state_0">Доручено</string>
+    <string name="ch_state_1">В роботі</string>
+    <string name="ch_state_2">Не завершено</string>
+    <string name="ch_state_3">Облік завершено</string>
+    <string name="ch_not_search">Дані про проведення обліку відсутні</string>
+
 
     <string-array name="language">
         <item>Українська</item>

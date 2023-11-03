@@ -15,21 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/notify_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_light"
-            android:text="16"
-            android:textAlignment="center"
-            android:textColor="@color/fonts_color_wht"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/line_centr"
-            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
-            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
-            app:layout_constraintTop_toTopOf="@+id/line_top" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/line_right"
             android:layout_width="wrap_content"
@@ -129,12 +114,29 @@
             android:id="@+id/ring_notify"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/line_centr"
             app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
             app:layout_constraintStart_toStartOf="@+id/line_notify_left"
             app:layout_constraintTop_toTopOf="@+id/button_ring"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ellipse_purple" />
+
+        <TextView
+            android:id="@+id/notify_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_light"
+            android:text="16"
+            android:textAlignment="center"
+            android:textColor="@color/fonts_color_wht"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/line_centr"
+            app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
+            app:layout_constraintStart_toStartOf="@+id/line_notify_left"
+            app:layout_constraintTop_toTopOf="@+id/line_top" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

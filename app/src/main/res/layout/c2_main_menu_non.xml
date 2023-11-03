@@ -237,8 +237,10 @@
                 app:srcCompat="@drawable/sel_big_work" />
 
             <TextView
+                android:id="@+id/work_state_t"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:fontFamily="@font/roboto_condensed_regular"
                 android:text="@string/btn_start_work"
                 android:textAlignment="center"
@@ -482,6 +484,7 @@
             android:id="@+id/ring_notify"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/line_centr"
             app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
             app:layout_constraintStart_toStartOf="@+id/line_notify_left"
@@ -500,6 +503,7 @@
             android:textColor="@color/fonts_color_wht"
             android:textSize="8sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/line_centr"
             app:layout_constraintEnd_toStartOf="@+id/line_notify_right"
             app:layout_constraintHorizontal_bias="0.0"

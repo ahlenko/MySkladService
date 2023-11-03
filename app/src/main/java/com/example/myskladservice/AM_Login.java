@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myskladservice.processing.checkers.InputChecker;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.exception.SmallException;
 import com.example.myskladservice.processing.shpreference.AppWorkData;
@@ -36,8 +37,7 @@ public class AM_Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.a1_login_first);
+        super.onCreate(savedInstanceState); setContentView(R.layout.a1_login_first);
         AppWorkData data = new AppWorkData(this);
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
@@ -82,7 +82,7 @@ public class AM_Login extends AppCompatActivity {
                             try {
                                 MS_SQLConnector msc = MS_SQLConnector.getConect();
                                 Connection mssqlConnection = msc.connection;
-                                ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                                ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP(
                                         mssqlConnection, email, login);
 
                                 if (!resultSet.isBeforeFirst())
@@ -95,7 +95,8 @@ public class AM_Login extends AppCompatActivity {
                                     throw new SmallException(2, getString(R.string.non_current_password));
                                 data.FirstEnter(resultSet.getBoolean("fullacess"), email, login, pass);
 
-                                msc.disconnect(); runOnUiThread(new Runnable() {
+                                msc.disconnect();
+                                runOnUiThread(new Runnable() {
                                     public void run() {
                                         Intent intent; vibrator.vibrate(50);
                                         if (data.getUserType())
@@ -105,15 +106,7 @@ public class AM_Login extends AppCompatActivity {
                                     }
                                 }); return;
                             } catch (SQLException e) {
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        DialogsViewer.twoButtonDialog(
-                                                context,  two_btn_intent, activity, getString(R.string.problem),
-                                                getString(R.string.non_connected), getString(R.string.exit),
-                                                getString(R.string.repeate), 1
-                                        );
-                                    }
-                                }); return;
+                                MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                             } catch (SmallException e) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {

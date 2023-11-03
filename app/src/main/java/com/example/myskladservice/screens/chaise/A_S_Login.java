@@ -1,6 +1,5 @@
 package com.example.myskladservice.screens.chaise;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -15,8 +14,6 @@ import android.os.CancellationSignal;
 import android.os.Vibrator;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.util.Patterns;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -25,6 +22,7 @@ import android.widget.Toast;
 import com.example.myskladservice.AM_Login;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.exception.ConfirmableException;
 import com.example.myskladservice.processing.exception.SmallException;
@@ -39,22 +37,17 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 public class A_S_Login extends AppCompatActivity {
     @Override
@@ -63,8 +56,7 @@ public class A_S_Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.a2_login);
+        super.onCreate(savedInstanceState); setContentView(R.layout.a2_login);
         AppWorkData data = new AppWorkData(this);
         ActivityCompat.requestPermissions(this, new String[]
                 {Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
@@ -86,7 +78,7 @@ public class A_S_Login extends AppCompatActivity {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                    ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP(
                             mssqlConnection, data.getCompany(), data.getUserLogin());
 
                     if (!resultSet.isBeforeFirst())
@@ -124,9 +116,7 @@ public class A_S_Login extends AppCompatActivity {
                     }
                     throw new ConfirmableException(0, "", "", "", "");
                 } catch (SQLException e) {
-                    exception = new ConfirmableException(1, getString(R.string.problem),
-                            getString(R.string.non_connected), getString(R.string.exit),
-                            getString(R.string.repeate));
+                    exception = new ConfirmableException(1, "", "", "", "");
                 } catch (ConfirmableException e) {
                     exception = e;
                 } return null;
@@ -137,12 +127,7 @@ public class A_S_Login extends AppCompatActivity {
                     case 0:
                         edit_login.setText(data.getUserLogin()); break;
                     case 1:
-                        DialogsViewer.twoButtonDialog(
-                                context,  new Intent(A_S_Login.this, A_S_Login.class)
-                                , activity, exception.getErrorTitle(), exception.getErrorMessage(),
-                                exception.getErrorNegative(), exception.getErrorPositive(),
-                                exception.getErrorType()
-                        ); break;
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity); break;
                     case 2: case 3:
                         DialogsViewer.twoButtonDialog(
                                 context,  new Intent(A_S_Login.this, AM_Login.class),
@@ -245,7 +230,7 @@ public class A_S_Login extends AppCompatActivity {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
-                            ResultSet resultSet = MS_SQLSelect.IsCurrectLogin(
+                            ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP(
                                     mssqlConnection, data.getCompany(), login);
 
                             resultSet.next(); if (resultSet.getString("login") == null)
@@ -265,15 +250,7 @@ public class A_S_Login extends AppCompatActivity {
                                 }
                             }); return;
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context,  two_btn_intent, activity, getString(R.string.problem),
-                                            getString(R.string.non_connected), getString(R.string.exit),
-                                            getString(R.string.repeate), 1
-                                    );
-                                }
-                            }); return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         } catch (SmallException e) {
                             runOnUiThread(new Runnable() {
                                 public void run() {

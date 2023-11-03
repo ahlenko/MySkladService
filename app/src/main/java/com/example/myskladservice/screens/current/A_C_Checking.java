@@ -26,6 +26,7 @@ import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.dialogs.DialogsViewer;
 import com.example.myskladservice.processing.shpreference.AppTableChecker;
 import com.example.myskladservice.processing.shpreference.AppWorkData;
+import com.example.myskladservice.processing.tasker.PrintTask;
 import com.example.myskladservice.processing.tasker.TaskInterface;
 import com.example.myskladservice.screens.chaise.A_S_Analitics;
 import com.example.myskladservice.screens.chaise.A_S_Login;
@@ -33,6 +34,7 @@ import com.example.myskladservice.screens.chaise.A_S_Menu;
 import com.example.myskladservice.screens.chaise.A_S_Menu_N;
 import com.example.myskladservice.screens.register.A_R_Company;
 import com.example.myskladservice.screens.table.A_T_Checking;
+import com.example.myskladservice.screens.table.A_T_Input;
 import com.example.myskladservice.screens.table.A_T_Output;
 
 import java.sql.Connection;
@@ -70,6 +72,7 @@ public class A_C_Checking extends AppCompatActivity {
         setContentView(R.layout.f7_checking);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        Intent two_btn_intent = new Intent(A_C_Checking.this, A_C_Checking.class);
         AppWorkData data = new AppWorkData(this);
         AppCompatActivity activity = this;
         Context context = this;
@@ -80,40 +83,7 @@ public class A_C_Checking extends AppCompatActivity {
             onBackPressed();
         });
 
-        ImageView ring_notify = findViewById(R.id.ring_notify);
-        TextView notify_count = findViewById(R.id.notify_count);
-        class TaskPrint extends AsyncTask<Void, Void, Void> {
-            private int count = 0;
-            protected Void doInBackground(Void... params) {
-                try {
-                    MS_SQLConnector msc = MS_SQLConnector.getConect();
-                    Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet;
-                    resultSet = MS_SQLSelect.CompanyManager(mssqlConnection, data.getCompany());
-                    resultSet.next(); int company = resultSet.getInt("id");
-                    resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, data.getUserLogin(), resultSet.getInt("id"));
-                    resultSet.next(); int performer = resultSet.getInt("id");
-                    resultSet = MS_SQLSelect.ReadTaskPrintedPR(mssqlConnection, company, performer);
-                    while (resultSet.next()) count++;
-                } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context, new Intent(A_C_Checking.this, A_C_Checking.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
-                }
-                return null;
-            }
-            protected void onPostExecute(Void result) {
-                if (count == 0){
-                    ring_notify.setVisibility(View.INVISIBLE);
-                    notify_count.setText("");
-                } else notify_count.setText(String.valueOf(count));
-            }
-        }
-
-        TaskPrint myTask = new TaskPrint();
-        myTask.execute();
+        PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
         AppTableChecker checker = new AppTableChecker(this);
 
