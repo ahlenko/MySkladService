@@ -44,17 +44,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class A_T_Output extends AppCompatActivity {
     private ArrayList<Integer> ID_s = new ArrayList<Integer>();
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_T_Output.this, A_S_Menu.class);
         else intent = new Intent(A_T_Output.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d3_output_table);
 
@@ -85,8 +82,7 @@ public class A_T_Output extends AppCompatActivity {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Thread OutputPrint = new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
@@ -98,9 +94,9 @@ public class A_T_Output extends AppCompatActivity {
                         ImageButton packBtn = temp.findViewById(R.id.button_review);
                         ImageButton printBtn = temp.findViewById(R.id.button_print);
                         TextView performer = temp.findViewById(R.id.view_performer);
-                        TextView date = temp.findViewById(R.id.view_date);
                         TextView count = temp.findViewById(R.id.view_count);
                         TextView state = temp.findViewById(R.id.view_state);
+                        TextView date = temp.findViewById(R.id.view_date);
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                         Date dateFromDB = resultSet.getDate("date");

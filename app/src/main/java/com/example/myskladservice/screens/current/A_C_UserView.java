@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.myskladservice.R;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.datastruct.UserData;
 import com.example.myskladservice.processing.datastruct.Worktime;
@@ -82,11 +83,7 @@ public class A_C_UserView extends AppCompatActivity {
                     Connection mssqlConnection = msc.connection;
                     MS_SQLSelect.ReadUser(mssqlConnection, check.GetChecker());
                 } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context,  new Intent(A_C_UserView.this, A_C_UserView.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
                 return null;
             }

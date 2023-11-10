@@ -41,8 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class A_C_Packing extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Intent intent = new Intent(A_C_Packing.this, A_T_Packing.class);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(50); startActivity(intent); finish();
@@ -62,8 +61,7 @@ public class A_C_Packing extends AppCompatActivity {
         } return stringBuilder.toString();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.f2_packing);
 
@@ -77,8 +75,8 @@ public class A_C_Packing extends AppCompatActivity {
         LinearLayout TableView = findViewById(R.id.TableView);
         AppWorkData data = new AppWorkData(this);
         ArrayList<Integer> prod_ids = new ArrayList<>();
-        ArrayList<View> View_s = new ArrayList<View>();
         ArrayList<String> codes = new ArrayList<>();
+        ArrayList<View> View_s = new ArrayList<>();
         AppCompatActivity activity = this;
         Context context = this;
 
@@ -86,7 +84,6 @@ public class A_C_Packing extends AppCompatActivity {
         ImageButton btn_print = findViewById(R.id.btn_nextitem);
         ImageButton btn_back = findViewById(R.id.button_beck);
         TextView text_info = findViewById(R.id.text_info);
-        TextView infostate = findViewById(R.id.infostate);
 
         btn_print.setEnabled(false); btn_confirm.setEnabled(false);
         btn_print.setAlpha(0.7f); btn_confirm.setAlpha(0.7f);
@@ -193,16 +190,15 @@ public class A_C_Packing extends AppCompatActivity {
             btn_print.setEnabled(false);  btn_print.setAlpha(0.7f);
             btn_confirm.setEnabled(true); btn_confirm.setAlpha(1f);
             TTNCode.set(generateRandomNumber(14));
-            String massage = "Друк ТТН для замовлення: " +
+            String massage =  getString(R.string.ttn_print_title) + " " +
                     text_info.getText().toString() +
-                    "\n Привласнено код: " + TTNCode.get();
+                    "\n" + getString(R.string.ttn_print_code) + " " + TTNCode.get();
             Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
         });
 
         btn_confirm.setOnClickListener(enter->{
             new Thread(new Runnable() {
-                @Override
-                public void run() {
+                @Override public void run() {
                     try {
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
@@ -215,8 +211,7 @@ public class A_C_Packing extends AppCompatActivity {
 
                         int arrive_id;
                         ResultSet resp = MS_SQLSelect.ArriverAtThatDay(mssqlConnection, company);
-                        if (resp.next() && resp.getInt("state") == 0){
-                            arrive_id = resp.getInt("id");
+                        if (resp.next() && resp.getInt("state") == 0){ arrive_id = resp.getInt("id");
                             MS_SQLUpdate.AddArriver(mssqlConnection, arrive_id, resp.getInt("sum_count") + 1);
                         } else{
                             arrive_id = MS_SQLInsert.NewArriverAtThatDay(mssqlConnection, company);
@@ -229,19 +224,17 @@ public class A_C_Packing extends AppCompatActivity {
                             int index = strCount.indexOf("/");
                             String result = strCount.substring(index + 1);
 
-                            int count_value = MS_SQLSelect.GetProdCountById(mssqlConnection, prod_ids.get(i));
-                            MS_SQLUpdate.UPDProdCountById(mssqlConnection, prod_ids.get(i), count_value - Integer.parseInt(result));
-
+                            MS_SQLUpdate.UPDPosition(mssqlConnection, prod_ids.get(i), Integer.parseInt(result), 2);
                             MS_SQLInsert.NewArriveOrder(mssqlConnection, arrive_id, company, checker.GetChecker(), 1);
                         }
 
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast.makeText(context, "Складання замовлення завершено", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.order_packing_continue, Toast.LENGTH_SHORT).show();
                                 Intent intent= new Intent(A_C_Packing.this, A_T_Packing.class);
                                 vibrator.vibrate(50); startActivity(intent); finish();
                             }
-                        }); return;
+                        });
                     } catch (SQLException e){
                         MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }

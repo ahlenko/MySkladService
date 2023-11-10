@@ -78,34 +78,26 @@ public class MS_SQLUpdate {
         stmt.executeUpdate();
     }
 
-
-
-    public static void UPDPosition(Connection connection, int company, String s_name, String s_group, String s_code, float s_kg, int s_sm1, int s_sm2, int s_sm3, int s_count, String s_provider, String s_comment, int id) throws SQLException {
-        String query = "UPDATE MYAppData.[Product] SET [company_id] = ?, [name] = ?, [group] = ?, [code] = ?, [weignt] = ?, [sizeh] = ?, [sizew] = ?, [sized] = ?, [count] = ?, [provider] = ?, [comment] = ? WHERE [ID] = " + id;
+    public static void UPDPosition(Connection connection, int company, byte[] image, String s_name,
+                                   String s_group, String s_code, float s_kg, int s_sm1, int s_sm2,
+                                   int s_sm3, int s_count, String s_provider, String s_comment,
+                                   int id) throws SQLException {
+        String query = "UPDATE MYAppData.[Product] SET [company_id] = ?, [image] = ?, [name] = ?," +
+                " [group] = ?, [code] = ?, [weignt] = ?, [sizeh] = ?, [sizew] = ?, [sized] = ?," +
+                " [count] = ?, [provider] = ?, [comment] = ? WHERE [ID] = " + id;
         PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-        stmt.setInt(1, company);     stmt.setString(2, s_name);
-        stmt.setString(3, s_group);  stmt.setString(4, s_code);         stmt.setFloat(5, s_kg);
-        stmt.setInt(6, s_sm1);       stmt.setInt(7, s_sm2);             stmt.setInt(8, s_sm3);
-        stmt.setInt(9, s_count);    stmt.setString(10, s_provider);    stmt.setString(11, s_comment);
+        stmt.setInt(1, company);    stmt.setBytes(2, image);        stmt.setString(3, s_name);
+        stmt.setString(4, s_group); stmt.setString(5, s_code);      stmt.setFloat(6, s_kg);
+        stmt.setInt(7, s_sm1);      stmt.setInt(8, s_sm2);          stmt.setInt(9, s_sm3);
+        stmt.setInt(10, s_count);   stmt.setString(11, s_provider); stmt.setString(12, s_comment);
         stmt.executeUpdate();
     }
 
-    public static void UPDPosition(Connection connection, int company, byte[] image, String s_name, String s_group, String s_code, float s_kg, int s_sm1, int s_sm2, int s_sm3, int s_count, String s_provider, String s_comment, int id) throws SQLException {
-        String query = "UPDATE MYAppData.[Product] SET [company_id] = ?, [image] = ?, [name] = ?, [group] = ?, [code] = ?, [weignt] = ?, [sizeh] = ?, [sizew] = ?, [sized] = ?, [count] = ?, [provider] = ?, [comment] = ? WHERE [ID] = " + id;
+    public static void UPDPosition(Connection connection, int s_count, int id, int type) throws SQLException {
+        String addSTR = " [count] "; if (type == 1) addSTR += "+ "; else  if (type == 2) addSTR += "- ";
+        String query = "UPDATE MYAppData.[Product] SET [count] =" + (type > 0 ? " ": addSTR) + "? WHERE [ID] = " + id;
         PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, company);     stmt.setBytes(2, image);           stmt.setString(3, s_name);
-        stmt.setString(4, s_group);  stmt.setString(5, s_code);         stmt.setFloat(6, s_kg);
-        stmt.setInt(7, s_sm1);       stmt.setInt(8, s_sm2);             stmt.setInt(9, s_sm3);
-        stmt.setInt(10, s_count);    stmt.setString(11, s_provider);    stmt.setString(12, s_comment);
-        stmt.executeUpdate();
-    }
-
-    public static void UPDPosition(Connection connection, int s_count, int id) throws SQLException {
-        String query = "UPDATE MYAppData.[Product] SET [count] = ? WHERE [ID] = " + id;
-        PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, s_count);
-        stmt.executeUpdate();
+        stmt.setInt(1, s_count); stmt.executeUpdate();
     }
 
     public static void AddArriver(Connection mssqlConnection, int arrive_id, int sum_count) throws SQLException {
@@ -123,24 +115,14 @@ public class MS_SQLUpdate {
         stmt.executeUpdate();
     }
 
-    public static void UPDAdditionInfo(Connection mssqlConnection, int performer, int state, int getChecker) throws SQLException {
-        String query = "UPDATE MYAppData.[Addition] SET [performer_id] = ?, [state] = ?  WHERE [ID] = " + getChecker;
+    public static void UPDAdditionOrOrdersArriveInfo(Connection mssqlConnection, String email, String login,
+                                       int state, int getChecker, String table) throws SQLException {
+        String query = "UPDATE MYAppData." + table + " SET [performer_id] = (SELECT E.id " +
+                "FROM MYAppData.Company C LEFT JOIN MyAppData.Employee E ON C.id = E.company_id " +
+                "AND E.login = ? WHERE C.email = ?), [state] = ?  WHERE [ID] = ?";
         PreparedStatement stmt = mssqlConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, performer); stmt.setInt(2, state);
-        stmt.executeUpdate();
-    }
-
-    public static void UPDProdCountById(Connection mssqlConnection, Integer integer, int i) throws SQLException {
-        String query = "UPDATE MYAppData.[Product] SET [count] = ? WHERE [ID] = " + integer;
-        PreparedStatement stmt = mssqlConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, i);
-        stmt.executeUpdate();
-    }
-
-    public static void UPDOrdersArrive(Connection mssqlConnection, int id, int state, int performerId) throws SQLException {
-        String query = "UPDATE MYAppData.[OrdersArrive] SET [performer_id] = ?, [state] = ? WHERE [ID] = " + id;
-        PreparedStatement stmt = mssqlConnection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, performerId); stmt.setInt(2, state);
+        stmt.setString(1, login); stmt.setString(2, email);
+        stmt.setInt(3, state); stmt.setInt(4, getChecker);
         stmt.executeUpdate();
     }
 }

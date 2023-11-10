@@ -20,6 +20,7 @@ import com.example.myskladservice.AM_Login;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLDelete;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.dialogs.DialogsViewer;
@@ -38,9 +39,9 @@ public class A_R_Company extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         DialogsViewer.twoButtonDialog(
-                this,  new Intent(A_R_Company.this, AM_Login.class), this, "Відміна",
-                "Ви дійсно хочете згорнути процес реестрації?",
-                "Так", "Ні", 7
+                this,  new Intent(A_R_Company.this, AM_Login.class), this,
+                getString(R.string.cancel), getString(R.string.confirm_cancel_reg),
+                getString(R.string.dialog_confirm), getString(R.string.dialog_discard), 7
         );
     }
 
@@ -151,7 +152,7 @@ public class A_R_Company extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         textemail.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 }); enter_err++;
@@ -161,7 +162,7 @@ public class A_R_Company extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         texttel.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 }); enter_err++;
@@ -171,7 +172,7 @@ public class A_R_Company extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         textcode.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 }); enter_err++;
@@ -182,13 +183,13 @@ public class A_R_Company extends AppCompatActivity {
                                         finalStimeStartW_enter, finalStimeEndW_enter,
                                         finalStimeStartN_enter,finalStimeEndN_enter, true
                                 ); if (workTimeID == -1)
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
 
                                 int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
                                         day1, day2, day3, day4, day5, day6, day7, true
                                 ); if (workDaysID == -1) {
                                     MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, true);
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
                                 };
 
                                 int CompanyID = MS_SQLInsert.AddCompany(mssqlConnection,
@@ -197,7 +198,7 @@ public class A_R_Company extends AppCompatActivity {
                                 ); if (CompanyID == -1) {
                                     MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, true);
                                     MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workTimeID, true);
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
                                 };
 
                                 data.ChangeCompany(Sinputemail); data.SaveData();
@@ -208,16 +209,7 @@ public class A_R_Company extends AppCompatActivity {
                                 finish();
                             }
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context,  two_btn_intent, activity, "Помилка",
-                                            "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                            "Вийти", "Повторити", 1
-                                    );
-                                }
-                            });
-                            return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         } catch (SmallException e) {
                             runOnUiThread(new Runnable() {
                                 public void run() {
@@ -228,7 +220,7 @@ public class A_R_Company extends AppCompatActivity {
                         }
                     }
                 }).start();
-            } else infostate.setText("* Деякі поля заповнено некоректно");
+            } else infostate.setText(R.string.pol_is_incorect);
             return;
         });
     }

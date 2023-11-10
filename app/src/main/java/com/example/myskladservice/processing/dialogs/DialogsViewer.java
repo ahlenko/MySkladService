@@ -65,15 +65,14 @@ public class DialogsViewer extends DialogFragment {
         ImageButton pos = customLayout.findViewById(R.id.positive_button);
         ImageButton neg = customLayout.findViewById(R.id.negative_button);
 
-        T_title.setText((CharSequence) title);
-        T_massage.setText((CharSequence) massage);
-        T_pos_text.setText((CharSequence) pos_text);
-        T_neg_text.setText((CharSequence) neg_text);
+        T_title.setText(title);
+        T_massage.setText(massage);
+        T_pos_text.setText(pos_text);
+        T_neg_text.setText(neg_text);
 
         if (type == 3){
             builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
+                @Override public void onDismiss(DialogInterface dialog) {
                     dialog.dismiss();
                     finalListener.onPositiveButtonClick();
                 }
@@ -85,16 +84,14 @@ public class DialogsViewer extends DialogFragment {
         dialog.show();
 
         pos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            @Override public void onClick(View view) {
                 dialog.dismiss();
                 finalListener.onPositiveButtonClick();
             }
         });
 
         neg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            @Override public void onClick(View view) {
                 dialog.dismiss();
                 finalListener.onNegativeButtonClick();
             }
@@ -123,11 +120,11 @@ public class DialogsViewer extends DialogFragment {
         ImageButton pos = customLayout.findViewById(R.id.positive_button);
         ImageButton neg = customLayout.findViewById(R.id.negative_button);
 
-        T_title.setText((CharSequence) title);
-        T_pos_text.setText((CharSequence) pos_text);
-        T_neg_text.setText((CharSequence) neg_text);
-        textOld.setText((CharSequence) Old);
-        textNew.setText((CharSequence) New);
+        T_pos_text.setText(pos_text);
+        T_neg_text.setText(neg_text);
+        T_title.setText(title);
+        textOld.setText(Old);
+        textNew.setText(New);
 
         if(type != 0) enterOld.setEnabled(false);
 
@@ -137,8 +134,7 @@ public class DialogsViewer extends DialogFragment {
             class PrintPhone extends AsyncTask<Void, Void, Void>{
                 private String number;
 
-                @Override
-                protected Void doInBackground(Void... voids) {
+                @Override protected Void doInBackground(Void... voids) {
                     try {
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
@@ -157,7 +153,7 @@ public class DialogsViewer extends DialogFragment {
 
                 protected void onPostExecute(Void result){
                     if(number == ""){
-                        textNew.setText("Помилка бази даних");
+                        textNew.setText(R.string.database_err2);
                         textNew.setTextColor(activity.getResources().getColor(R.color.red_note));
                     } else {
                         enterOld.setText(number);
@@ -180,8 +176,7 @@ public class DialogsViewer extends DialogFragment {
         dialog.show();
 
         pos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            @Override public void onClick(View view) {
                 ListenerProcessor listener = ChoiseProcessor.dataUpdate(activity, context, type, "");
                 dialog.dismiss();
                 listener.onPositiveButtonClick();
@@ -189,15 +184,13 @@ public class DialogsViewer extends DialogFragment {
         });
 
         neg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            @Override public void onClick(View view) {
                 String old = enterOld.getText().toString().trim();
                 String renew = enterNew.getText().toString().trim();
                 ListenerProcessor listener = ChoiseProcessor.dataUpdate(activity, context, type, renew);
                 class CheckUserData extends AsyncTask<Void, Void, Void>{
                     private SmallException exception;
-                    @Override
-                    protected Void doInBackground(Void... voids) {
+                    @Override protected Void doInBackground(Void... voids) {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
@@ -213,31 +206,31 @@ public class DialogsViewer extends DialogFragment {
                                     if (old.equals(resultSet.getString("password")))
                                         if (!InputChecker.isNotPassword(renew, textNew, activity))
                                         {throw new SmallException(2, "Good");}
-                                        else {throw new SmallException(1, "Некоректний пароль");}
-                                    else {throw new SmallException(0, "Неправильний пароль");}
+                                        else {throw new SmallException(1, getString(R.string.inc_pass));}
+                                    else {throw new SmallException(0, getString(R.string.non_current_password));}
                                 }
                                 case 1:{
                                     resultSet = MS_SQLSelect.HasUserPhone(mssqlConnection, renew, company);
                                     if (resultSet.next())
-                                        throw new SmallException(1, "Номер вже використовується");
+                                        throw new SmallException(1, getString(R.string.used_phone));
                                     if (!InputChecker.isNotPhone(renew, textNew, activity))
                                         {throw new SmallException(2, "Good");}
                                     else
-                                        {throw new SmallException(1, "Некоректний номер телефону");}
+                                        {throw new SmallException(1, getString(R.string.inc_phone));}
                                 }
                                 case 2:{
                                     resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, renew, company);
                                     if (resultSet.next())
-                                        throw new SmallException(1, "Email вже використовується");
+                                        throw new SmallException(1, getString(R.string.used_login));
                                     if (!InputChecker.isNotEmail(renew, textNew, 35, activity))
                                         {throw new SmallException(2, "Good");}
                                     else
-                                        {throw new SmallException(1, "Логін не відповідає формату Email");}
+                                        {throw new SmallException(1, getString(R.string.inc_login));}
                                 }
                             }
 
                         } catch (SQLException e){
-                            exception = new SmallException(1, "Помилка бази даних");
+                            exception = new SmallException(1, getString(R.string.database_err2));
                         } catch (SmallException e){
                             exception = e;
                         }
@@ -287,8 +280,8 @@ public class DialogsViewer extends DialogFragment {
         dialog.show();
 
         confirm.setOnClickListener(enter->{
-            if (scanned.getText().toString().trim().isEmpty() || scanned.getText().toString().trim().equals("Сканування не виконано")){
-                scanned.setText("Сканування не виконано");
+            if (scanned.getText().toString().trim().isEmpty() || scanned.getText().toString().trim().equals(activity.getString(R.string.scanning_not))){
+                scanned.setText(R.string.scanning_not);
             } else {
                 code.setText(scanned.getText().toString().trim());
                 dialog.dismiss();

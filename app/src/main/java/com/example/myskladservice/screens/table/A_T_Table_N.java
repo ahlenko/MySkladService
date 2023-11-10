@@ -40,17 +40,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class A_T_Table_N extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_T_Table_N.this, A_S_Menu.class);
         else intent = new Intent(A_T_Table_N.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d62_table_non);
 
@@ -71,8 +68,7 @@ public class A_T_Table_N extends AppCompatActivity {
 
         ExecutorService executor = Executors.newFixedThreadPool(1);
         Thread ProductsPrint = new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
@@ -90,14 +86,10 @@ public class A_T_Table_N extends AppCompatActivity {
                         TextView code = temp.findViewById(R.id.view_code);
                         TextView size = temp.findViewById(R.id.view_size);
 
-                        String weight_s = resultSet.getInt("weignt") + " "
-                                + getString(R.string.weight_points_os);
-                        String size_s = resultSet.getInt("sizeh") +
-                                getString(R.string.delimer_s) +
-                                resultSet.getInt("sizew") +
-                                getString(R.string.delimer_s) +
-                                resultSet.getInt("sized")+  " " +
-                                getString(R.string.size_points_os);
+                        String weight_s = resultSet.getInt("weignt") + " " + getString(R.string.weight_points_os);
+                        String size_s = resultSet.getInt("sizeh") + getString(R.string.delimer_s) +
+                                resultSet.getInt("sizew") + getString(R.string.delimer_s) +
+                                resultSet.getInt("sized")+  " " + getString(R.string.size_points_os);
 
                         name.setText(resultSet.getString("name"));
                         code.setText(resultSet.getString("code"));

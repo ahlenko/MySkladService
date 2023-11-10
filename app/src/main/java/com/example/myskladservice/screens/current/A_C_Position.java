@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.database.MS_SQLUpdate;
@@ -108,11 +109,7 @@ public class A_C_Position extends AppCompatActivity {
                     Connection mssqlConnection = msc.connection;
                     MS_SQLSelect.ReadProduct(mssqlConnection, check.GetChecker());
                 } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context, new Intent(A_C_Position.this, A_C_Position.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
                 return null;
             }
@@ -208,33 +205,26 @@ public class A_C_Position extends AppCompatActivity {
                                 if (!Objects.equals(resultSet.getString("code"), BarcodeOrig[0])) {
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            infostate.setText("* Деякі дані вже використовуються");
+                                            infostate.setText(R.string.pol_is_using);
                                             e_code.setTextColor(getResources().getColor(R.color.red_note));
                                         }
                                     });
                                 }
                             }
-                            if (imageBytes == null) {
-                                MS_SQLUpdate.UPDPosition(mssqlConnection,
-                                        company, s_name, s_group, s_code, Float.parseFloat(s_kg),
-                                        Integer.parseInt(s_sm1), Integer.parseInt(s_sm2),
-                                        Integer.parseInt(s_sm3), Integer.parseInt(s_count),
-                                        s_provider, s_comment, check.GetChecker()
-                                );
-                            } else {
-                                MS_SQLUpdate.UPDPosition(mssqlConnection,
-                                        company, imageBytes, s_name, s_group, s_code, Float.parseFloat(s_kg),
-                                        Integer.parseInt(s_sm1), Integer.parseInt(s_sm2),
-                                        Integer.parseInt(s_sm3), Integer.parseInt(s_count),
-                                        s_provider, s_comment, check.GetChecker()
-                                );
-                            }
+
+                            MS_SQLUpdate.UPDPosition(mssqlConnection,
+                                    company, imageBytes, s_name, s_group, s_code, Float.parseFloat(s_kg),
+                                    Integer.parseInt(s_sm1), Integer.parseInt(s_sm2),
+                                    Integer.parseInt(s_sm3), Integer.parseInt(s_count),
+                                    s_provider, s_comment, check.GetChecker()
+                            );
+
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     vibrator.vibrate(50);
                                     Intent intent;
                                     intent = new Intent(A_C_Position.this, A_T_Table.class);
-                                    Toast.makeText(context, "Позицію оновлено", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, getString(R.string.position_renew), Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                     finish();
                                 }
@@ -242,28 +232,19 @@ public class A_C_Position extends AppCompatActivity {
                             return;
 
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context, two_btn_intent, activity, "Помилка",
-                                            "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                            "Вийти", "Повторити", 1
-                                    );
-                                }
-                            });
-                            return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         }
                     }
                 }).start();
-            } else infostate.setText("* Деякі поля заповнено некоректно");
+            } else infostate.setText(R.string.pol_is_incorect);
         });
 
         ImageButton btn_del = findViewById(R.id.button_delete);
         btn_del.setOnClickListener(enter -> {
             DialogsViewer.twoButtonDialog(
                     context,  new Intent(A_C_Position.this, A_T_Table.class), activity,
-                    "Підтвердження", "Ви дійсно впевнені що хочете видалити дану товарну позицію?",
-                    "Так", "Ні", 9
+                    getString(R.string.confirmation), getString(R.string.position_delete),
+                    getString(R.string.dialog_confirm), getString(R.string.dialog_discard), 9
             );
         });
 
@@ -309,7 +290,7 @@ public class A_C_Position extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 request_code = true;
             } else {
-                Toast.makeText(this, "Доступ до камери не отримано", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.camera_error, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -319,10 +300,8 @@ public class A_C_Position extends AppCompatActivity {
         ImageButton addphoto = findViewById(R.id.button_addphoto);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            // отримання URI вибраного зображення
             Uri selectedImageUri = data.getData();
             try {
-                // відкриття потоку з вибраним зображенням та його відображення в ImageButton
                 InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 200, 200, true);

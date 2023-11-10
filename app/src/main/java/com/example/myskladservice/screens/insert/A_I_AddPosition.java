@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.dialogs.DialogsViewer;
@@ -111,17 +112,17 @@ public class A_I_AddPosition extends AppCompatActivity {
         });
 
         createPos.setOnClickListener(enter -> {
-            name.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-            group.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-            code.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-            count.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-            provider.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-            comment.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+            name.setTextColor(getColor(R.color.fonts_color_blc));
+            group.setTextColor(getColor(R.color.fonts_color_blc));
+            code.setTextColor(getColor(R.color.fonts_color_blc));
+            count.setTextColor(getColor(R.color.fonts_color_blc));
+            provider.setTextColor(getColor(R.color.fonts_color_blc));
+            comment.setTextColor(getColor(R.color.fonts_color_blc));
 
-            kg.setTextColor(getResources().getColor(R.color.grey));
-            sm1.setTextColor(getResources().getColor(R.color.grey));
-            sm2.setTextColor(getResources().getColor(R.color.grey));
-            sm3.setTextColor(getResources().getColor(R.color.grey));
+            kg.setTextColor(getColor(R.color.grey));
+            sm1.setTextColor(getColor(R.color.grey));
+            sm2.setTextColor(getColor(R.color.grey));
+            sm3.setTextColor(getColor(R.color.grey));
 
             String s_name = e_name.getText().toString().trim();
             String s_group = e_group.getText().toString().trim();
@@ -168,64 +169,42 @@ public class A_I_AddPosition extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         e_code.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 });
                             } else {
-                                int PositionID;
-                                if (imageBytes == null){
-                                    PositionID = MS_SQLInsert.AddPosition(mssqlConnection,
-                                            company, s_name, s_group, s_code, Float.parseFloat(s_kg),
-                                            Integer.parseInt(s_sm1), Integer.parseInt(s_sm2),
-                                            Integer.parseInt(s_sm3), Integer.parseInt(s_count),
-                                            s_provider, s_comment
-                                    );
-                                } else {
-                                    PositionID = MS_SQLInsert.AddPosition(mssqlConnection,
+                                int PositionID = MS_SQLInsert.AddPosition(mssqlConnection,
                                             company, imageBytes, s_name, s_group, s_code, Float.parseFloat(s_kg),
                                             Integer.parseInt(s_sm1), Integer.parseInt(s_sm2),
                                             Integer.parseInt(s_sm3), Integer.parseInt(s_count),
-                                            s_provider, s_comment
-                                    );
-                                }
+                                            s_provider, s_comment);
                                 if (PositionID == -1)
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
 
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         vibrator.vibrate(50);
                                         Intent intent;
                                         intent = new Intent(A_I_AddPosition.this, A_T_Table.class);
-                                        Toast.makeText(context, "Позицію додано", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, R.string.position_added, Toast.LENGTH_SHORT).show();
                                         startActivity(intent);
                                         finish();
                                     }
                                 });
-                                return;
                             }
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context, two_btn_intent, activity, "Помилка",
-                                            "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                            "Вийти", "Повторити", 1
-                                    );
-                                }
-                            });
-                            return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         } catch (SmallException e){
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     infostate.setText(e.getErrorMessage());
                                 }
                             });
-                            return;
                         }
                     }
                 }).start();
-            } else infostate.setText("* Деякі поля заповнено некоректно");
+            } else infostate.setText(R.string.pol_is_incorect);
         });
 
 
@@ -272,7 +251,7 @@ public class A_I_AddPosition extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 request_code = true;
             } else {
-                Toast.makeText(this, "Доступ до камери не отримано", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.camera_error), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -282,10 +261,8 @@ public class A_I_AddPosition extends AppCompatActivity {
         ImageButton addphoto = findViewById(R.id.button_addphoto);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
-            // отримання URI вибраного зображення
             Uri selectedImageUri = data.getData();
             try {
-                // відкриття потоку з вибраним зображенням та його відображення в ImageButton
                 InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 200, 200, true);

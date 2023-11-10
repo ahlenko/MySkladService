@@ -25,17 +25,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class A_S_Analitics extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_S_Analitics.this, A_S_Menu.class);
         else intent = new Intent(A_S_Analitics.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d8_analitics);
 

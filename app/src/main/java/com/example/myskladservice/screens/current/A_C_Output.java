@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.database.MS_SQLUpdate;
@@ -57,148 +58,70 @@ public class A_C_Output extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.f3_output);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState); setContentView(R.layout.f3_output);
 
         Intent two_btn_intent = new Intent(A_C_Output.this, A_C_Output.class);
+        AtomicInteger chesed_id = new AtomicInteger(0); chesed_id.set(1);
+        AtomicInteger allItemCounter = new AtomicInteger(0);
+        AppTableChecker checker = new AppTableChecker(this);
+        AtomicInteger orderCount = new AtomicInteger(0);
+        AtomicInteger allCounter = new AtomicInteger(0);
+        ArrayList<Integer> prod_ids = new ArrayList<>();
         AppWorkData data = new AppWorkData(this);
+        ArrayList<String> codes = new ArrayList<>();
+        ArrayList<View> View_s = new ArrayList<View>();
         AppCompatActivity activity = this;
         Context context = this;
 
-        PrintTask.PrintTaskCount(activity, context, two_btn_intent);
-
-        AtomicInteger orderCount = new AtomicInteger(0);
-
-        AppTableChecker checker = new AppTableChecker(this);
-        LinearLayout TableView = findViewById(R.id.TableView);
-
-        ArrayList<String> codes = new ArrayList<>();
-        ArrayList<Integer> prod_ids = new ArrayList<>();
-        ArrayList<View> View_s = new ArrayList<View>();
-
-        AtomicInteger chesed_id = new AtomicInteger(0); chesed_id.set(1);
-        AtomicInteger allCounter = new AtomicInteger(0);
-        AtomicInteger allItemCounter = new AtomicInteger(0);
-
-        ImageButton btn_print = findViewById(R.id.btn_print);
         ImageButton btn_confirm = findViewById(R.id.btn_confirm);
+        btn_confirm.setEnabled(false);btn_confirm.setAlpha(0.7f);
+        LinearLayout TableView = findViewById(R.id.TableView);
+        ImageButton btn_back = findViewById(R.id.button_beck);
+        ImageButton btn_print = findViewById(R.id.btn_print);
+        btn_print.setEnabled(false);btn_print.setAlpha(0.7f);
         TextView text_info = findViewById(R.id.text_info);
         TextView infostate = findViewById(R.id.infostate);
-        btn_print.setEnabled(false); btn_confirm.setEnabled(false);
-        btn_print.setAlpha(0.7f); btn_confirm.setAlpha(0.7f);
 
-        btn_print.setOnClickListener(enter->{
-            vibrator.vibrate(50);
-            btn_print.setEnabled(false);  btn_print.setAlpha(0.7f);
-            btn_confirm.setEnabled(true); btn_confirm.setAlpha(1f);
-            String massage = "Друк видаткової документації";
-            Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
-        });
-
-        btn_confirm.setOnClickListener(enter->{
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        MS_SQLConnector msc = MS_SQLConnector.getConect();
-                        Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
-
-                        resultSet = MS_SQLSelect.HasCompanyEmail(mssqlConnection, data.getCompany());
-                        resultSet.next(); int company = resultSet.getInt("id");
-                        resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, data.getUserLogin(), company);
-                        resultSet.next(); int user_id = resultSet.getInt("id");
-
-                        MS_SQLUpdate.UPDOrdersArrive(mssqlConnection, checker.GetChecker(), 2, user_id);
-
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(context, "Видачу замовлень завершено", Toast.LENGTH_SHORT).show();
-                                Intent intent= new Intent(A_C_Output.this, A_T_Output.class);
-                                vibrator.vibrate(50);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                        return;
-
-                    } catch (SQLException e){
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                DialogsViewer.twoButtonDialog(
-                                        context, new Intent(A_C_Output.this, A_C_Output.class), activity, "Помилка",
-                                        "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                        "Вийти", "Повторити", 1
-                                );
-                            }
-                        });
-                        return;
-                    }
-                }
-            }).start();
-        });
+        PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
         View.OnTouchListener touchListener = new View.OnTouchListener() {
-            private Handler mHandler;
-            private Runnable mRunnable;
-
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int id = view.getId();
-                View temp = View_s.get(id-1);
+            private Handler mHandler; private Runnable mRunnable;
+            @Override public boolean onTouch(View view, MotionEvent motionEvent) {
+                int id = view.getId();   View temp = View_s.get(id-1);
                 ImageView border = temp.findViewById(R.id.cur_border);
-                TextView count = temp.findViewById(R.id.view_count);
                 CheckBox checked = temp.findViewById(R.id.cur_state);
+                TextView count = temp.findViewById(R.id.view_count);
                 String strCount = count.getText().toString().trim();
                 int index = strCount.indexOf(" ");
                 String result = strCount.substring(index + 1);
 
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mHandler = new Handler();
-                        mRunnable = new Runnable() {
-                            @Override
-                            public void run() {
+                        mHandler = new Handler(); mRunnable = new Runnable() {
+                            @Override public void run() {
                                 if (id == chesed_id.get() && !checker.GetPrivace() && !checked.isChecked()){
-                                    vibrator.vibrate(50);
                                     allItemCounter.set(allItemCounter.get()+Integer.parseInt(result));
-                                    text_info.setText(allItemCounter.get() + " / " + String.valueOf(orderCount.get()));
-                                    checked.setChecked(true);
+                                    String Str = allItemCounter.get() + " / " + orderCount.get();
+                                    text_info.setText(Str); checked.setChecked(true);
                                     allCounter.set(allCounter.get()+1);
                                     if (allCounter.get() == View_s.size()){
-                                        btn_print.setEnabled(true);
-                                        btn_print.setAlpha(1f);
-                                    }
+                                        btn_print.setEnabled(true); btn_print.setAlpha(1f);
+                                    }  vibrator.vibrate(50);
                                 }
                             }
-                        };
-                        mHandler.postDelayed(mRunnable, 500);
-                        break;
+                        }; mHandler.postDelayed(mRunnable, 500); break;
                     case MotionEvent.ACTION_UP:
                         if (mHandler != null && mRunnable != null) {
                             mHandler.removeCallbacks(mRunnable);
-                            chesed_id.set(id);
+                            chesed_id.set(id); border.setAlpha(1f);
                             enableAllImageButtons(View_s);
-                            border.setAlpha(1f);
-                        }
-                        break;
-                }
-                return true;
+                        } break;
+                } return true;
             }
         };
-
-        ImageButton btn_back = findViewById(R.id.button_beck);
-        btn_back.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
-            onBackPressed();
-        });
-
-
 
         class CheckingPrint extends AsyncTask<Void, Void, Void> {
 
@@ -212,79 +135,87 @@ public class A_C_Output extends AppCompatActivity {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet;
-
-                    resultSet = MS_SQLSelect.ReadOrderArrive(mssqlConnection, checker.GetChecker());
-                    resultSet.next(); if(resultSet.getInt("state") != 0 ) checker.ChangePrivace(true);
-                    OrderCode = resultSet.getInt("sum_count");
-                    resultSet = MS_SQLSelect.ReadOrderArriveElements(mssqlConnection, checker.GetChecker());
+                    ResultSet resultSet = MS_SQLSelect.ReadAllOrderArrive(
+                            mssqlConnection, checker.GetChecker());
 
                     int i = 1; while (resultSet.next()) {
-                        View temp = getLayoutInflater().inflate(R.layout.template_cur_output, TableView, false);
+                        if (i == 1) { if(resultSet.getInt("state") != 0 ) checker.ChangePrivace(true);
+                            OrderCode = resultSet.getInt("sum_count");
+                        } View temp = getLayoutInflater().inflate(R.layout.template_cur_output,
+                                TableView, false);
+                        ImageButton button = temp.findViewById(R.id.button_checkcur);
                         TextView receiver = temp.findViewById(R.id.view_receiver);
+                        ImageView border = temp.findViewById(R.id.cur_border);
+                        CheckBox checked = temp.findViewById(R.id.cur_state);
                         TextView code = temp.findViewById(R.id.title_number);
                         TextView ttn = temp.findViewById(R.id.view_ttncode);
                         TextView count = temp.findViewById(R.id.view_count);
-                        CheckBox checked = temp.findViewById(R.id.cur_state);
-                        ImageButton button = temp.findViewById(R.id.button_checkcur);
-                        ImageView border = temp.findViewById(R.id.cur_border);
 
-                        ResultSet rProd = MS_SQLSelect.GetOrderArriveInfo(mssqlConnection, resultSet.getInt("orders_id"));
-                        rProd.next();
-                        receiver.setText(rProd.getString("adresser"));
-                        prod_ids.add(rProd.getInt("code"));
-                        codes.add(rProd.getString("ttn_code"));
-
-                        code.setText(rProd.getString("code"));
-                        ttn.setText(rProd.getString("ttn_code"));
-
+                        String countStr = "x " + resultSet.getInt("count");
                         border.setAlpha(0F); if (i == 1) border.setAlpha(1F);
-
-                        button.setOnTouchListener(touchListener);
-
-                        String countStr = String.valueOf(resultSet.getInt("count"));
+                        receiver.setText(resultSet.getString("adresser"));
                         if (!checker.GetPrivace()) checked.setChecked(false);
-                        count.setText("x " + countStr);
-
-                        button.setId(i); i++; View_s.add(temp);
-                    }
+                        ttn.setText(resultSet.getString("ttn_code"));
+                        codes.add(resultSet.getString("ttn_code"));
+                        code.setText(resultSet.getString("code"));
+                        prod_ids.add(resultSet.getInt("code"));
+                        button.setOnTouchListener(touchListener);
+                        count.setText(countStr); button.setId(i);
+                        i++; View_s.add(temp);
+                    } msc.disconnect();
                 } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context, new Intent(A_C_Output.this, A_C_Output.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
-                }
-                return null;
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                } return null;
             }
 
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                text_info.setText("0 / " + String.valueOf(OrderCode));
-                orderCount.set(OrderCode);
-                if (listener != null) {
-                    listener.onTaskComplete();
-                }
+            protected void onPostExecute(Void result) {super.onPostExecute(result);
+                String str = "0 / " + String.valueOf(OrderCode); text_info.setText(str);
+                orderCount.set(OrderCode); if (listener != null) listener.onTaskComplete();
             }
         }
 
         CheckingPrint checkingPrint = new CheckingPrint(new TaskInterface() {
             @Override
-            public void onTaskComplete() {
-                TableView.removeAllViews();
-                if (View_s.isEmpty()) {
-                    infostate.setText("Список відправлень до видачі порожній");
-                } else {
-                    Iterator<View> iterator = View_s.iterator();
-                    while (iterator.hasNext()) {
-                        View userView = iterator.next();
-                        TableView.addView(userView);
+            public void onTaskComplete() {TableView.removeAllViews();
+                if (View_s.isEmpty()) infostate.setText(R.string.output_list_empty);
+                else for (View userView : View_s) TableView.addView(userView);
+            }
+        }); checkingPrint.execute();
+
+        btn_confirm.setOnClickListener(enter->{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                        Connection mssqlConnection = msc.connection;
+                        MS_SQLUpdate.UPDAdditionOrOrdersArriveInfo(mssqlConnection, data.getCompany(),
+                                data.getUserLogin(), checker.GetChecker(), 2, "OrdersArrive");
+                        msc.disconnect();
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(context, R.string.output_list_end, Toast.LENGTH_SHORT).show();
+                                Intent intent= new Intent(A_C_Output.this, A_T_Output.class);
+                                vibrator.vibrate(50); startActivity(intent); finish();
+                            }
+                        });
+                    } catch (SQLException e){
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }
                 }
-            }
+            }).start();
         });
 
-        checkingPrint.execute();
+        btn_print.setOnClickListener(enter->{ vibrator.vibrate(50);
+            btn_print.setEnabled(false);  btn_print.setAlpha(0.7f);
+            btn_confirm.setEnabled(true); btn_confirm.setAlpha(1f);
+            String massage = getString(R.string.output_doc_print);
+            Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
+        });
+
+        btn_back.setOnClickListener (enter -> {
+            vibrator.vibrate(50); onBackPressed();
+        });
     }
 
 

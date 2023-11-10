@@ -39,17 +39,14 @@ import java.util.Deque;
 import java.util.Iterator;
 
 public class A_T_Task extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_T_Task.this, A_S_Menu.class);
         else intent = new Intent(A_T_Task.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d5_task_table);
 
@@ -69,8 +66,7 @@ public class A_T_Task extends AppCompatActivity {
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
         new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
@@ -80,9 +76,9 @@ public class A_T_Task extends AppCompatActivity {
                         View temp = getLayoutInflater().inflate(R.layout.template_view_task,
                                 container, false);
                         TextView performerName = temp.findViewById(R.id.view_performer);
+                        ImageButton button = temp.findViewById(R.id.button_taskselect);
                         TextView taskType = temp.findViewById(R.id.view_tasktype);
                         TextView taskTime = temp.findViewById(R.id.view_tasktime);
-                        ImageButton button = temp.findViewById(R.id.button_taskselect);
 
                         performerName.setText(UserData.getUserName(resultSet));
                         taskType.setText(resultSet.getString("type"));
@@ -105,11 +101,9 @@ public class A_T_Task extends AppCompatActivity {
         }).start();
 
         btn_task.setOnClickListener (enter -> {
-            create.ChangeCreate(true);
-            checker.ChangePrivace(true);
-            vibrator.vibrate(50);
+            create.ChangeCreate(true);checker.ChangePrivace(true);
             Intent intent = new Intent(this, A_I_AddWork.class);
-            startActivity(intent); finish();
+            vibrator.vibrate(50); startActivity(intent); finish();
         });
 
 
@@ -119,12 +113,9 @@ public class A_T_Task extends AppCompatActivity {
     }
 
     public void Button (View view){
-        AppTableChecker check = new AppTableChecker(this);
-        check.ChangePrivace(true);
-        AppCreateOr create = new AppCreateOr(this);
-        create.ChangeCreate(false);
+        AppTableChecker check = new AppTableChecker(this); check.ChangePrivace(true);
+        AppCreateOr create = new AppCreateOr(this); create.ChangeCreate(false);
         Intent intent = new Intent(this, A_I_AddWork.class);
-        check.ChangeChecker(view.getId());
-        startActivity(intent); finish();
+        check.ChangeChecker(view.getId()); startActivity(intent); finish();
     }
 }

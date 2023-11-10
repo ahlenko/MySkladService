@@ -24,6 +24,7 @@ import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
 import com.example.myskladservice.processing.database.MS_SQLDelete;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.datastruct.TaskData;
@@ -145,8 +146,8 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                     }catch (SQLException e){
                         DialogsViewer.twoButtonDialog(
                                 context,  new Intent(A_I_AddWork.this, A_I_AddWork.class),
-                                activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                        "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
+                                activity, getString(R.string.problem), getString(R.string.non_connected),
+                                getString(R.string.exit), getString(R.string.repeate), 1
                         );
                     }
                     return null;
@@ -184,11 +185,7 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                         Connection mssqlConnection = msc.connection;
                         MS_SQLSelect.ReadTask(mssqlConnection, checker.GetChecker());
                     } catch (SQLException e) {
-                        DialogsViewer.twoButtonDialog(
-                                context, new Intent(A_I_AddWork.this, A_I_AddWork.class),
-                                activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                        "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                        );
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }
                     return null;
                 };
@@ -206,11 +203,11 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
             myTask.execute();
 
             if (checker.GetPrivace()){
-                button_title.setText("Видалити завдання");
+                button_title.setText(R.string.ttl_btn_delete_task);
                 prp_btn.setEnabled(false);
                 prp_btn.setVisibility(View.INVISIBLE);
             } else{
-                button_title.setText("Завершити перегляд");
+                button_title.setText(R.string.ttl_btn_close_task);
                 red_btn.setEnabled(false);
                 red_btn.setVisibility(View.INVISIBLE);
             }
@@ -256,30 +253,21 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                                 int TaskID = MS_SQLInsert.AddTask(mssqlConnection,
                                         AdresserID, Performer, CompanyID, formattedDate,
                                         finalSstart, Send, Stask, Scomment);
-                                if (TaskID == -1) throw new SmallException(0, "* Помилка виконання запиту");
+                                if (TaskID == -1) throw new SmallException(0, getString(R.string.pol_sql_error));
 
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         vibrator.vibrate(50);
                                         Intent intent;
                                         intent = new Intent(A_I_AddWork.this, A_T_Task.class);
-                                        Toast.makeText(context, "Завдання доручено", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, R.string.ttl_btn_added, Toast.LENGTH_SHORT).show();
                                         startActivity(intent);
                                         finish();
                                     }
                                 });
                                 return;
                             } catch (SQLException e) {
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        DialogsViewer.twoButtonDialog(
-                                                context,  two_btn_intent, activity, "Помилка",
-                                                "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                                "Вийти", "Повторити", 1
-                                        );
-                                    }
-                                });
-                                return;
+                                MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                             } catch (SmallException e) {
                                 runOnUiThread(new Runnable() {
                                     public void run() {
@@ -290,7 +278,7 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                             }
                         }
                     }).start();
-                } else infostate.setText("* Деякі поля заповнено некоректно");
+                } else infostate.setText(R.string.pol_is_incorect);
             }
         });
 
@@ -307,23 +295,14 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                                 vibrator.vibrate(50);
                                 Intent intent;
                                 intent = new Intent(A_I_AddWork.this, A_T_Task.class);
-                                Toast.makeText(context, "Завдання доручено", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.ttl_btn_added, Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 finish();
                             }
                         });
                         return;
                     } catch (SQLException e){
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                DialogsViewer.twoButtonDialog(
-                                        context,  two_btn_intent, activity, "Помилка",
-                                        "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                        "Вийти", "Повторити", 1
-                                );
-                            }
-                        });
-                        return;
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }
                 }
             }).start();

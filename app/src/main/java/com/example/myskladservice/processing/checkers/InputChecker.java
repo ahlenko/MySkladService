@@ -30,6 +30,13 @@ public class InputChecker {
         } return false;
     }
 
+    public static boolean isNotMaxSize (String str, TextView text, int max, AppCompatActivity a){
+        if (str.length() > max){
+            text.setTextColor(a.getResources().getColor(R.color.red_note));
+            return true;
+        } return false;
+    }
+
     public static boolean isNotTime(String str, TextView text, AppCompatActivity a) {
         if (str.length() == 5){
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
@@ -67,7 +74,7 @@ public class InputChecker {
         } return false;
     }
 
-    public  static  boolean isNotInt (String str, TextView text, AppCompatActivity a){
+    public static boolean isNotInt (String str, TextView text, AppCompatActivity a){
         try {
             Integer.parseInt(str);
             return false;
@@ -77,7 +84,7 @@ public class InputChecker {
         }
     }
 
-    public  static  boolean isNotFloat (String str, TextView text, AppCompatActivity a){
+    public static boolean isNotFloat (String str, TextView text, AppCompatActivity a){
         if (str.isEmpty()) {
             text.setTextColor(a.getResources().getColor(R.color.red_note));
             return true;

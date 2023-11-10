@@ -42,18 +42,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class A_S_Option extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_S_Option.this, A_S_Menu.class);
         else intent = new Intent(A_S_Option.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d9_option);
 
@@ -89,8 +86,7 @@ public class A_S_Option extends AppCompatActivity implements AdapterView.OnItemS
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
         swith.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 data.ChangeNotify(isChecked); data.SaveData();}
         }); swith.setChecked(data.getNotify());
 
@@ -139,8 +135,7 @@ public class A_S_Option extends AppCompatActivity implements AdapterView.OnItemS
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    @Override public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String text = adapterView.getItemAtPosition(i).toString();
         AppWorkData data = new AppWorkData(this);
 
@@ -159,6 +154,5 @@ public class A_S_Option extends AppCompatActivity implements AdapterView.OnItemS
         }
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
+    @Override public void onNothingSelected(AdapterView<?> adapterView) {}
 }

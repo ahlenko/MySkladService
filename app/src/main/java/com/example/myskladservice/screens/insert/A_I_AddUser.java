@@ -23,6 +23,7 @@ import com.example.myskladservice.AM_Login;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLDelete;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.database.MS_SQLUpdate;
@@ -104,9 +105,9 @@ public class A_I_AddUser extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             DialogsViewer.twoButtonDialog(
-                                    context, two_btn_intent, activity, "Помилка",
-                                    "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                    "Вийти", "Повторити", 1
+                                    context, two_btn_intent, activity, getString(R.string.problem),
+                                    getString(R.string.non_connected),
+                                    getString(R.string.exit), getString(R.string.repeate), 1
                             );
                         }
                     });
@@ -208,7 +209,7 @@ public class A_I_AddUser extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         texttel.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 }); enter_err++;
@@ -218,7 +219,7 @@ public class A_I_AddUser extends AppCompatActivity {
                             if (resultSet.next()){
                                 runOnUiThread(new Runnable() {
                                     public void run() {
-                                        infostate.setText("* Деякі дані вже використовуються");
+                                        infostate.setText(R.string.pol_is_using);
                                         textlogin.setTextColor(getResources().getColor(R.color.red_note));
                                     }
                                 }); enter_err++;
@@ -229,13 +230,13 @@ public class A_I_AddUser extends AppCompatActivity {
                                         finalStimeStartW_enter, finalStimeEndW_enter,
                                         finalStimeStartN_enter,finalStimeEndN_enter, false
                                 ); if (workTimeID == -1)
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
 
                                 int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
                                         day1, day2, day3, day4, day5, day6, day7, false
                                 ); if (workDaysID == -1) {
                                     MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, false);
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
                                 };
 
                                 int ManagerID = MS_SQLInsert.AddUser(mssqlConnection,
@@ -245,7 +246,7 @@ public class A_I_AddUser extends AppCompatActivity {
                                 ); if (ManagerID == -1) {
                                     MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, false);
                                     MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workTimeID, false);
-                                    throw new SmallException(0, "* Помилка виконання запиту");
+                                    throw new SmallException(0, getString(R.string.pol_sql_error));
                                 };
 
                                 runOnUiThread(new Runnable() {
@@ -253,36 +254,25 @@ public class A_I_AddUser extends AppCompatActivity {
                                         vibrator.vibrate(50);
                                         Intent intent;
                                         intent = new Intent(A_I_AddUser.this, A_T_Users.class);
-                                        Toast.makeText(context, "Співробітника додано", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.employee_added), Toast.LENGTH_SHORT).show();
                                         startActivity(intent);
                                         finish();
                                     }
                                 });
-                                return;
                             }
 
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context, two_btn_intent, activity, "Помилка",
-                                            "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                            "Вийти", "Повторити", 1
-                                    );
-                                }
-                            });
-                            return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         } catch (SmallException e) {
                             runOnUiThread(new Runnable() {
                                 public void run() {
                                     infostate.setText(e.getErrorMessage());
                                 }
                             });
-                            return;
                         }
                     }
                 }).start();
-            } else infostate.setText("* Деякі поля заповнено некоректно");
+            } else infostate.setText(R.string.pol_is_incorect);
         });
 
         ImageButton btn_back = findViewById(R.id.button_beck);

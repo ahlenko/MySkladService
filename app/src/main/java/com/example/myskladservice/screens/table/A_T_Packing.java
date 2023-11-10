@@ -44,18 +44,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class A_T_Packing extends AppCompatActivity {
     private ArrayList<Integer> ID_s = new ArrayList<Integer>();
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_T_Packing.this, A_S_Menu.class);
         else intent = new Intent(A_T_Packing.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.d2_packing_table);
 
@@ -87,8 +84,7 @@ public class A_T_Packing extends AppCompatActivity {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Thread PackingPrint = new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;

@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.example.myskladservice.AM_Login;
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
 import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.datastruct.UserData;
@@ -110,11 +111,7 @@ public class A_C_User extends AppCompatActivity {
                     Connection mssqlConnection = msc.connection;
                     MS_SQLSelect.ReadUser(mssqlConnection, check.GetChecker());
                 } catch (SQLException e) {
-                    DialogsViewer.twoButtonDialog(
-                            context,  new Intent(A_C_User.this, A_C_User.class),
-                            activity, "Помилка", "Невдале підключення до бази даних.\n" +
-                                    "Повторіть спробу або вийдіть:", "Вийти", "Повторити", 1
-                    );
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
                 return null;
             }
@@ -273,20 +270,11 @@ public class A_C_User extends AppCompatActivity {
                             });
                             return;
                         } catch (SQLException e) {
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    DialogsViewer.twoButtonDialog(
-                                            context,  two_btn_intent, activity, "Помилка",
-                                            "Невдале підключення до бази даних.\nПовторіть спробу або вийдіть:",
-                                            "Вийти", "Повторити", 1
-                                    );
-                                }
-                            });
-                            return;
+                            MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                         }
                     }
                 }).start();
-            } else infostate.setText("* Деякі поля заповнено некоректно");
+            } else infostate.setText(R.string.pol_is_incorect);
         });
 
         ImageButton button_adduser2 = findViewById(R.id.button_renew2);
@@ -299,15 +287,14 @@ public class A_C_User extends AppCompatActivity {
             if (check.GetPrivace()) {
                 DialogsViewer.twoButtonDialog(
                         context,  new Intent(A_C_User.this, A_T_Users.class), activity,
-                        "Підтвердження", "Видалення Вас як власника призведе до видалення компанії " +
-                                "та її співробітників.\n" + " Ви можете виконати передачу права власності " +
-                                "іншому співробітникові:", "Видалити", "Передати", 5
+                        getString(R.string.confirmation), getString(R.string.delete_main_user),
+                        getString(R.string.btn_delete), getString(R.string.re_main_user), 5
                 );
             } else {
                 DialogsViewer.twoButtonDialog(
                         context,  new Intent(A_C_User.this, A_T_Users.class), activity,
-                        "Підтвердження", "Ви дійсно впевнені що хочете видалити даного співробітника?",
-                        "Так", "Ні", 4
+                        getString(R.string.confirmation), getString(R.string.delete_user),
+                        getString(R.string.dialog_confirm), getString(R.string.dialog_discard), 4
                 );
             }
         });

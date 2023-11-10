@@ -40,18 +40,15 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class A_T_Users extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {
+    @Override public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        AppWorkData data = new AppWorkData(this);
-        Intent intent; vibrator.vibrate(50);
+        AppWorkData data = new AppWorkData(this); Intent intent; vibrator.vibrate(50);
         if (data.getUserType()) intent = new Intent(A_T_Users.this, A_S_Menu.class);
         else intent = new Intent(A_T_Users.this, A_S_Menu_N.class);
         startActivity(intent); finish();
     }
     private int MainID; private String MainEmail = ""; private String MyEmail = "";
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState); setContentView(R.layout.d11_users);
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         ActivityCompat.requestPermissions(this, new String[]
@@ -69,8 +66,7 @@ public class A_T_Users extends AppCompatActivity {
         ImageButton btn_back = findViewById(R.id.button_beck);
 
         new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
@@ -80,12 +76,12 @@ public class A_T_Users extends AppCompatActivity {
                     while (resultSet.next()){
                         View temp = getLayoutInflater().inflate(R.layout.template_view_user,
                                 container, false);
-                        TextView name = temp.findViewById(R.id.view_workername);
-                        TextView workstate = temp.findViewById(R.id.view_workstate);
-                        TextView wplace = temp.findViewById(R.id.view_wplace);
                         ImageView activity = temp.findViewById(R.id.activity_indicator);
-                        ImageView uimage = temp.findViewById(R.id.user_image);
                         ImageButton button = temp.findViewById(R.id.button_userselect);
+                        TextView workstate = temp.findViewById(R.id.view_workstate);
+                        TextView name = temp.findViewById(R.id.view_workername);
+                        TextView wplace = temp.findViewById(R.id.view_wplace);
+                        ImageView uimage = temp.findViewById(R.id.user_image);
 
                         int mainid = resultSet.getInt("manager_id");
                         if (resultSet.getInt("id") == mainid) {

@@ -45,11 +45,9 @@ import java.util.Deque;
 import java.util.Iterator;
 
 public class A_S_Menu extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {}
+    @Override public void onBackPressed() {}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         super.onCreate(savedInstanceState); setContentView(R.layout.c1_main_menu);
 
@@ -75,8 +73,7 @@ public class A_S_Menu extends AppCompatActivity {
 
         class UserAccess_Tasker extends AsyncTask<Void, Void, Void>{
             boolean onWork;
-            @Override
-            protected Void doInBackground(Void... voids) {
+            @Override protected Void doInBackground(Void... voids) {
                 try{
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
@@ -89,32 +86,25 @@ public class A_S_Menu extends AppCompatActivity {
             }
             protected void onPostExecute(Void result) {
                 if (onWork){
-                    rest_btn.setVisibility(View.INVISIBLE);
-                    rest_btn.setEnabled(false);
-                    work_btn.setVisibility(View.VISIBLE);
-                    work_btn.setEnabled(true);
+                    rest_btn.setVisibility(View.INVISIBLE); rest_btn.setEnabled(false);
+                    work_btn.setVisibility(View.VISIBLE); work_btn.setEnabled(true);
                 } else {
-                    work_btn.setVisibility(View.INVISIBLE);
-                    work_btn.setEnabled(false);
-                    rest_btn.setVisibility(View.VISIBLE);
-                    rest_btn.setEnabled(true);
+                    work_btn.setVisibility(View.INVISIBLE); work_btn.setEnabled(false);
+                    rest_btn.setVisibility(View.VISIBLE); rest_btn.setEnabled(true);
                 }
             }
-        }
-
-        UserAccess_Tasker userAccess_tasker = new UserAccess_Tasker();
-        userAccess_tasker.execute();
+        } UserAccess_Tasker userAccess_tasker = new UserAccess_Tasker(); userAccess_tasker.execute();
 
         new Thread(new Runnable() {
-            @Override
-            public void run() {
+            @Override public void run() {
                 try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTaskPrinted(
                             mssqlConnection, data.getCompany(), data.getUserLogin(), "Adr");
                     while (resultSet.next()) {
-                        View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre, container, false);
+                        View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre,
+                                container, false);
                         TextView complitetime = temp.findViewById(R.id.view_complitetime);
                         ImageButton button = temp.findViewById(R.id.button_taskselect);
                         TextView taskType = temp.findViewById(R.id.title_receivetime);
@@ -163,8 +153,7 @@ public class A_S_Menu extends AppCompatActivity {
                 }
             }).start();
             new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+                @Override public void run() {
                     work_btn.setVisibility(View.INVISIBLE);
                     work_btn.setEnabled(false);
                     rest_btn.setVisibility(View.VISIBLE);
@@ -189,8 +178,7 @@ public class A_S_Menu extends AppCompatActivity {
                 }
             }).start();
             new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+                @Override public void run() {
                     rest_btn.setVisibility(View.INVISIBLE);
                     rest_btn.setEnabled(false);
                     work_btn.setVisibility(View.VISIBLE);
