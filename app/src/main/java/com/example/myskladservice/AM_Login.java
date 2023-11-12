@@ -95,7 +95,6 @@ public class AM_Login extends AppCompatActivity {
                                     throw new SmallException(2, getString(R.string.non_current_password));
                                 data.FirstEnter(resultSet.getBoolean("fullacess"), email, login, pass);
 
-                                msc.disconnect();
                                 runOnUiThread(new Runnable() {
                                     public void run() {
                                         Intent intent; vibrator.vibrate(50);

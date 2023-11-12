@@ -104,7 +104,7 @@ public class A_T_Table_N extends AppCompatActivity {
                                     0, imageBytes.length);
                             image.setImageBitmap(bitmap);
                         } Products.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }

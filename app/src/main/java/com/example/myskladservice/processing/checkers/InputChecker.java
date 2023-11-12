@@ -37,6 +37,20 @@ public class InputChecker {
         } return false;
     }
 
+    public static boolean isNotMinMaxInt (String str, TextView text, int min, int max, AppCompatActivity a){
+        if (Integer.parseInt(str) < min || Integer.parseInt(str) > max){
+            text.setTextColor(a.getResources().getColor(R.color.red_note));
+            return true;
+        } return false;
+    }
+
+    public static boolean isEquals (String str, TextView text, String equal, AppCompatActivity a){
+        if (str.equals(equal)){
+            text.setTextColor(a.getResources().getColor(R.color.red_note));
+            return true;
+        } return false;
+    }
+
     public static boolean isNotTime(String str, TextView text, AppCompatActivity a) {
         if (str.length() == 5){
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");

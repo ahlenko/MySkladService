@@ -119,7 +119,7 @@ public class A_T_Input extends AppCompatActivity {
                         } ID_s.add(resultSet.getInt("id")); date.setText(date_S);
                         packBtn.setId(iter); printBtn.setId(iter);
                         View_s.add(temp); iter++;
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }

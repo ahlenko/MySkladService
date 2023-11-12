@@ -48,27 +48,25 @@ import java.util.Date;
 import java.util.Objects;
 
 public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    @Override
-    public void onBackPressed() {}
+    int AdresserID = 0, CompanyID = 0, PerformerID = 0;
     ArrayList<String> UserNames = new ArrayList<>();
     ArrayList<Integer> UserId = new ArrayList<>();
-    int AdresserID = 0, CompanyID = 0, PerformerID = 0;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.f5_addwork);
+    @Override public void onBackPressed() {}
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState); setContentView(R.layout.f5_addwork);
 
         Intent two_btn_intent = new Intent(A_I_AddWork.this, A_I_AddWork.class);
+        AppTableChecker checker = new AppTableChecker(this);
+        AppCreateOr create = new AppCreateOr(this);
+        AppWorkData data = new AppWorkData(this);
         AppCompatActivity activity = this;
         Context context = this;
 
-        AppWorkData data = new AppWorkData(this);
-        AppCreateOr create = new AppCreateOr(this);
-        AppTableChecker checker = new AppTableChecker(this);
 
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
+
+        ImageButton btn_back = findViewById(R.id.button_beck);
 
         TextView infostate = findViewById(R.id.infostate);
         TextView enter_tasktype = findViewById(R.id.enter_tasktype);
@@ -91,181 +89,126 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
         Spinner chose_performer = findViewById(R.id.select_performer);
 
         comment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int length = charSequence.length();
-                String str = length + " / 240";
+            @Override public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                int length = charSequence.length(); String str = length + " / 240";
                 if (length <= 240) ch_counter.setTextColor(getResources().getColor(R.color.grey));
                 else ch_counter.setTextColor(getResources().getColor(R.color.red_note));
-                ch_counter.setText(str);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {}
+                ch_counter.setText(str);}
+            @Override public void afterTextChanged(Editable editable) {}
         });
 
         if (create.GetCreate()){
-            red_btn.setEnabled(false);
-            red_btn.setVisibility(View.INVISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                LocalTime currentTime = LocalTime.now();
+            red_btn.setEnabled(false); red_btn.setVisibility(View.INVISIBLE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { LocalTime currentTime = LocalTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                time_start_ent.setText(currentTime.format(formatter));
-            }
+                time_start_ent.setText(currentTime.format(formatter));}
 
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.task_type, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.task_type, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            chose_enter.setAdapter(adapter);
-            chose_enter.setSelection(0);
+            chose_enter.setAdapter(adapter);  chose_enter.setSelection(0);
             enter_tasktype.setText(adapter.getItem(0).toString());
             chose_enter.setOnItemSelectedListener(this);
 
             class UserSearch extends AsyncTask<Void, Void, Void> {
-                @Override
-                protected Void doInBackground(Void... voids) {
+                @Override protected Void doInBackground(Void... voids) {
                     try{
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
-
-                        resultSet = MS_SQLSelect.CompanyManager(mssqlConnection, data.getCompany());
-                        resultSet.next(); CompanyID = resultSet.getInt("id");
-                        resultSet = MS_SQLSelect.SelectUser(mssqlConnection, resultSet.getInt("id"));
-                        while (resultSet.next()){
+                        ResultSet resultSet = MS_SQLSelect.ReadEmployeeListAndManager
+                                (mssqlConnection, data.getCompany());
+                        while (resultSet.next()) {CompanyID = resultSet.getInt("company_id");
                             if (!Objects.equals(data.getUserLogin(), resultSet.getString("login"))) {
-                                String nameUser = resultSet.getString("surname") + " " +
-                                        resultSet.getString("name") + " " +
+                                String nameUser = resultSet.getString("surname") +
+                                        " " + resultSet.getString("name") + " " +
                                         resultSet.getString("lastname");
                                 UserNames.add(nameUser);
                                 UserId.add(resultSet.getInt("id"));
                             } else AdresserID = resultSet.getInt("id");
                         }
-                    }catch (SQLException e){
-                        DialogsViewer.twoButtonDialog(
-                                context,  new Intent(A_I_AddWork.this, A_I_AddWork.class),
-                                activity, getString(R.string.problem), getString(R.string.non_connected),
-                                getString(R.string.exit), getString(R.string.repeate), 1
-                        );
-                    }
-                    return null;
+                    } catch (SQLException e){
+                        MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                    } return null;
                 }
 
                 protected void onPostExecute(Void result) {
-                    if (UserNames.isEmpty()){
-                        enter_performer.setText("...");
-                        chose_performer.setEnabled(false);
-                    } else{
-                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, UserNames);
+                    if (UserNames.isEmpty()){ enter_performer.setText("...");
+                        chose_performer.setEnabled(false); } else {
+                        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context,
+                                android.R.layout.simple_spinner_item, UserNames);
                         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        chose_performer.setAdapter(adapter2);
-                        chose_performer.setSelection(0);
-                        enter_performer.setText(adapter2.getItem(0).toString());
+                        chose_performer.setAdapter(adapter2); chose_performer.setSelection(0);
+                        enter_performer.setText(adapter2.getItem(0));
                         chose_performer.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) context);
                     }
                 }
-            }
-
-            UserSearch myTask = new UserSearch();
-            myTask.execute();
+            } UserSearch myTask = new UserSearch(); myTask.execute();
         } else {
-            chose_enter.setEnabled(false);
-            chose_performer.setEnabled(false);
-            time_start_ent.setEnabled(false);
-            time_release_ent.setEnabled(false);
+            time_release_ent.setEnabled(false); chose_performer.setEnabled(false);
+            time_start_ent.setEnabled(false);   chose_enter.setEnabled(false);
             comment.setEnabled(false);
 
             class ReadTask extends AsyncTask<Void, Void, Void> {
-                @Override
-                protected Void doInBackground(Void... voids) {
-                    try {
-                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                @Override protected Void doInBackground(Void... voids) {
+                    try { MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
                         MS_SQLSelect.ReadTask(mssqlConnection, checker.GetChecker());
                     } catch (SQLException e) {
                         MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
-                    }
-                    return null;
+                    } return null;
                 };
+                protected void onPostExecute(Void result) { TaskData.SetData(activity);}
+            } ReadTask myTask = new ReadTask(); myTask.execute();
 
-                protected void onPostExecute(Void result) {
-                    enter_tasktype.setText(TaskData.type);
-                    enter_performer.setText(TaskData.pefrormer);
-                    time_start_ent.setText(TaskData.starttime);
-                    time_release_ent.setText(TaskData.endtime);
-                    comment.setText(TaskData.comment);
-                }
-            }
-
-            ReadTask myTask = new ReadTask();
-            myTask.execute();
-
-            if (checker.GetPrivace()){
-                button_title.setText(R.string.ttl_btn_delete_task);
-                prp_btn.setEnabled(false);
-                prp_btn.setVisibility(View.INVISIBLE);
-            } else{
-                button_title.setText(R.string.ttl_btn_close_task);
-                red_btn.setEnabled(false);
-                red_btn.setVisibility(View.INVISIBLE);
+            if (checker.GetPrivace()){ button_title.setText(R.string.ttl_btn_delete_task);
+                prp_btn.setEnabled(false); prp_btn.setVisibility(View.INVISIBLE);
+            } else{ button_title.setText(R.string.ttl_btn_close_task);
+                red_btn.setEnabled(false); red_btn.setVisibility(View.INVISIBLE);
             }
         }
 
         prp_btn.setOnClickListener (enter -> {
-            if (!checker.GetPrivace()){
-                vibrator.vibrate(50);
-                finish();
-            } else{
-                time_start.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-                time_release.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+            if (!checker.GetPrivace()) { vibrator.vibrate(50); finish();
+            } else { title_performer.setTextColor(getResources().getColor(R.color.fonts_color_blc));
                 title_comment.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-                title_performer.setTextColor(getResources().getColor(R.color.fonts_color_blc));
-                infostate.setText("");
+                time_release.setTextColor(getResources().getColor(R.color.fonts_color_blc));
+                time_start.setTextColor(getResources().getColor(R.color.fonts_color_blc));
 
-                String Stask = enter_tasktype.getText().toString().trim();
                 String Sperformer = enter_performer.getText().toString().trim();
                 String Sstart = time_start_ent.getText().toString().trim();
                 String Send = time_release_ent.getText().toString().trim();
+                String Stask = enter_tasktype.getText().toString().trim();
                 String Scomment = comment.getText().toString().trim();
 
-                int enter_err = 0;
-                if(Sperformer.equals("...")) {
-                    title_performer.setTextColor(getResources().getColor(R.color.red_note)); enter_err++;}
+                infostate.setText(""); int enter_err = 0;
+
+                if (InputChecker.isNotMinMaxInt(Send, time_release,10, 240, this)) enter_err++;
+                if (InputChecker.isEquals(Sperformer, title_performer, "...", this)) enter_err++;
+                if (InputChecker.isNotMaxSize(Scomment, title_comment, 240, this)) enter_err++;
                 if (InputChecker.isNotTime(Sstart, time_start, this)) enter_err++;
-                if (Integer.parseInt(Send) < 10 || Integer.parseInt(Send) > 240) {
-                    time_release.setTextColor(getResources().getColor(R.color.red_note)); enter_err++;}
-                if (Scomment.length() > 240){
-                    title_comment.setTextColor(getResources().getColor(R.color.red_note)); enter_err++;}
+
                 if (enter_err == 0) {
-                    Sstart += ":00";
-                    String finalSstart = Sstart;
+                    Sstart += ":00"; String finalSstart = Sstart;
                     new Thread(new Runnable() {
                         public void run() {
-                            try {
-                                MS_SQLConnector msc = MS_SQLConnector.getConect();
-                                Connection mssqlConnection = msc.connection;
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                Date currentDate = new Date();
-                                String formattedDate = dateFormat.format(currentDate);
-                                int Performer = UserId.get(PerformerID);
+                            try { MS_SQLConnector msc = MS_SQLConnector.getConect();
+                                Connection mssqlConnection = msc.connection;SimpleDateFormat
+                                        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                Date currentDate = new Date(); String formattedDate =
+                                        dateFormat.format(currentDate);
                                 int TaskID = MS_SQLInsert.AddTask(mssqlConnection,
-                                        AdresserID, Performer, CompanyID, formattedDate,
-                                        finalSstart, Send, Stask, Scomment);
+                                        AdresserID, UserId.get(PerformerID), CompanyID,
+                                        formattedDate, finalSstart, Send, Stask, Scomment);
                                 if (TaskID == -1) throw new SmallException(0, getString(R.string.pol_sql_error));
 
                                 runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        vibrator.vibrate(50);
-                                        Intent intent;
-                                        intent = new Intent(A_I_AddWork.this, A_T_Task.class);
+                                    public void run() { vibrator.vibrate(50);
+                                        Intent intent = new Intent(A_I_AddWork.this, A_T_Task.class);
                                         Toast.makeText(context, R.string.ttl_btn_added, Toast.LENGTH_SHORT).show();
-                                        startActivity(intent);
-                                        finish();
+                                        startActivity(intent); finish();
                                     }
                                 });
-                                return;
                             } catch (SQLException e) {
                                 MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                             } catch (SmallException e) {
@@ -274,7 +217,6 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                                         infostate.setText(e.getErrorMessage());
                                     }
                                 });
-                                return;
                             }
                         }
                     }).start();
@@ -285,22 +227,16 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
         red_btn.setOnClickListener(enter -> {
             new Thread(new Runnable() {
                 public void run() {
-                    try {
-                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                    try { MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
                         MS_SQLDelete.DelTask(mssqlConnection, checker.GetChecker());
-
                         runOnUiThread(new Runnable() {
-                            public void run() {
-                                vibrator.vibrate(50);
-                                Intent intent;
-                                intent = new Intent(A_I_AddWork.this, A_T_Task.class);
+                            public void run() { vibrator.vibrate(50);
+                                Intent intent = new Intent(A_I_AddWork.this, A_T_Task.class);
                                 Toast.makeText(context, R.string.ttl_btn_added, Toast.LENGTH_SHORT).show();
-                                startActivity(intent);
-                                finish();
+                                startActivity(intent); finish();
                             }
                         });
-                        return;
                     } catch (SQLException e){
                         MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }
@@ -308,35 +244,22 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
             }).start();
         });
 
-        ImageButton btn_back = findViewById(R.id.button_beck);
-        btn_back.setOnClickListener (enter -> {
-            vibrator.vibrate(50);
-            if (!checker.GetPrivace()){
-                finish();
-            } else{
+        btn_back.setOnClickListener (enter -> { vibrator.vibrate(50);
+            if (!checker.GetPrivace()) finish(); else{
                 Intent intent = new Intent(A_I_AddWork.this, A_T_Task.class);
-                startActivity(intent);
-                finish();
+                startActivity(intent);finish();
             }
         });
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
+    @Override public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         TextView enter_tasktype = findViewById(R.id.enter_tasktype);
         TextView enter_performer = findViewById(R.id.enter_performer);
+        String text = adapterView.getItemAtPosition(i).toString();
 
-        if (adapterView.getId() == R.id.select_tasktype){
-            enter_tasktype.setText(text);
-        } else{
-            enter_performer.setText(text);
-            PerformerID = i;
-        }
+        if (adapterView.getId() == R.id.select_tasktype) enter_tasktype.setText(text);
+        else { enter_performer.setText(text); PerformerID = i; }
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
+    @Override public void onNothingSelected(AdapterView<?> adapterView) {}
 }

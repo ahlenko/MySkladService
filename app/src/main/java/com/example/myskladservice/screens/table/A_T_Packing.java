@@ -115,7 +115,7 @@ public class A_T_Packing extends AppCompatActivity {
                         } ID_s.add(resultSet.getInt("id"));
                         packBtn.setId(iter); printBtn.setId(iter);
                         View_s.add(temp); iter++;
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }

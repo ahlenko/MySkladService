@@ -71,7 +71,7 @@ public class A_T_Task extends AppCompatActivity {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTaskPrinted(
-                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Perf");
+                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Adr");
                     while (resultSet.next()){
                         View temp = getLayoutInflater().inflate(R.layout.template_view_task,
                                 container, false);
@@ -87,7 +87,7 @@ public class A_T_Task extends AppCompatActivity {
                         time += " / " + resultSet.getString("endtime") + " хв.";
                         taskTime.setText(time); button.setId(resultSet.getInt("id"));
                         Tasks.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }

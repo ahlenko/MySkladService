@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,107 +34,78 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class A_C_UserView extends AppCompatActivity {
-    @Override
-    public void onBackPressed() {}
+    @Override public void onBackPressed() {}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override protected void onCreate(Bundle savedInstanceState) {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.f1_userread);
+        super.onCreate(savedInstanceState); setContentView(R.layout.f1_userread);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
 
         Intent two_btn_intent = new Intent(A_C_UserView.this, A_C_UserView.class);
-        AppWorkData data = new AppWorkData(this);
         AppTableChecker check = new AppTableChecker(this);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
-
+        ArrayList<CheckBox> checkboxes = new ArrayList<>();
+        ArrayList<TextView> textViews = new ArrayList<>();
+        AppWorkData data = new AppWorkData(this);
         AppCompatActivity activity = this;
         Context context = this;
 
+        checkboxes.add(findViewById(R.id.day1_checker));
+        checkboxes.add(findViewById(R.id.day2_checker));
+        checkboxes.add(findViewById(R.id.day3_checker));
+        checkboxes.add(findViewById(R.id.day4_checker));
+        checkboxes.add(findViewById(R.id.day5_checker));
+        checkboxes.add(findViewById(R.id.day6_checker));
+        checkboxes.add(findViewById(R.id.day7_checker));
+
+        textViews.add(findViewById(R.id.day1_text));
+        textViews.add(findViewById(R.id.day2_text));
+        textViews.add(findViewById(R.id.day3_text));
+        textViews.add(findViewById(R.id.day4_text));
+        textViews.add(findViewById(R.id.day5_text));
+        textViews.add(findViewById(R.id.day6_text));
+        textViews.add(findViewById(R.id.day7_text));
+
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
-        TextView inputsurname = findViewById(R.id.inputsurname);
-        TextView inputname = findViewById(R.id.inputname);
-        TextView inputlastname = findViewById(R.id.inputlastname);
-        TextView inputworkstate = findViewById(R.id.inputworkstate);
-        TextView inputworkplace = findViewById(R.id.inputworkplace);
-        TextView timeStartW_enter = findViewById(R.id.timeStartW_enter);
-        TextView timeEndW_enter = findViewById(R.id.timeEndW_enter);
-        TextView timeStartN_enter = findViewById(R.id.timeStartN_enter);
-        TextView timeEndN_enter = findViewById(R.id.timeEndN_enter);
-        TextView inputtel = findViewById(R.id.inputtel4);
-        TextView inputlogin = findViewById(R.id.inputlogin4);
-        TextView inputpassword = findViewById(R.id.inputpassword4);
-
-        CheckBox day1_checker = findViewById(R.id.day1_checker);
-        CheckBox day2_checker = findViewById(R.id.day2_checker);
-        CheckBox day3_checker = findViewById(R.id.day3_checker);
-        CheckBox day4_checker = findViewById(R.id.day4_checker);
-        CheckBox day5_checker = findViewById(R.id.day5_checker);
-        CheckBox day6_checker = findViewById(R.id.day6_checker);
-        CheckBox day7_checker = findViewById(R.id.day7_checker);
-
-        class UserPrint extends AsyncTask<Void, Void, Void> {
-
-            protected Void doInBackground(Void... params) {
-                try {
-                    MS_SQLConnector msc = MS_SQLConnector.getConect();
-                    Connection mssqlConnection = msc.connection;
-                    MS_SQLSelect.ReadUser(mssqlConnection, check.GetChecker());
-                } catch (SQLException e) {
-                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
-                }
-                return null;
-            }
-
-            protected void onPostExecute(Void result) {
-                inputsurname.setText(UserData.surname);
-                inputname.setText(UserData.name);
-                inputlastname.setText(UserData.lastname);
-                inputworkstate.setText(UserData.workpost);
-                inputworkplace.setText(UserData.workplace);
-                inputtel.setText(UserData.phnumber);
-                inputlogin.setText(UserData.login);
-                inputpassword.setText(UserData.password);
-
-                day1_checker.setChecked(Worktime.mon);
-                day2_checker.setChecked(Worktime.tue);
-                day3_checker.setChecked(Worktime.wed);
-                day4_checker.setChecked(Worktime.thu);
-                day5_checker.setChecked(Worktime.fri);
-                day6_checker.setChecked(Worktime.sat);
-                day7_checker.setChecked(Worktime.san);
-
-                timeStartW_enter.setText(Worktime.startw);
-                timeEndW_enter.setText(Worktime.endw);
-                timeStartN_enter.setText(Worktime.starth);
-                timeEndN_enter.setText(Worktime.endh);
-            }
+        int i = 0; for (CheckBox ch : checkboxes) { final int index = i;
+            ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_blc));
+                    else textViews.get(index).setTextColor(getColor(R.color.akcent_purple));}
+            }); i++;
         }
 
-        UserPrint userPrint = new UserPrint();
-        userPrint.execute();
+        new Thread(new Runnable() {
+            @Override public void run() {
+                try { MS_SQLConnector msc = MS_SQLConnector.getConect();
+                    Connection mssqlConnection = msc.connection;
+                    MS_SQLSelect.ReadUser(mssqlConnection,
+                            check.GetChecker());
+                } catch (SQLException e) {
+                    MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
+                } runOnUiThread(new Runnable() {@Override public void run()
+                    {UserData.SetData(activity, checkboxes, false);}
+                });
+            }
+        }).start();
 
         ImageButton button_adduser = findViewById(R.id.button_returnview);
-        button_adduser.setOnClickListener(enter -> {
-            vibrator.vibrate(50);
-            Intent intent;
+        button_adduser.setOnClickListener(enter -> { vibrator.vibrate(50); Intent intent;
             if (data.getUserType()) intent = new Intent(A_C_UserView.this, A_T_Users.class);
             else intent = new Intent(A_C_UserView.this, A_T_Users_N.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
 
         ImageButton btn_back = findViewById(R.id.button_beck);
-        btn_back.setOnClickListener(enter -> {
-            vibrator.vibrate(50);
-            Intent intent;
+        btn_back.setOnClickListener(enter -> { vibrator.vibrate(50); Intent intent;
             if (data.getUserType()) intent = new Intent(A_C_UserView.this, A_T_Users.class);
             else intent = new Intent(A_C_UserView.this, A_T_Users_N.class);
-            startActivity(intent);
-            finish();
+            startActivity(intent); finish();
         });
     }
 }

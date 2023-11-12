@@ -154,7 +154,7 @@ public class A_C_Input extends AppCompatActivity {
                         } else {String str = "x 0/" + countStr; count.setText(str); checked.setChecked(false);
                         }; button.setOnTouchListener(touchListener);
                         button.setId(i); i++; View_s.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
@@ -181,7 +181,7 @@ public class A_C_Input extends AppCompatActivity {
                             String strCount = count.getText().toString().trim(); int index = strCount.indexOf("/");
                             String result = strCount.substring(index + 1);
                             MS_SQLUpdate.UPDPosition(mssqlConnection, prod_ids.get(i), Integer.parseInt(result), 1);
-                        } msc.disconnect();
+                        }
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.input_list_end, Toast.LENGTH_SHORT).show();

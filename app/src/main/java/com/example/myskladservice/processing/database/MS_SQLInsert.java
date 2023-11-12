@@ -100,11 +100,11 @@ public class MS_SQLInsert extends Exception {
                 count, count_old);
     }
 
-    public static int NewArriveOrder(Connection connection, int arrive_id, int company,
+    public static void NewArriveOrder(Connection connection, int arrive_id, int company,
                                      int getChecker, int i) throws SQLException {
         String query = "INSERT INTO MYAppData.[OrdersArriveDetails] ([company_id], [orders_id], " +
                 "[ordersArrive_id], [count]) VALUES (?, ?, ?, ?)";
-        return executeInsertWithTransaction(connection, query, company, getChecker, arrive_id, i);
+        executeInsertWithTransaction(connection, query, company, getChecker, arrive_id, i);
     }
 
     public static int AddChecking(Connection connection, String company, String performer, int state,

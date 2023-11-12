@@ -101,7 +101,7 @@ public class A_S_Menu extends AppCompatActivity {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTaskPrinted(
-                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Adr");
+                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Perf");
                     while (resultSet.next()) {
                         View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre,
                                 container, false);

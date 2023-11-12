@@ -81,7 +81,6 @@ public class A_S_Menu_N extends AppCompatActivity {
                     Connection mssqlConnection = msc.connection;
                     onWork = MS_SQLSelect.IsUserAtWork(mssqlConnection,
                             data.getCompany(), data.getUserLogin());
-                    msc.disconnect();
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 } return null;
@@ -128,7 +127,7 @@ public class A_S_Menu_N extends AppCompatActivity {
                         String time = resultSet.getInt("endtime") + " " +
                                 getString(R.string.time_points); complitetime.setText(time);
                         button.setId(resultSet.getInt("id")); Tasks.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
@@ -157,7 +156,6 @@ public class A_S_Menu_N extends AppCompatActivity {
                         Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDUserATWork( mssqlConnection, false,
                                 data.getCompany(), data.getUserLogin());
-                        msc.disconnect();
                     }catch (SQLException e){
                         MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }
@@ -182,7 +180,6 @@ public class A_S_Menu_N extends AppCompatActivity {
                         Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDUserATWork( mssqlConnection, true,
                                 data.getCompany(), data.getUserLogin());
-                        msc.disconnect();
                     }catch (SQLException e){
                         MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                     }

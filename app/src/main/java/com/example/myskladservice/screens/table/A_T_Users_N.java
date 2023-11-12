@@ -98,7 +98,7 @@ public class A_T_Users_N extends AppCompatActivity {
                         if (resultSet.getBoolean("fullacess"))
                             uimage.setImageResource(R.drawable.ico_manager);
                         Users.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }

@@ -128,63 +128,46 @@ public class A_C_Packing extends AppCompatActivity {
             }
         };
 
-        class CheckingPrint extends AsyncTask<Void, Void, Void> {
-
-            private TaskInterface listener; int OrderCode;
-
-            public CheckingPrint(TaskInterface listener) {
-                this.listener = listener;
-            }
-
-            protected Void doInBackground(Void... params) {
-                try {
+        new Thread(new Runnable() {
+            @Override public void run() {
+                int OrderCode = 0; try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadOrderDetails(
                             mssqlConnection, checker.GetChecker());
-                    resultSet.next(); OrderCode = resultSet.getInt("code");
-                    if(resultSet.getInt("state") != 0 ) checker.ChangePrivace(true);
-                    resultSet.previous(); int i = 1; while (resultSet.next()) {
-                        View temp = getLayoutInflater().inflate(R.layout.template_cur_packing,
+
+                    int i = 1; while (resultSet.next()) {
+                        if (i==1){ OrderCode = resultSet.getInt("code");
+                            if(resultSet.getInt("state") != 0 ) checker.ChangePrivace(true);
+                        } View temp = getLayoutInflater().inflate(R.layout.template_cur_packing,
                                 TableView, false);
+                        String countStr = String.valueOf(resultSet.getInt("count"));
                         ImageButton button = temp.findViewById(R.id.button_checkcur);
                         ImageView border = temp.findViewById(R.id.cur_border);
+                        border.setAlpha(0F); if (i == 1) border.setAlpha(1F);
                         CheckBox checked = temp.findViewById(R.id.cur_state);
                         TextView count = temp.findViewById(R.id.view_count);
                         TextView name = temp.findViewById(R.id.view_name);
 
                         name.setText(resultSet.getString("name"));
-                        prod_ids.add(resultSet.getInt("id"));
                         codes.add(resultSet.getString("code"));
+                        prod_ids.add(resultSet.getInt("id"));
 
-                        border.setAlpha(0F); if (i == 1) border.setAlpha(1F);
-
-                        button.setOnTouchListener(touchListener);
-
-                        String countStr = String.valueOf(resultSet.getInt("count"));
-                        if (checker.GetPrivace()) {
-                            count.setText("x " + countStr + "/" + countStr);
-                        } else {count.setText("x 0/" + countStr); checked.setChecked(false);};
-
-                        button.setId(i); i++; View_s.add(temp);
+                        if (checker.GetPrivace()) { String str = "x " + countStr + "/" + countStr;count.setText(str);
+                        } else { String str = "x 0/" + countStr; count.setText(str); checked.setChecked(false);};
+                        button.setOnTouchListener(touchListener); button.setId(i); i++; View_s.add(temp);
                     }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
-                } return null;
+                }
+                int finalOrderCode = OrderCode; runOnUiThread(new Runnable() {
+                    public void run() { TableView.removeAllViews();
+                        text_info.setText(String.valueOf(finalOrderCode));
+                        for (View userView : View_s) TableView.addView(userView);
+                    }
+                });
             }
-
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                text_info.setText(String.valueOf(OrderCode));
-                if (listener != null) listener.onTaskComplete();
-            }
-        }
-
-        CheckingPrint checkingPrint = new CheckingPrint(new TaskInterface() {
-            @Override
-            public void onTaskComplete() { TableView.removeAllViews();
-                for (View userView : View_s) TableView.addView(userView); }
-        }); checkingPrint.execute();
+        }).start();
 
         btn_print.setOnClickListener(enter->{ vibrator.vibrate(50);
             btn_print.setEnabled(false);  btn_print.setAlpha(0.7f);
@@ -202,32 +185,15 @@ public class A_C_Packing extends AppCompatActivity {
                     try {
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
+                        ArrayList<Integer> returned = MS_SQLUpdate.UPDPackingInfo(mssqlConnection, data.getCompany(),
+                                data.getUserLogin(), TTNCode.get(), allItemCounter.get(), checker.GetChecker());
 
-                        resultSet = MS_SQLSelect.HasCompanyEmail(mssqlConnection, data.getCompany());
-                        resultSet.next(); int company = resultSet.getInt("id");
-                        resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, data.getUserLogin(), company);
-                        resultSet.next(); int user_id = resultSet.getInt("id");
-
-                        int arrive_id;
-                        ResultSet resp = MS_SQLSelect.ArriverAtThatDay(mssqlConnection, company);
-                        if (resp.next() && resp.getInt("state") == 0){ arrive_id = resp.getInt("id");
-                            MS_SQLUpdate.AddArriver(mssqlConnection, arrive_id, resp.getInt("sum_count") + 1);
-                        } else{
-                            arrive_id = MS_SQLInsert.NewArriverAtThatDay(mssqlConnection, company);
-                        }
-
-                        MS_SQLUpdate.UPDPackingInfo(mssqlConnection, checker.GetChecker(), user_id, TTNCode.get(), 2, allItemCounter);
                         int i = 0; for(View temp : View_s){
-                            TextView count = temp.findViewById(R.id.view_count);
-                            String strCount = count.getText().toString().trim();
-                            int index = strCount.indexOf("/");
-                            String result = strCount.substring(index + 1);
-
+                            TextView count = temp.findViewById(R.id.view_count); String strCount = count.getText().toString().trim();
+                            int index = strCount.indexOf("/"); String result = strCount.substring(index + 1);
                             MS_SQLUpdate.UPDPosition(mssqlConnection, prod_ids.get(i), Integer.parseInt(result), 2);
-                            MS_SQLInsert.NewArriveOrder(mssqlConnection, arrive_id, company, checker.GetChecker(), 1);
+                            MS_SQLInsert.NewArriveOrder(mssqlConnection, returned.get(0), returned.get(3), checker.GetChecker(), 1);
                         }
-
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.order_packing_continue, Toast.LENGTH_SHORT).show();

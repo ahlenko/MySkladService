@@ -148,27 +148,16 @@ public class ChoiseProcessor {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
-                            ResultSet resultSet;
-                            resultSet = MS_SQLSelect.HasCompanyEmail(
-                                    mssqlConnection, data.getCompany()); resultSet.next();
-                            resultSet = MS_SQLSelect.HasUserLogin(
-                                    mssqlConnection, data.getUserLogin(), resultSet.getInt("id"));
-                            resultSet.next();
-                            int iduser = resultSet.getInt("id");
-                            switch (type){
-                                case 0:
-                                    data.ChangePassword(upd);
+                            ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP( mssqlConnection,
+                                    data.getCompany(), data.getUserLogin());resultSet.next();
+                            int iduser = resultSet.getInt("id"); switch (type){
+                                case 0: data.ChangePassword(upd);
                                     MS_SQLUpdate.UPDUserPassword(mssqlConnection, upd, iduser);
-                                    data.SaveData();
-                                    break;
-                                case 1:
-                                    MS_SQLUpdate.UPDUserPhone(mssqlConnection, upd, iduser);
-                                    break;
-                                case 2:
-                                    data.ChangeLogin(upd);
+                                    data.SaveData(); break;
+                                case 1: MS_SQLUpdate.UPDUserPhone(mssqlConnection, upd, iduser); break;
+                                case 2: data.ChangeLogin(upd);
                                     MS_SQLUpdate.UPDUserLogin(mssqlConnection, upd, iduser);
-                                    data.SaveData();
-                                    break;
+                                    data.SaveData(); break;
                             }
                         } catch (SQLException e) {
                             Toast.makeText(context, R.string.database_err, Toast.LENGTH_SHORT).show();
@@ -189,7 +178,6 @@ public class ChoiseProcessor {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
-                            int i = check.GetChecker();
                             MS_SQLDelete.DelPos(mssqlConnection, check.GetChecker());
                             activity.runOnUiThread(new Runnable() {
                                 public void run() { activity.startActivity(intent); activity.finish();}
@@ -197,7 +185,8 @@ public class ChoiseProcessor {
                         } catch (SQLException e) {
                             activity.runOnUiThread(new Runnable() {
                                 public void run() {
-                                    Toast.makeText(context, R.string.position_del_err, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, R.string.position_del_err,
+                                            Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

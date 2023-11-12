@@ -91,7 +91,7 @@ public class A_S_Login extends AppCompatActivity {
                     boolean pass_correct = Objects.equals(data.getUserPass(), resultSet.getString("password"));
                     boolean full_access = resultSet.getBoolean("fullacess");
 
-                    msc.disconnect(); if (data.getEnterType() != 0){
+                    if (data.getEnterType() != 0){
                         if (pass_correct){
                             data.ChangeUserType(full_access);
                             if (data.getEnterType() == 2){

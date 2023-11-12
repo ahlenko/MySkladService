@@ -123,16 +123,9 @@ public class A_C_Output extends AppCompatActivity {
             }
         };
 
-        class CheckingPrint extends AsyncTask<Void, Void, Void> {
-
-            private TaskInterface listener; int OrderCode;
-
-            public CheckingPrint(TaskInterface listener) {
-                this.listener = listener;
-            }
-
-            protected Void doInBackground(Void... params) {
-                try {
+        new Thread(new Runnable() {
+            @Override public void run() {
+                int OrderCode = 0; try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadAllOrderArrive(
@@ -162,25 +155,20 @@ public class A_C_Output extends AppCompatActivity {
                         button.setOnTouchListener(touchListener);
                         count.setText(countStr); button.setId(i);
                         i++; View_s.add(temp);
-                    } msc.disconnect();
+                    }
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
-                } return null;
+                }
+                int finalOrderCode = OrderCode; runOnUiThread(new Runnable() {
+                    public void run() { TableView.removeAllViews();
+                        String str = "0 / " + String.valueOf(finalOrderCode);
+                        text_info.setText(str); orderCount.set(finalOrderCode);
+                        if (View_s.isEmpty()) infostate.setText(R.string.output_list_empty);
+                        else for (View userView : View_s) TableView.addView(userView);
+                    }
+                });
             }
-
-            protected void onPostExecute(Void result) {super.onPostExecute(result);
-                String str = "0 / " + String.valueOf(OrderCode); text_info.setText(str);
-                orderCount.set(OrderCode); if (listener != null) listener.onTaskComplete();
-            }
-        }
-
-        CheckingPrint checkingPrint = new CheckingPrint(new TaskInterface() {
-            @Override
-            public void onTaskComplete() {TableView.removeAllViews();
-                if (View_s.isEmpty()) infostate.setText(R.string.output_list_empty);
-                else for (View userView : View_s) TableView.addView(userView);
-            }
-        }); checkingPrint.execute();
+        }).start();
 
         btn_confirm.setOnClickListener(enter->{
             new Thread(new Runnable() {
@@ -191,7 +179,6 @@ public class A_C_Output extends AppCompatActivity {
                         Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDAdditionOrOrdersArriveInfo(mssqlConnection, data.getCompany(),
                                 data.getUserLogin(), checker.GetChecker(), 2, "OrdersArrive");
-                        msc.disconnect();
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.output_list_end, Toast.LENGTH_SHORT).show();

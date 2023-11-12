@@ -139,7 +139,7 @@ public class A_C_Checking extends AppCompatActivity {
                         if (!isEmpty) { Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes,
                                 0, imageBytes.length); image.setImageBitmap(bitmap); }
                         View_s.add(temp);
-                    } int finalCountInt = countInt; msc.disconnect();
+                    } int finalCountInt = countInt;
                     runOnUiThread(new Runnable() {
                         @Override public void run() {
                             String str = "-- / " + finalCountInt; text_info.setText(str);
@@ -218,7 +218,7 @@ public class A_C_Checking extends AppCompatActivity {
                                     prod_ids.get(i), ATCount_fact, ATCount) == -1){
                                 MS_SQLDelete.DelChecking(mssqlConnection, checking_id); throw  new SQLException();
                             } MS_SQLUpdate.UPDPosition(mssqlConnection, ATCount_fact, prod_ids.get(i), 0); i++;
-                        } msc.disconnect();
+                        }
 
                         runOnUiThread(new Runnable() {
                             public void run() {

@@ -23,27 +23,23 @@ public class PrintTask {
         TextView notify_count = activity.findViewById(R.id.notify_count);
         ImageView ring_notify = activity.findViewById(R.id.ring_notify);
         AppWorkData data = new AppWorkData(context);
-        class TaskPrint extends AsyncTask<Void, Void, Void> {
-            private int count = 0;
-            protected Void doInBackground(Void... params) {
-                try { MS_SQLConnector msc = MS_SQLConnector.getConect();
+
+        new Thread(new Runnable() {
+            @Override public void run() {
+                int count = 0; try { MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     count = MS_SQLSelect.ReadNotifyCount(
                             mssqlConnection, data.getCompany(), data.getUserLogin());
-                    msc.disconnect();
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, intent, activity);
-                } return null;
+                } int finalCount = count; activity.runOnUiThread(new Runnable() {
+                    @Override public void run() { if (finalCount != 0){
+                            notify_count.setText(String.valueOf(finalCount));
+                            ring_notify.setVisibility(View.VISIBLE);
+                            notify_count.setVisibility(View.VISIBLE); }
+                    }
+                });
             }
-            protected void onPostExecute(Void result) {
-                if (count != 0){
-                    notify_count.setText(String.valueOf(count));
-                    ring_notify.setVisibility(View.VISIBLE);
-                    notify_count.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-
-        TaskPrint myTask = new TaskPrint(); myTask.execute();
+        }).start();
     }
 }
