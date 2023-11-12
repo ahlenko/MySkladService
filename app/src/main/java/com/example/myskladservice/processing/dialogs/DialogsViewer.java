@@ -30,6 +30,7 @@ import com.example.myskladservice.processing.shpreference.AppWorkData;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class DialogsViewer extends DialogFragment {
 
@@ -39,62 +40,42 @@ public class DialogsViewer extends DialogFragment {
                                        String title, String massage, String neg_text, String pos_text, int type) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View customLayout = inflater.inflate(R.layout.dialog_simple, null);
-        ListenerProcessor listener = ChoiseProcessor.defaultInitialize();
-
-        switch (type){
-            case 1: listener = ChoiseProcessor.databaseMessage(intent, activity); break;
+        ListenerProcessor listener = ChoiseProcessor.defaultInitialize(); switch (type){
+            case 5: listener = ChoiseProcessor.deleteMainConfirm(intent, activity, context); break;
+            case 6: listener = ChoiseProcessor.deleteRegCompany(intent, activity, context); break;
+            case 9: listener = ChoiseProcessor.deletePosition(intent, activity, context); break;
             case 2: listener = ChoiseProcessor.incorectLogin(intent, activity, context); break;
             case 3: listener = ChoiseProcessor.incorectEmail(intent, activity, context); break;
             case 4: listener = ChoiseProcessor.deleteConfirm(intent, activity, context); break;
-            case 5: listener = ChoiseProcessor.deleteMainConfirm(intent, activity, context); break;
-            case 6: listener = ChoiseProcessor.deleteRegCompany(intent, activity, context); break;
             case 7: listener = ChoiseProcessor.oncanselreg(intent, activity, context); break;
+            case 1: listener = ChoiseProcessor.databaseMessage(intent, activity); break;
             case 8: listener = ChoiseProcessor.onExit(intent, activity, context); break;
-            case 9: listener = ChoiseProcessor.deletePosition(intent, activity, context); break;
-        }
-
-        ListenerProcessor finalListener = listener;
-
+        } ListenerProcessor finalListener = listener;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        TextView T_title = customLayout.findViewById(R.id.title);
-        TextView T_massage = customLayout.findViewById(R.id.message);
-        TextView T_pos_text = customLayout.findViewById(R.id.pos_text);
-        TextView T_neg_text = customLayout.findViewById(R.id.neg_text);
-
         ImageButton pos = customLayout.findViewById(R.id.positive_button);
         ImageButton neg = customLayout.findViewById(R.id.negative_button);
+        TextView T_pos_text = customLayout.findViewById(R.id.pos_text);
+        TextView T_neg_text = customLayout.findViewById(R.id.neg_text);
+        TextView T_massage = customLayout.findViewById(R.id.message);
+        TextView T_title = customLayout.findViewById(R.id.title);
 
-        T_title.setText(title);
-        T_massage.setText(massage);
-        T_pos_text.setText(pos_text);
-        T_neg_text.setText(neg_text);
+        T_title.setText(title);       T_massage.setText(massage);
+        T_pos_text.setText(pos_text); T_neg_text.setText(neg_text);
 
-        if (type == 3){
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        if (type == 3){ builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override public void onDismiss(DialogInterface dialog) {
-                    dialog.dismiss();
-                    finalListener.onPositiveButtonClick();
-                }
+                    dialog.dismiss(); finalListener.onPositiveButtonClick();}
             });
-        }
-
-        builder.setView(customLayout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        } builder.setView(customLayout); AlertDialog dialog = builder.create(); dialog.show();
 
         pos.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                dialog.dismiss();
-                finalListener.onPositiveButtonClick();
-            }
+            @Override public void onClick(View view) { dialog.dismiss();
+                finalListener.onPositiveButtonClick();}
         });
 
         neg.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                dialog.dismiss();
-                finalListener.onNegativeButtonClick();
-            }
+            @Override public void onClick(View view) { dialog.dismiss();
+                finalListener.onNegativeButtonClick();}
         });
     }
 
@@ -103,27 +84,21 @@ public class DialogsViewer extends DialogFragment {
                                      String Old, String New, int type) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View customLayout = inflater.inflate(R.layout.dialog_changedata, null);
-
         AppWorkData data = new AppWorkData(context);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        TextView T_title = customLayout.findViewById(R.id.title);
-        TextView T_pos_text = customLayout.findViewById(R.id.pos_text);
-        TextView T_neg_text = customLayout.findViewById(R.id.neg_text);
-        TextView textOld = customLayout.findViewById(R.id.textOld);
-        TextView textNew = customLayout.findViewById(R.id.textNew);
-
-        EditText enterOld = customLayout.findViewById(R.id.enterOld);
-        EditText enterNew = customLayout.findViewById(R.id.enterNew);
 
         ImageButton pos = customLayout.findViewById(R.id.positive_button);
         ImageButton neg = customLayout.findViewById(R.id.negative_button);
+        TextView T_pos_text = customLayout.findViewById(R.id.pos_text);
+        TextView T_neg_text = customLayout.findViewById(R.id.neg_text);
+        EditText enterOld = customLayout.findViewById(R.id.enterOld);
+        EditText enterNew = customLayout.findViewById(R.id.enterNew);
+        TextView textOld = customLayout.findViewById(R.id.textOld);
+        TextView textNew = customLayout.findViewById(R.id.textNew);
+        TextView T_title = customLayout.findViewById(R.id.title);
 
-        T_pos_text.setText(pos_text);
-        T_neg_text.setText(neg_text);
-        T_title.setText(title);
-        textOld.setText(Old);
+        T_pos_text.setText(pos_text);   T_neg_text.setText(neg_text);
+        T_title.setText(title);         textOld.setText(Old);
         textNew.setText(New);
 
         if(type != 0) enterOld.setEnabled(false);
@@ -138,31 +113,19 @@ public class DialogsViewer extends DialogFragment {
                     try {
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
-                        ResultSet resultSet;
-                        resultSet = MS_SQLSelect.HasCompanyEmail(
-                                mssqlConnection, data.getCompany()); resultSet.next();
-                        resultSet = MS_SQLSelect.HasUserLogin(
-                                mssqlConnection, data.getUserLogin(), resultSet.getInt("id"));
-                        resultSet.next();
+                        ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP(mssqlConnection,
+                                data.getCompany(), data.getUserLogin()); resultSet.next();
                         number = resultSet.getString("phnumber");
-                    }catch (SQLException e){
-                        number = "";
-                    }
-                    return null;
+                    } catch (SQLException e){ number = "";
+                    } return null;
                 }
 
                 protected void onPostExecute(Void result){
-                    if(number == ""){
-                        textNew.setText(R.string.database_err2);
+                    if(Objects.equals(number, "")){ textNew.setText(R.string.database_err2);
                         textNew.setTextColor(activity.getResources().getColor(R.color.red_note));
-                    } else {
-                        enterOld.setText(number);
-                    }
+                    } else enterOld.setText(number);
                 }
-            }
-
-            PrintPhone phoneTask = new PrintPhone();
-            phoneTask.execute();
+            } PrintPhone phoneTask = new PrintPhone(); phoneTask.execute();
         }
 
         if(type == 2)  {
@@ -171,22 +134,18 @@ public class DialogsViewer extends DialogFragment {
             enterOld.setText(data.getUserLogin());
         }
 
-        builder.setView(customLayout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        builder.setView(customLayout); AlertDialog dialog = builder.create();dialog.show();
 
         pos.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 ListenerProcessor listener = ChoiseProcessor.dataUpdate(activity, context, type, "");
-                dialog.dismiss();
-                listener.onPositiveButtonClick();
+                dialog.dismiss();listener.onPositiveButtonClick();
             }
         });
 
         neg.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                String old = enterOld.getText().toString().trim();
-                String renew = enterNew.getText().toString().trim();
+                String old = enterOld.getText().toString().trim(), renew = enterNew.getText().toString().trim();
                 ListenerProcessor listener = ChoiseProcessor.dataUpdate(activity, context, type, renew);
                 class CheckUserData extends AsyncTask<Void, Void, Void>{
                     private SmallException exception;
@@ -194,70 +153,53 @@ public class DialogsViewer extends DialogFragment {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
-                            ResultSet resultSet;
-                            resultSet = MS_SQLSelect.HasCompanyEmail(
-                                    mssqlConnection, data.getCompany()); resultSet.next();
-                            int company = resultSet.getInt("id");
-                            resultSet = MS_SQLSelect.HasUserLogin(
-                                    mssqlConnection, data.getUserLogin(), company);
-                            resultSet.next();
-                            switch (type){
+                            ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP(mssqlConnection,
+                                    data.getCompany(), data.getUserLogin()); resultSet.next();
+                            String password = resultSet.getString("password");
+                            resultSet = MS_SQLSelect.UsedEmployeeData(mssqlConnection,
+                                    data.getCompany(), renew, renew);
+                            resultSet.next(); switch (type){
                                 case 0: {
-                                    if (old.equals(resultSet.getString("password")))
+                                    if (old.equals(password))
                                         if (!InputChecker.isNotPassword(renew, textNew, activity))
-                                        {throw new SmallException(2, "Good");}
-                                        else {throw new SmallException(1, getString(R.string.inc_pass));}
-                                    else {throw new SmallException(0, getString(R.string.non_current_password));}
+                                            throw new SmallException(2, "Good");
+                                        else throw new SmallException(1, getString(R.string.inc_pass));
+                                    else throw new SmallException(0, getString(R.string.non_current_password));
                                 }
                                 case 1:{
-                                    resultSet = MS_SQLSelect.HasUserPhone(mssqlConnection, renew, company);
-                                    if (resultSet.next())
+                                    if (resultSet.getString("phnumber") != null)
                                         throw new SmallException(1, getString(R.string.used_phone));
                                     if (!InputChecker.isNotPhone(renew, textNew, activity))
-                                        {throw new SmallException(2, "Good");}
-                                    else
-                                        {throw new SmallException(1, getString(R.string.inc_phone));}
+                                        throw new SmallException(2, "Good");
+                                    else throw new SmallException(1, getString(R.string.inc_phone));
                                 }
                                 case 2:{
-                                    resultSet = MS_SQLSelect.HasUserLogin(mssqlConnection, renew, company);
-                                    if (resultSet.next())
+                                    if (resultSet.getString("login") != null)
                                         throw new SmallException(1, getString(R.string.used_login));
                                     if (!InputChecker.isNotEmail(renew, textNew, 35, activity))
-                                        {throw new SmallException(2, "Good");}
-                                    else
-                                        {throw new SmallException(1, getString(R.string.inc_login));}
+                                        throw new SmallException(2, "Good");
+                                    else throw new SmallException(1, getString(R.string.inc_login));
                                 }
                             }
-
                         } catch (SQLException e){
                             exception = new SmallException(1, getString(R.string.database_err2));
                         } catch (SmallException e){
                             exception = e;
-                        }
-                        return null;
-
+                        } return null;
                     }
 
                     protected void onPostExecute(Void result){
                         switch (exception.getErrorCode()) {
-                            case 0:
-                                textOld.setText(exception.getErrorMessage());
-                                textOld.setTextColor(activity.getResources().getColor(R.color.red_note));
-                                break;
-                            case 1:
-                                textNew.setText(exception.getErrorMessage());
-                                textNew.setTextColor(activity.getResources().getColor(R.color.red_note));
-                                break;
-                            case 2:
-                                dialog.dismiss();
-                                listener.onNegativeButtonClick();
-                                break;
+                            case 0: textOld.setText(exception.getErrorMessage()); textOld.setTextColor(
+                                    activity.getResources().getColor(R.color.red_note)); break;
+                            case 1: textNew.setText(exception.getErrorMessage());
+                                textNew.setTextColor(activity.getResources().
+                                        getColor(R.color.red_note)); break;
+                            case 2: dialog.dismiss();
+                                listener.onNegativeButtonClick(); break;
                         }
                     }
-                }
-
-                CheckUserData enterTask = new CheckUserData();
-                enterTask.execute();
+                } CheckUserData enterTask = new CheckUserData(); enterTask.execute();
             }
         });
     }
@@ -275,17 +217,12 @@ public class DialogsViewer extends DialogFragment {
 
         BC_Scan scan = new BC_Scan(scannerView, scanned, context, activity, req, vibrator);
 
-        builder.setView(customLayout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        builder.setView(customLayout); AlertDialog dialog = builder.create(); dialog.show();
 
         confirm.setOnClickListener(enter->{
-            if (scanned.getText().toString().trim().isEmpty() || scanned.getText().toString().trim().equals(activity.getString(R.string.scanning_not))){
+            if (scanned.getText().toString().trim().isEmpty() || scanned.getText().toString().trim().equals(activity.getString(R.string.scanning_not)))
                 scanned.setText(R.string.scanning_not);
-            } else {
-                code.setText(scanned.getText().toString().trim());
-                dialog.dismiss();
-            }
+            else { code.setText(scanned.getText().toString().trim()); dialog.dismiss();}
         });
     }
 }

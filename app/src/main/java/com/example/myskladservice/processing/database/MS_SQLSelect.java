@@ -19,7 +19,7 @@ public class MS_SQLSelect extends Exception {
     public static ResultSet IsCorrectLoginOP(Connection connection, String email,
                                              String login) throws SQLException {
         String query = "SELECT E.id, C.email, E.fullacess, E.password, " +
-                "E.login FROM MYAppData.Company C LEFT JOIN " +
+                "E.login, E.phnumber FROM MYAppData.Company C LEFT JOIN " +
                 "MYAppData.Employee E ON C.id = E.company_id " +
                 "AND E.login = ? WHERE C.email = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
