@@ -117,7 +117,7 @@ public class A_C_Packing extends AppCompatActivity {
                                         btn_print.setEnabled(true); btn_print.setAlpha(1f); }
                                 }
                             }
-                        }; mHandler.postDelayed(mRunnable, 500); break;
+                        }; mHandler.postDelayed(mRunnable, 150); break;
                     case MotionEvent.ACTION_UP:
                         if (mHandler != null && mRunnable != null) {
                             mHandler.removeCallbacks(mRunnable);

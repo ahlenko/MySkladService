@@ -63,7 +63,6 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
         AppCompatActivity activity = this;
         Context context = this;
 
-
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
 
         ImageButton btn_back = findViewById(R.id.button_beck);
@@ -123,6 +122,7 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                                 String nameUser = resultSet.getString("surname") +
                                         " " + resultSet.getString("name") + " " +
                                         resultSet.getString("lastname");
+                                nameUser = nameUser.length() > 23 ? nameUser.substring(0, 23) + "..." : nameUser;
                                 UserNames.add(nameUser);
                                 UserId.add(resultSet.getInt("id"));
                             } else AdresserID = resultSet.getInt("id");

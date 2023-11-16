@@ -108,7 +108,7 @@ public class A_C_Input extends AppCompatActivity {
                                     } vibrator.vibrate(50);
                                 }
                             }
-                        }; mHandler.postDelayed(mRunnable, 500); break;
+                        }; mHandler.postDelayed(mRunnable, 150); break;
                     case MotionEvent.ACTION_UP:
                         if (mHandler != null && mRunnable != null) {
                             mHandler.removeCallbacks(mRunnable);

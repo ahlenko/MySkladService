@@ -263,15 +263,15 @@
 
             <Spinner
                 android:id="@+id/select_statistiks"
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
                 android:layout_weight="2"
                 android:background="@drawable/strilka_spinner"
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/enter_statistiks"
+                android:spinnerMode="dialog"
+                app:layout_constraintBottom_toBottomOf="@+id/title_statistiks"
                 app:layout_constraintEnd_toEndOf="@+id/enter_of"
                 app:layout_constraintStart_toStartOf="@+id/select_border"
-                app:layout_constraintTop_toTopOf="@+id/enter_statistiks" />
+                app:layout_constraintTop_toTopOf="@+id/title_statistiks" />
 
             <TextView
                 android:id="@+id/title_of"
@@ -311,16 +311,15 @@
 
             <Spinner
                 android:id="@+id/select_of"
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"
-                android:layout_marginTop="3dp"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
                 android:layout_weight="2"
                 android:background="@drawable/strilka_spinner"
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toBottomOf="@+id/enter_of"
+                android:spinnerMode="dialog"
+                app:layout_constraintBottom_toBottomOf="@+id/title_of"
                 app:layout_constraintEnd_toEndOf="@+id/enter_of"
                 app:layout_constraintStart_toStartOf="@+id/select_border"
-                app:layout_constraintTop_toTopOf="@+id/enter_of" />
+                app:layout_constraintTop_toTopOf="@+id/title_of" />
 
             <ImageView
                 android:id="@+id/border_bottom1"
@@ -341,7 +340,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.165" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ConstPlot"

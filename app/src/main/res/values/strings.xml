@@ -77,7 +77,7 @@
     <string name="inc_phone">Некоректний номер телефону</string>
     <string name="ttl_logFirst">Увійти як співробітник</string>
     <string name="ttl_taskmanager">Делегування завдань</string>
-    <string name="ttl_ingoing_orders">Надійшло товарів</string>
+    <string name="ttl_ingoing_orders">Опрацьовано надходжень</string>
     <string name="ttl_task_complyte">Виконано доручень</string>
     <string name="task_perform_time">Термін виконання:</string>
     <string name="old_new_phone">Старий номер телефону</string>
@@ -322,6 +322,13 @@
         <item>Збірка  замовлень</item>
         <item>Проведення обліку</item>
         <item>Інше завдання</item>
+    </string-array>
+
+    <string-array name="analitics_type">
+        <item>Оброблених замовлень</item>
+        <item>Виданих товарів</item>
+        <item>Опрацьованих надходжень</item>
+        <item>Виконаних доручень</item>
     </string-array>
 
     <string-array name="month">
