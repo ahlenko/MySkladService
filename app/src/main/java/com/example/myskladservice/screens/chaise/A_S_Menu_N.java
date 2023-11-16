@@ -104,7 +104,7 @@ public class A_S_Menu_N extends AppCompatActivity {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTaskPrinted(
-                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Adr");
+                            mssqlConnection, data.getCompany(), data.getUserLogin(), "Perf");
                     while (resultSet.next()) {
                         View temp = getLayoutInflater().inflate(R.layout.template_view_task_pre,
                                 container, false);
@@ -138,10 +138,11 @@ public class A_S_Menu_N extends AppCompatActivity {
                         while (iterator.hasNext()) {
                             View userView = iterator.next(); msg_count++;
                             container.addView(userView);
-                        } if (msg_count == 0){
-                            ring_notify.setVisibility(View.INVISIBLE);
-                            notify_count.setText("");
-                        } else notify_count.setText(String.valueOf(msg_count));
+                        } if (msg_count != 0){
+                            notify_count.setText(String.valueOf(msg_count));
+                            ring_notify.setVisibility(View.VISIBLE);
+                            notify_count.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
             }

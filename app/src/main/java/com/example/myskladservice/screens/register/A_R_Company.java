@@ -99,7 +99,7 @@ public class A_R_Company extends AppCompatActivity {
         int i = 0; for (CheckBox ch : checkboxes) { final int index = i;
             ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_blc));
+                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_wht));
                     else textViews.get(index).setTextColor(getColor(R.color.akcent_purple));}
             }); i++;
         }
@@ -150,30 +150,29 @@ public class A_R_Company extends AppCompatActivity {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
                             ResultSet resultSet = MS_SQLSelect.UsedCompanyData(mssqlConnection,
-                                    Sinputtel, Integer.parseInt(Sinputcode), Sinputemail);
+                            Sinputtel, Integer.parseInt(Sinputcode), Sinputemail);resultSet.next();
 
                             if (resultSet.getString("email") != null) email = true;
                             if (resultSet.getString("phnumber") != null) tel = true;
                             if (resultSet.getString("reg_number") != null) code = true;
                             if (tel || email || code) throw new SmallException(0, getString(R.string.pol_is_using));
 
-                            int workTimeID = MS_SQLInsert.AddWorkTime(mssqlConnection,
-                                    finalStimeStartW_enter, finalStimeEndW_enter,
-                                    finalStimeStartN_enter,finalStimeEndN_enter, true
-                            ); if (workTimeID == -1){
-                                throw new SmallException(0, getString(R.string.pol_sql_error));
-                            } int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
+                            int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
                                     days.get(0), days.get(1), days.get(2), days.get(3),
                                     days.get(4), days.get(5), days.get(6), true
                             ); if (workDaysID == -1) {
-                                MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, true);
                                 throw new SmallException(0, getString(R.string.pol_sql_error));
-                            }; int CompanyID = MS_SQLInsert.AddCompany(mssqlConnection,
+                            };int workTimeID = MS_SQLInsert.AddWorkTime(mssqlConnection,
+                                    workDaysID, finalStimeStartW_enter, finalStimeEndW_enter,
+                                    finalStimeStartN_enter,finalStimeEndN_enter, true
+                            ); if (workTimeID == -1){
+                                MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workDaysID, true);
+                                throw new SmallException(0, getString(R.string.pol_sql_error));
+                            }  int CompanyID = MS_SQLInsert.AddCompany(mssqlConnection,
                                     Sinputcompanyname, Sinputadres, Sinputspec, Sinputemail,
                                     Sinputtel, Sinputcode, workDaysID, workTimeID
                             ); if (CompanyID == -1) {
                                 MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, true);
-                                MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workTimeID, true);
                                 throw new SmallException(0, getString(R.string.pol_sql_error));
                             }; data.ChangeCompany(Sinputemail); data.SaveData();
                             runOnUiThread(new Runnable() {

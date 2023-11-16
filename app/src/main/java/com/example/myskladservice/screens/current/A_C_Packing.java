@@ -153,7 +153,7 @@ public class A_C_Packing extends AppCompatActivity {
                         codes.add(resultSet.getString("code"));
                         prod_ids.add(resultSet.getInt("id"));
 
-                        if (checker.GetPrivace()) { String str = "x " + countStr + "/" + countStr;count.setText(str);
+                        if (checker.GetPrivace()) { border.setAlpha(0f); String str = "x " + countStr + "/" + countStr; count.setText(str);
                         } else { String str = "x 0/" + countStr; count.setText(str); checked.setChecked(false);};
                         button.setOnTouchListener(touchListener); button.setId(i); i++; View_s.add(temp);
                     }
@@ -191,8 +191,8 @@ public class A_C_Packing extends AppCompatActivity {
                         int i = 0; for(View temp : View_s){
                             TextView count = temp.findViewById(R.id.view_count); String strCount = count.getText().toString().trim();
                             int index = strCount.indexOf("/"); String result = strCount.substring(index + 1);
-                            MS_SQLUpdate.UPDPosition(mssqlConnection, prod_ids.get(i), Integer.parseInt(result), 2);
-                            MS_SQLInsert.NewArriveOrder(mssqlConnection, returned.get(0), returned.get(3), checker.GetChecker(), 1);
+                            MS_SQLUpdate.UPDPosition(mssqlConnection, Integer.parseInt(result), prod_ids.get(i), 2);
+                            MS_SQLInsert.NewArriveOrder(mssqlConnection, returned.get(0), returned.get(2), prod_ids.get(i), 1);
                         }
                         runOnUiThread(new Runnable() {
                             public void run() {

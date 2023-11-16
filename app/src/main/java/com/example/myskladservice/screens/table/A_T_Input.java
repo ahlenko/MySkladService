@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
@@ -81,6 +82,15 @@ public class A_T_Input extends AppCompatActivity {
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
+        View.OnClickListener print = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { vibrator.vibrate(50);
+                view.setEnabled(false);
+                String massage = getString(R.string.print_doc_about_input);
+                Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
+            }
+        };
+
         Thread InputPrint = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -112,10 +122,11 @@ public class A_T_Input extends AppCompatActivity {
                             case 0: state.setText(R.string.output_state_0);
                                 printBtn.setAlpha(0.4f); break;
                             case 1: state.setText(R.string.output_state_1);
-                                packBtn.setAlpha(0.4f);
+                                packBtn.setAlpha(0.4f); packBtn.setEnabled(false);
                                 printBtn.setAlpha(0.4f); break;
                             case 2: state.setText(R.string.output_state_2);
-                                temp.setAlpha(0.4f); break;
+                                printBtn.setAlpha(1f); printBtn.setEnabled(true);
+                                temp.setAlpha(0.4f); printBtn.setOnClickListener(print); break;
                         } ID_s.add(resultSet.getInt("id")); date.setText(date_S);
                         packBtn.setId(iter); printBtn.setId(iter);
                         View_s.add(temp); iter++;
@@ -150,7 +161,6 @@ public class A_T_Input extends AppCompatActivity {
             infostate.setText(""); executor.execute(InputPrint);
         });
 
-
         button_prew.setOnClickListener (enter -> {
             button_next.setEnabled(true); button_next.setAlpha(1f);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -173,11 +183,5 @@ public class A_T_Input extends AppCompatActivity {
         check.ChangePrivace(false);
         Intent intent = new Intent(this, A_C_Input.class);
         startActivity(intent); finish();
-    }
-
-    public void ButtonPrint(View view) {
-        AppTableChecker check = new AppTableChecker(this);
-        check.ChangeChecker(ID_s.get(view.getId()));
-        check.ChangePrivace(false);
     }
 }

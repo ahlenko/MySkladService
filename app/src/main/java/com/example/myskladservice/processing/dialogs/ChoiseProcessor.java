@@ -133,8 +133,27 @@ public class ChoiseProcessor {
  /*8*/  ListenerProcessor listener = new ListenerProcessor() {
             final AppWorkData data = new AppWorkData(context);
             @Override public void onPositiveButtonClick() {}
-            @Override public void onNegativeButtonClick() { data.ClearData();
-                activity.startActivity(intent); activity.finish();}
+            @Override public void onNegativeButtonClick() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            MS_SQLConnector msc = MS_SQLConnector.getConect();
+                            Connection mssqlConnection = msc.connection;
+                            MS_SQLUpdate.UPDUserATWork(mssqlConnection, false,
+                                    data.getCompany(), data.getUserLogin());
+                        } catch (SQLException e){
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(context, R.string.position_del_err,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }
+                }).start();
+                data.ClearData(); activity.startActivity(intent); activity.finish();
+            }
         }; return listener;
     }
 
@@ -147,20 +166,31 @@ public class ChoiseProcessor {
                     public void run() {
                         try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
-                            Connection mssqlConnection = msc.connection;
+                            Connection mssqlConnection = msc.connection; String massage = "";
                             ResultSet resultSet = MS_SQLSelect.IsCorrectLoginOP( mssqlConnection,
                                     data.getCompany(), data.getUserLogin());resultSet.next();
                             int iduser = resultSet.getInt("id"); switch (type){
-                                case 0: data.ChangePassword(upd);
+                                case 0: data.ChangePassword(upd); massage = context.getString(R.string.data_emp_newpass);
                                     MS_SQLUpdate.UPDUserPassword(mssqlConnection, upd, iduser);
                                     data.SaveData(); break;
-                                case 1: MS_SQLUpdate.UPDUserPhone(mssqlConnection, upd, iduser); break;
-                                case 2: data.ChangeLogin(upd);
+                                case 1: massage = context.getString(R.string.data_emp_newphone);
+                                    MS_SQLUpdate.UPDUserPhone(mssqlConnection, upd, iduser); break;
+                                case 2: data.ChangeLogin(upd); massage = context.getString(R.string.data_emp_newlogin);
                                     MS_SQLUpdate.UPDUserLogin(mssqlConnection, upd, iduser);
                                     data.SaveData(); break;
-                            }
+                            } String finalMassage = massage; activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(context, finalMassage,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } catch (SQLException e) {
-                            Toast.makeText(context, R.string.database_err, Toast.LENGTH_SHORT).show();
+                            activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(context, R.string.position_del_err,
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 }).start();

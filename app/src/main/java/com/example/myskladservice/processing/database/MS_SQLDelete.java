@@ -1,5 +1,6 @@
 package com.example.myskladservice.processing.database;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,9 +23,9 @@ public class MS_SQLDelete extends Exception{
     }
 
     public static void DelUserByID (Connection connection, int id) throws SQLException {
-        String query = "DELETE FROM MyAppData.Employee WHERE Id = " + id;
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
+        String query = "{CALL DeletEmployee(?)}";
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, id); statement.execute();
     }
 
     public static void DelRegCompany (Connection connection, String email) throws SQLException {
@@ -41,12 +42,6 @@ public class MS_SQLDelete extends Exception{
 
     public static void DelPos (Connection connection, int id) throws SQLException {
         String query = "DELETE FROM MyAppData.Product WHERE id = " + id;
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
-    }
-
-    public static void DelCheckingInfo (Connection connection, int id) throws SQLException {
-        String query = "DELETE FROM MyAppData.CheckingValues WHERE checking_id = " + id;
         Statement statement = connection.createStatement();
         statement.executeUpdate(query);
     }

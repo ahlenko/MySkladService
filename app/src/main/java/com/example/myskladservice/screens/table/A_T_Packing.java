@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
@@ -83,6 +84,15 @@ public class A_T_Packing extends AppCompatActivity {
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
+        View.OnClickListener print = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { vibrator.vibrate(50);
+                view.setEnabled(false);
+                String massage = getString(R.string.print_doc_about_packing);
+                Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
+            }
+        };
+
         Thread PackingPrint = new Thread(new Runnable() {
             @Override public void run() {
                 try {
@@ -108,10 +118,11 @@ public class A_T_Packing extends AppCompatActivity {
                             case 0: state.setText(R.string.packing_state_0);
                                 printBtn.setAlpha(0.4f); break;
                             case 1: state.setText(R.string.packing_state_1);
-                                packBtn.setAlpha(0.4f);
+                                packBtn.setAlpha(0.4f); packBtn.setEnabled(false);
                                 printBtn.setAlpha(0.4f); break;
                             case 2: state.setText(R.string.packing_state_2);
-                                temp.setAlpha(0.4f); break;
+                                printBtn.setAlpha(1f); printBtn.setEnabled(true);
+                                temp.setAlpha(0.4f); printBtn.setOnClickListener(print); break;
                         } ID_s.add(resultSet.getInt("id"));
                         packBtn.setId(iter); printBtn.setId(iter);
                         View_s.add(temp); iter++;

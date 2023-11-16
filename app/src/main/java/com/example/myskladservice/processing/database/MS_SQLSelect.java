@@ -47,7 +47,7 @@ public class MS_SQLSelect extends Exception {
     }
 
     public static ResultSet ReadProducts(Connection connection, String email) throws SQLException {
-        String query = "SELECT P.*, P.id AS product_id FROM MYAppData.Company C LEFT JOIN " +
+        String query = "SELECT P.*, P.id AS product_id FROM MYAppData.Company C JOIN " +
                 "MYAppData.Product P ON C.id = P.company_id WHERE C.email = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email); return preparedStatement.executeQuery();
@@ -82,10 +82,10 @@ public class MS_SQLSelect extends Exception {
 
     public static ResultSet ReadEmployeeListAndManager(Connection connection,
                                                        String email) throws SQLException {
-        String query = "SELECT C.id as company_id E.id, E.surname, E.name, E.lastname, " +
+        String query = "SELECT C.id as company_id, E.id, E.surname, E.name, E.lastname, " +
                 "E.workpost, E.workplace, E.onwork, E.fullacess, C.manager_id, E.login " +
                 "FROM MYAppData.Employee E INNER JOIN MYAppData.Company C " +
-                "ON E.company_id = C.id WHERE C.email = ? ORDER BY E.surname;";
+                "ON E.company_id = C.id WHERE C.email = ? ORDER BY E.surname";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email); return preparedStatement.executeQuery();
     }
@@ -98,24 +98,6 @@ public class MS_SQLSelect extends Exception {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email); preparedStatement.setString(2, productName + "%");
         return preparedStatement.executeQuery();
-    }
-
-    public static ResultSet ReadTableInfo(Connection connection, String email,
-                                          LocalDate date, String tableName) throws SQLException {
-        String query = "SELECT " + (!Objects.equals(tableName, "Orders") ? "id," +
-                " performer_id, state, date, sum_count" : "id, state, sum_count, code, ttn_code") +
-                " FROM MYAppData." + tableName + " WHERE company_id" +
-                " IN (SELECT id FROM MYAppData.Company WHERE email = ?) " +
-                " " + (Objects.equals(tableName, "Orders") ? "AND DAY(date) = ? " : "") +
-                "AND MONTH(date) = ? AND YEAR(date) = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { int n = 1;
-            statement.setString(n, email); n++;
-            if(Objects.equals(tableName, "Orders")) {
-                statement.setInt(n, date.getDayOfMonth()); n++;
-            }statement.setInt(n, date.getMonthValue()); n++;
-            statement.setInt(n, date.getYear());
-        } return statement.executeQuery();
     }
 
     public static ResultSet ReadOrderDetails(Connection mssqlConnection, int id) throws SQLException {
@@ -168,10 +150,28 @@ public class MS_SQLSelect extends Exception {
         String query = "SELECT C.id, E1.login, E2.[phnumber], E1.password FROM MYAppData.Company C " +
                 "LEFT JOIN MYAppData.Employee E1 ON C.id = E1.company_id AND E1.login = ?" +
                 "LEFT JOIN MYAppData.Employee E2 ON C.id = E2.company_id AND E2.[phnumber] = ?" +
-                "WHERE C.email = ?'";
+                "WHERE C.email = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, login); preparedStatement.setString(2, ph_number);
         preparedStatement.setString(3, email); return preparedStatement.executeQuery();
+    }
+
+    public static ResultSet ReadTableInfo(Connection connection, String email,
+                                          LocalDate date, String tableName) throws SQLException {
+        String query = "SELECT " + (!Objects.equals(tableName, "Orders") ? "id," +
+                " performer_id, state, date, sum_count" : "id, state, sum_count, code, ttn_code") +
+                " FROM MYAppData." + tableName + " WHERE company_id" +
+                " IN (SELECT id FROM MYAppData.Company WHERE email = ?) " +
+                " " + (Objects.equals(tableName, "Orders") ? "AND DAY(date) = ? " : "") +
+                "AND MONTH(date) = ? AND YEAR(date) = ? ORDER BY state";
+        PreparedStatement statement = connection.prepareStatement(query);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { int n = 1;
+            statement.setString(n, email); n++;
+            if(Objects.equals(tableName, "Orders")) {
+                statement.setInt(n, date.getDayOfMonth()); n++;
+            }statement.setInt(n, date.getMonthValue()); n++;
+            statement.setInt(n, date.getYear());
+        } return statement.executeQuery();
     }
 
     public static void ReadUser (Connection connection, int id) throws SQLException{
@@ -218,10 +218,10 @@ public class MS_SQLSelect extends Exception {
     }
 
     public static void ReadTask (Connection connection, int id) throws  SQLException{
-        String query = "SELECT E.surname, E.name, E.lastname, ET.* FROM MYAppData.EmployeeTask ET" +
+        String query = "SELECT E.surname, E.name, E.lastname, ET.* FROM MYAppData.EmployeeTask ET " +
                 "LEFT JOIN MYAppData.Employee E ON E.id = ET.performer_id WHERE ET.id = " + id;
-        Statement statement = connection.createStatement(); ResultSet
-                resultSet = statement.executeQuery(query); resultSet.next();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query); resultSet.next();
         TaskData.type = resultSet.getString("type");
         TaskData.comment = resultSet.getString("text");
         TaskData.endtime = resultSet.getString("endtime");
@@ -247,25 +247,5 @@ public class MS_SQLSelect extends Exception {
         Worktime.wed = resultSet.getBoolean("wed"); Worktime.thu = resultSet.getBoolean("thu");
         Worktime.fri = resultSet.getBoolean("fri"); Worktime.sat = resultSet.getBoolean("sat");
         Worktime.san = resultSet.getBoolean("san");
-    }
-
-    //-------------------------------------------------------------------------------------------------------------
-
-    public static ResultSet  HasCompanyEmail (Connection connection, String email) throws SQLException {
-        String query = "SELECT id FROM MYAppData.Company WHERE email = '" + email + "'";
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(query);
-    }
-
-    public static ResultSet HasUserLogin (Connection connection, String login, int id) throws SQLException {
-        String query = "SELECT id, fullacess, password, phnumber, login FROM MYAppData.Employee WHERE login = '" + login + "' AND company_id = " + id;
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(query);
-    }
-
-    public static ResultSet HasUserPhone (Connection connection, String phone, int id) throws SQLException {
-        String query = "SELECT fullacess, password FROM MYAppData.Employee WHERE login = '" + phone + "' AND company_id = " + id;
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(query);
     }
 }

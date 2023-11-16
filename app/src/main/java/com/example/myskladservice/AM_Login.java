@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
+import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.exception.SmallException;
 import com.example.myskladservice.processing.shpreference.AppWorkData;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
@@ -86,7 +87,7 @@ public class AM_Login extends AppCompatActivity {
                                         mssqlConnection, email, login);
 
                                 if (!resultSet.isBeforeFirst())
-                                    throw new SmallException(0, String.valueOf(R.string.non_reg_email));
+                                    throw new SmallException(0, getString(R.string.non_reg_email));
 
                                 resultSet.next(); if (resultSet.getString("login") == null)
                                     throw new SmallException(1, getString(R.string.non_current_login));
@@ -94,6 +95,8 @@ public class AM_Login extends AppCompatActivity {
                                 if (!resultSet.getString("password").equals(pass))
                                     throw new SmallException(2, getString(R.string.non_current_password));
                                 data.FirstEnter(resultSet.getBoolean("fullacess"), email, login, pass);
+                                MS_SQLUpdate.UPDUserATWork(mssqlConnection, true,
+                                        data.getCompany(), data.getUserLogin());
 
                                 runOnUiThread(new Runnable() {
                                     public void run() {
@@ -103,7 +106,7 @@ public class AM_Login extends AppCompatActivity {
                                         else intent = new Intent(AM_Login.this, A_S_Menu_N.class);
                                         startActivity(intent); finish();
                                     }
-                                }); return;
+                                });
                             } catch (SQLException e) {
                                 MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                             } catch (SmallException e) {
@@ -128,7 +131,7 @@ public class AM_Login extends AppCompatActivity {
                             }
                         }
                     }).start();
-                } return;
+                }
             });
 
             Button reg_btn = findViewById(R.id.RegBTN);

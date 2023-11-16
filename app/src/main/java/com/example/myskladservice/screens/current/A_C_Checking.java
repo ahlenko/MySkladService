@@ -110,7 +110,7 @@ public class A_C_Checking extends AppCompatActivity {
                 int countInt = 0; try {
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
-                    ResultSet resultSet; if (finalDasChecked)
+                    ResultSet resultSet; if (!finalDasChecked)
                          resultSet = MS_SQLSelect.ReadProducts(mssqlConnection, data.getCompany());
                     else resultSet = MS_SQLSelect.ReadCheckingInfo(mssqlConnection, checker.GetChecker());
 
@@ -132,13 +132,12 @@ public class A_C_Checking extends AppCompatActivity {
                         count.setText(resultSet.getString("count"));
                         prod_ids.add(resultSet.getInt("product_id"));
                         byte[] imageBytes = resultSet.getBytes("image");
-                        if (finalDasChecked)
-                            count_fact.setText(resultSet.getString("count_old"));
-                        boolean isEmpty = true; for (byte b : imageBytes)
-                            if (b != 0) { isEmpty = false; break;}
-                        if (!isEmpty) { Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes,
-                                0, imageBytes.length); image.setImageBitmap(bitmap); }
-                        View_s.add(temp);
+                        if (finalDasChecked) count_fact.setText(resultSet.getString("count_old"));
+                        boolean isEmpty = true; for (byte b : imageBytes) if (b != 0)
+                        {isEmpty = false;break;} if (!isEmpty) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes,
+                                    0, imageBytes.length);image.setImageBitmap(bitmap);
+                        } View_s.add(temp);
                     } int finalCountInt = countInt;
                     runOnUiThread(new Runnable() {
                         @Override public void run() {

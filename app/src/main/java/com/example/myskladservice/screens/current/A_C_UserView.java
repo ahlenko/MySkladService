@@ -75,7 +75,7 @@ public class A_C_UserView extends AppCompatActivity {
         int i = 0; for (CheckBox ch : checkboxes) { final int index = i;
             ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_blc));
+                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_wht));
                     else textViews.get(index).setTextColor(getColor(R.color.akcent_purple));}
             }); i++;
         }

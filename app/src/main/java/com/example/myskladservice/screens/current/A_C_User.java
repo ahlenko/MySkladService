@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -118,7 +119,7 @@ public class A_C_User extends AppCompatActivity {
         int i = 0; for (CheckBox ch : checkboxes) { final int index = i;
             ch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_blc));
+                    if (isChecked) textViews.get(index).setTextColor(getColor(R.color.fonts_color_wht));
                     else textViews.get(index).setTextColor(getColor(R.color.akcent_purple));}
             }); i++;
         }
@@ -208,6 +209,7 @@ public class A_C_User extends AppCompatActivity {
                             msc.disconnect(); runOnUiThread(new Runnable() {
                                 public void run() { vibrator.vibrate(50);
                                     Intent intent = new Intent(A_C_User.this, A_T_Users.class);
+                                    Toast.makeText(context, getString(R.string.employee_update), Toast.LENGTH_SHORT).show();
                                     startActivity(intent); finish(); }
                             });
                         } catch (SQLException e) {

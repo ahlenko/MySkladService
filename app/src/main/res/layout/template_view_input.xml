@@ -90,7 +90,6 @@
             android:layout_height="0dp"
             android:alpha="0.7"
             android:background="#00FFFFFF"
-            android:onClick="ButtonPrint"
             android:scaleType="fitCenter"
             android:stateListAnimator="@animator/def_animator"
             app:layout_constraintBottom_toTopOf="@+id/line_8"

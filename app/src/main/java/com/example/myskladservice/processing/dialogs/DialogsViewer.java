@@ -33,7 +33,6 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class DialogsViewer extends DialogFragment {
-
     public DialogsViewer(){};
 
     public static void twoButtonDialog(Context context, Intent intent, AppCompatActivity activity,
@@ -163,26 +162,26 @@ public class DialogsViewer extends DialogFragment {
                                     if (old.equals(password))
                                         if (!InputChecker.isNotPassword(renew, textNew, activity))
                                             throw new SmallException(2, "Good");
-                                        else throw new SmallException(1, getString(R.string.inc_pass));
-                                    else throw new SmallException(0, getString(R.string.non_current_password));
+                                        else throw new SmallException(1, context.getString(R.string.inc_pass));
+                                    else throw new SmallException(0, context.getString(R.string.non_current_password));
                                 }
-                                case 1:{
+                                case 1: {
                                     if (resultSet.getString("phnumber") != null)
-                                        throw new SmallException(1, getString(R.string.used_phone));
+                                        throw new SmallException(1, context.getString(R.string.used_phone));
                                     if (!InputChecker.isNotPhone(renew, textNew, activity))
                                         throw new SmallException(2, "Good");
-                                    else throw new SmallException(1, getString(R.string.inc_phone));
+                                    else throw new SmallException(1, context.getString(R.string.inc_phone));
                                 }
-                                case 2:{
+                                case 2: {
                                     if (resultSet.getString("login") != null)
-                                        throw new SmallException(1, getString(R.string.used_login));
+                                        throw new SmallException(1, context.getString(R.string.used_login));
                                     if (!InputChecker.isNotEmail(renew, textNew, 35, activity))
                                         throw new SmallException(2, "Good");
-                                    else throw new SmallException(1, getString(R.string.inc_login));
+                                    else throw new SmallException(1, context.getString(R.string.inc_login));
                                 }
                             }
                         } catch (SQLException e){
-                            exception = new SmallException(1, getString(R.string.database_err2));
+                            exception = new SmallException(1, context.getString(R.string.database_err2));
                         } catch (SmallException e){
                             exception = e;
                         } return null;

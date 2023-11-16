@@ -35,6 +35,7 @@
             android:exported="false" />
         <activity
             android:name=".screens.table.A_T_Table"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".screens.register.A_R_User"
@@ -88,9 +89,6 @@
             android:name=".screens.current.A_C_User"
             android:exported="false" />
         <activity
-            android:name=".screens.current.A_C_Work"
-            android:exported="false" />
-        <activity
             android:name=".screens.insert.A_I_AddWork"
             android:exported="false" />
         <activity
@@ -98,6 +96,7 @@
             android:exported="false" />
         <activity
             android:name=".screens.table.A_T_Table_N"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="false" />
         <activity
             android:name=".screens.table.A_T_Users_N"

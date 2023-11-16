@@ -112,12 +112,12 @@ public class A_C_Output extends AppCompatActivity {
                                     }  vibrator.vibrate(50);
                                 }
                             }
-                        }; mHandler.postDelayed(mRunnable, 500); break;
+                        }; mHandler.postDelayed(mRunnable, 140); break;
                     case MotionEvent.ACTION_UP:
                         if (mHandler != null && mRunnable != null) {
                             mHandler.removeCallbacks(mRunnable);
-                            chesed_id.set(id); border.setAlpha(1f);
                             enableAllImageButtons(View_s);
+                            chesed_id.set(id); border.setAlpha(1f);
                         } break;
                 } return true;
             }
@@ -140,7 +140,7 @@ public class A_C_Output extends AppCompatActivity {
                         TextView receiver = temp.findViewById(R.id.view_receiver);
                         ImageView border = temp.findViewById(R.id.cur_border);
                         CheckBox checked = temp.findViewById(R.id.cur_state);
-                        TextView code = temp.findViewById(R.id.title_number);
+                        TextView code = temp.findViewById(R.id.view_number);
                         TextView ttn = temp.findViewById(R.id.view_ttncode);
                         TextView count = temp.findViewById(R.id.view_count);
 
@@ -148,6 +148,7 @@ public class A_C_Output extends AppCompatActivity {
                         border.setAlpha(0F); if (i == 1) border.setAlpha(1F);
                         receiver.setText(resultSet.getString("adresser"));
                         if (!checker.GetPrivace()) checked.setChecked(false);
+                        else border.setAlpha(0F);
                         ttn.setText(resultSet.getString("ttn_code"));
                         codes.add(resultSet.getString("ttn_code"));
                         code.setText(resultSet.getString("code"));
@@ -178,7 +179,7 @@ public class A_C_Output extends AppCompatActivity {
                         MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDAdditionOrOrdersArriveInfo(mssqlConnection, data.getCompany(),
-                                data.getUserLogin(), checker.GetChecker(), 2, "OrdersArrive");
+                                data.getUserLogin(), 2, checker.GetChecker(), "OrdersArrive");
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.output_list_end, Toast.LENGTH_SHORT).show();

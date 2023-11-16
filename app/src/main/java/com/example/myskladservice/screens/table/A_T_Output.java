@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myskladservice.R;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
@@ -81,6 +82,15 @@ public class A_T_Output extends AppCompatActivity {
         PrintTask.PrintTaskCount(activity, context, two_btn_intent);
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
+        View.OnClickListener print = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { vibrator.vibrate(50);
+                view.setEnabled(false);
+                String massage = getString(R.string.print_doc_about_arrive);
+                Toast.makeText(context, massage, Toast.LENGTH_LONG).show();
+            }
+        };
+
         Thread OutputPrint = new Thread(new Runnable() {
             @Override public void run() {
                 try {
@@ -114,7 +124,7 @@ public class A_T_Output extends AppCompatActivity {
                                 packBtn.setAlpha(0.4f);
                                 printBtn.setAlpha(0.4f); break;
                             case 2: state.setText(R.string.output_state_2);
-                                temp.setAlpha(0.4f); break;
+                                temp.setAlpha(0.4f); printBtn.setOnClickListener(print); break;
                         } ID_s.add(resultSet.getInt("id")); date.setText(date_S);
                         packBtn.setId(iter); printBtn.setId(iter);
                         View_s.add(temp); iter++;

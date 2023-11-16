@@ -34,11 +34,11 @@ public class MS_SQLInsert extends Exception {
         } finally { connection.setAutoCommit(true);} return -1;
     }
 
-    public static int AddWorkTime (Connection connection, String SW, String EW, String SH,
+    public static int AddWorkTime (Connection connection, int WD_ID, String SW, String EW, String SH,
                                    String EH, boolean isCo) throws SQLException {
         String query = "INSERT INTO MYAppData.[WorkTime" + (isCo ? "CO" : "WO") + "] " +
-                "([startw], [endw], [starth], [endh]) VALUES (?, ?, ?, ?)";
-        return executeInsertWithTransaction(connection, query, SW, EW, SH, EH);
+                "([workdays_id], [startw], [endw], [starth], [endh]) VALUES (?, ?, ?, ?, ?)";
+        return executeInsertWithTransaction(connection, query, WD_ID, SW, EW, SH, EH);
     }
 
     public static int AddWorkDays (Connection connection, boolean d1, boolean d2,
@@ -68,7 +68,7 @@ public class MS_SQLInsert extends Exception {
                 " [workdays_id], [worktime_id], [company_id])" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         return executeInsertWithTransaction(connection, query, surname, name, lastname, workpost,
-                workplace, login, password, fullacess, WD, WT, CI);
+                workplace, phnumber, login, password, fullacess, WD, WT, CI);
     }
     public static int AddTask(Connection connection, int adresser, int performer, int company,
                               String createDate, String startTime, String endTime, String type,
@@ -84,10 +84,14 @@ public class MS_SQLInsert extends Exception {
                                   String s_group, String s_code, float s_kg, int s_sm1, int s_sm2,
                                   int s_sm3, int s_count, String s_provider, String s_comment)
             throws SQLException {
-        String query = "INSERT INTO MYAppData.[Product] ([company_id], [image], [name], [group], " +
-                "[code], [weignt], [sizeh], [sizew], [sized], [count], [provider], [comment]) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return executeInsertWithTransaction(connection, query, company, image, s_name, s_group,
+        String query = "INSERT INTO MYAppData.[Product] ([company_id], " + (image != null ? "[image], " : "") +
+                "[name], [group], [code], [weignt], [sizeh], [sizew], [sized], [count], [provider], [comment]) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + (image != null ? ", ?)" : ")");
+        if (image != null)
+            return executeInsertWithTransaction(connection, query, company, image, s_name, s_group,
+                    s_code, s_kg, s_sm1, s_sm2, s_sm3, s_count, s_provider, s_comment);
+        else
+            return executeInsertWithTransaction(connection, query, company, s_name, s_group,
                 s_code, s_kg, s_sm1, s_sm2, s_sm3, s_count, s_provider, s_comment);
     }
 
@@ -100,9 +104,9 @@ public class MS_SQLInsert extends Exception {
                 count, count_old);
     }
 
-    public static void NewArriveOrder(Connection connection, int arrive_id, int company,
+    public static void NewArriveOrder(Connection connection, int company, int arrive_id,
                                      int getChecker, int i) throws SQLException {
-        String query = "INSERT INTO MYAppData.[OrdersArriveDetails] ([company_id], [orders_id], " +
+        String query = "INSERT INTO MYAppData.[OrdersArriveDetails] ([company_id], [product_id], " +
                 "[ordersArrive_id], [count]) VALUES (?, ?, ?, ?)";
         executeInsertWithTransaction(connection, query, company, getChecker, arrive_id, i);
     }
@@ -117,15 +121,4 @@ public class MS_SQLInsert extends Exception {
             LocalDate curDate = LocalDate.now(); date = java.sql.Date.valueOf(String.valueOf(curDate));}
         return executeInsertWithTransaction(connection, query, company, performer, company, date, state, count);
     }
-
-    public static int NewArriverAtThatDay(Connection connection, int company)
-            throws SQLException {
-        String query = "INSERT INTO MYAppData.[OrdersArrive] ([company_id], [date], [state], " +
-                "[sum_count]) VALUES (?, ?, ?, ?)";
-        Date date = null; if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            LocalDate curDate = LocalDate.now(); date = java.sql.Date.valueOf(String.valueOf(curDate));}
-        return executeInsertWithTransaction(connection, query, company, date, 0, 1);
-    }
-
-
 }

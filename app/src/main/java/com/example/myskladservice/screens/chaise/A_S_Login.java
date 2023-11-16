@@ -24,6 +24,7 @@ import com.example.myskladservice.R;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
+import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.exception.ConfirmableException;
 import com.example.myskladservice.processing.exception.SmallException;
 import com.example.myskladservice.processing.shpreference.AppWorkData;
@@ -216,10 +217,12 @@ public class A_S_Login extends AppCompatActivity {
 
                             resultSet.next(); if (resultSet.getString("login") == null)
                                 throw new SmallException(0, getString(R.string.non_current_login));
-
                             if (!resultSet.getString("password").equals(pass))
                                 throw new SmallException(1, getString(R.string.non_current_password));
+                            if (!Objects.equals(data.getUserLogin(), login)) data.ClearData();
                             data.Enter(resultSet.getBoolean("fullacess"), login, pass);
+                            MS_SQLUpdate.UPDUserATWork(mssqlConnection, true,
+                                    data.getCompany(), data.getUserLogin());
 
                             runOnUiThread(new Runnable() {
                                 public void run() {

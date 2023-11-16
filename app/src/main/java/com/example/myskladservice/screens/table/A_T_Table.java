@@ -86,17 +86,15 @@ public class A_T_Table extends AppCompatActivity {
                         TextView size = temp.findViewById(R.id.view_size);
 
                         button.setId(resultSet.getInt("id"));
-                        String weight_s = resultSet.getInt("weignt") + " " + getString(R.string.weight_points_os);
+                        String weight_s = resultSet.getFloat("weignt") + " " + getString(R.string.weight_points_os);
                         String size_s = resultSet.getInt("sizeh") + getString(R.string.delimer_s) +
                                 resultSet.getInt("sizew") + getString(R.string.delimer_s) +
                                 resultSet.getInt("sized")+  " " +
                                 getString(R.string.size_points_os);
-
                         name.setText(resultSet.getString("name"));
                         code.setText(resultSet.getString("code"));
                         count.setText(resultSet.getString("count"));
                         weight.setText(weight_s); size.setText(size_s);
-
                         byte[] imageBytes = resultSet.getBytes("image");
                         boolean isEmpty = true; for (byte b : imageBytes) {
                             if (b != 0) { isEmpty = false; break; }

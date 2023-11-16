@@ -192,24 +192,23 @@ public class A_I_AddUser extends AppCompatActivity {
                             if (ph_num || log) throw new SmallException(0, getString(R.string.pol_is_using));
                             int company = resultSet.getInt("id");
 
-                            int workTimeID = MS_SQLInsert.AddWorkTime(mssqlConnection,
-                                    finalStimeStartW_enter, finalStimeEndW_enter,
-                                    finalStimeStartN_enter,finalStimeEndN_enter, false
-                            ); if (workTimeID == -1){
-                                throw new SmallException(0, getString(R.string.pol_sql_error));
-                            } int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
+                            int workDaysID = MS_SQLInsert.AddWorkDays(mssqlConnection,
                                     days.get(0), days.get(1), days.get(2), days.get(3),
                                     days.get(4), days.get(5), days.get(6), false
                             ); if (workDaysID == -1) {
-                                MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, false);
                                 throw new SmallException(0, getString(R.string.pol_sql_error));
-                            }; int ManagerID = MS_SQLInsert.AddUser(mssqlConnection,
+                            }; int workTimeID = MS_SQLInsert.AddWorkTime(mssqlConnection,
+                                    workDaysID, finalStimeStartW_enter, finalStimeEndW_enter,
+                                    finalStimeStartN_enter,finalStimeEndN_enter, false
+                            ); if (workTimeID == -1){
+                                MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workDaysID, false);
+                                throw new SmallException(0, getString(R.string.pol_sql_error));
+                            } int ManagerID = MS_SQLInsert.AddUser(mssqlConnection,
                                     Sinputsurname, Sinputname, Sinputlastname, Sinputworkstate,
                                     Sinputworkplace, Sinputtel, Sinputlogin, Sinputpassword,
                                     acess, workDaysID, workTimeID, company
                             ); if (ManagerID == -1) {
-                                MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workTimeID, false);
-                                MS_SQLDelete.DelWorkDaysCO(mssqlConnection, workTimeID, false);
+                                MS_SQLDelete.DelWorkTimeCO(mssqlConnection, workDaysID, false);
                                 throw new SmallException(0, getString(R.string.pol_sql_error));
                             };
                             runOnUiThread(new Runnable() {

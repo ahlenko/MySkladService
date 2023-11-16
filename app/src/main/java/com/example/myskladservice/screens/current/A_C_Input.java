@@ -150,6 +150,7 @@ public class A_C_Input extends AppCompatActivity {
                         prod_ids.add(resultSet.getInt("id"));
 
                         String countStr = String.valueOf(resultSet.getInt("count")); if (checker.GetPrivace()) {
+                            border.setAlpha(0f);
                             String str = "x " + countStr + "/" + countStr; count.setText(str);
                         } else {String str = "x 0/" + countStr; count.setText(str); checked.setChecked(false);
                         }; button.setOnTouchListener(touchListener);

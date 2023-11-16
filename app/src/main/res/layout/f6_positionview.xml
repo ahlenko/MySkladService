@@ -812,7 +812,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="@string/pos_count"
+                    android:text="@string/pos_count_temple"
                     android:textAlignment="textStart"
                     android:textColor="@color/fonts_color_blc"
                     android:textSize="14sp"

@@ -91,7 +91,7 @@
     <string name="ttl_add_info">Опис (не обов’язково)</string>
     <string name="task_manager">Постановник завдання:</string>
     <string name="ttl_new_phone">Новий номер телефону</string>
-    <string name="output_state_2">Відправлення видано</string>
+    <string name="output_state_2">Відправлення опрацьовано</string>
     <string name="btn_create_task">Доручити завдання</string>
     <string name="ttl_performorder">Збірка замовлень</string>
     <string name="outp_complite">Відправлення видано</string>
@@ -177,7 +177,7 @@
     <string name="ttl_lastname">По батькові</string>
     <string name="count_ent_sample">-- / --</string>
     <string name="ttn_empty">______________</string>
-    <string name="app_name">MySkladService</string>
+    <string name="app_name">MySklad Service</string>
     <string name="comp_spec">Спеціалізація</string>
     <string name="ttl_analitics">Аналітика</string>
     <string name="text_onManth">За місяць:</string>
@@ -187,7 +187,7 @@
     <string name="task_type">Тип завдання:</string>
     <string name="tasktime">14:20 / 30 хв.</string>
     <string name="time_samole7">5 хв. тому</string>
-    <string name="output_state_0">Доручено</string>
+    <string name="output_state_0">Створено</string>
     <string name="output_state_1">В роботі</string>
     <string name="ch_state_2">Не завершено</string>
     <string name="data_sample">14.05.2023</string>
@@ -296,6 +296,13 @@
     <string name="day5">ПТ</string>
     <string name="day6">СБ</string>
     <string name="day7">НД</string>
+    <string name="employee_update">Дані співробітника оновлено</string>
+    <string name="data_emp_newpass">Пароль користувача змінено</string>
+    <string name="data_emp_newphone">Номер телефону користувача змінено</string>
+    <string name="data_emp_newlogin">Логін користувача змінено</string>
+    <string name="print_doc_about_packing">Друк документів замовлення</string>
+    <string name="print_doc_about_arrive">Друк транспортної документації до опрацьованих відправлень</string>
+    <string name="pos_count_temple">Поточна к-сть</string>
 
 
     <string-array name="language">

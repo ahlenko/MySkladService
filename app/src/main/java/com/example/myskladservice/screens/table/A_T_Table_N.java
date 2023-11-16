@@ -86,7 +86,7 @@ public class A_T_Table_N extends AppCompatActivity {
                         TextView code = temp.findViewById(R.id.view_code);
                         TextView size = temp.findViewById(R.id.view_size);
 
-                        String weight_s = resultSet.getInt("weignt") + " " + getString(R.string.weight_points_os);
+                        String weight_s = resultSet.getFloat("weignt") + " " + getString(R.string.weight_points_os);
                         String size_s = resultSet.getInt("sizeh") + getString(R.string.delimer_s) +
                                 resultSet.getInt("sizew") + getString(R.string.delimer_s) +
                                 resultSet.getInt("sized")+  " " + getString(R.string.size_points_os);

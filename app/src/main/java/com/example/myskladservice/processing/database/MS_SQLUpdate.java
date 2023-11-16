@@ -11,7 +11,8 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MS_SQLUpdate {
-    public static void UPDUserATWork (Connection connection, boolean onwork, String email, String login) throws SQLException {
+    public static void UPDUserATWork (Connection connection, boolean onwork, String email,
+                                      String login) throws SQLException {
         String query = "UPDATE MYAppData.Employee SET onwork = ?" +
                 " WHERE login = ? AND company_id = (SELECT" +
                 " id FROM MYAppData.Company WHERE email = ?)";
@@ -26,13 +27,14 @@ public class MS_SQLUpdate {
     }
 
     public static void UPDTimeAndDays(Connection connection, String SW, String EW, String SH, String EH,
-                                                 int employeeId, ArrayList<Boolean> days, boolean isCo) throws SQLException {
+                                                 int employeeId, ArrayList<Boolean> days,
+                                      boolean isCo) throws SQLException {
         String updateWorkTimeQuery = "UPDATE MYAppData.[WorkTime" + (isCo ? "CO":"WO") + "] " +
                 "SET [startw] = ?, [endw] = ?, [starth] = ?, [endh] = ? " +
                 "WHERE [ID] = (SELECT worktime_id FROM MYAppData." +
                 (isCo ? "Company":"Employee") + " WHERE id = ?)";
         String updateWorkDaysQuery = "UPDATE MYAppData.[WorkDays" + (isCo ? "CO":"WO") + "] " +
-                "SET [mon] = ?, [tue] = ?, [wed] = ?, [thu] = ?, [fri] = ?, [sat] = ?, [sun] = ? " +
+                "SET [mon] = ?, [tue] = ?, [wed] = ?, [thu] = ?, [fri] = ?, [sat] = ?, [san] = ? " +
                 "WHERE [ID] = (SELECT workdays_id FROM MYAppData." +
                 (isCo ? "Company":"Employee") + " WHERE id = ?)";
         PreparedStatement updateWorkTimeStmt = connection.prepareStatement(updateWorkTimeQuery);
@@ -44,8 +46,10 @@ public class MS_SQLUpdate {
         updateWorkDaysStmt.setInt(i, employeeId); updateWorkDaysStmt.executeUpdate();
     }
 
-    public static void UPDUser (Connection connection, String surname, String name, String lastname, String workpost, String workplace, boolean fullacess, int id) throws SQLException {
-        String query = "UPDATE MYAppData.[Employee] SET [surname] = ?, [name] = ?, [lastname] = ?, [workpost] = ?, [workplace] = ?, [fullacess] = ? WHERE [ID] = " + id;
+    public static void UPDUser (Connection connection, String surname, String name, String lastname,
+                                String workpost, String workplace, boolean fullacess, int id) throws SQLException {
+        String query = "UPDATE MYAppData.[Employee] SET [surname] = ?, [name] = ?, [lastname] = ?," +
+                " [workpost] = ?, [workplace] = ?, [fullacess] = ? WHERE [ID] = " + id;
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, surname);    stmt.setString(2, name);         stmt.setString(3, lastname);
         stmt.setString(4, workpost);   stmt.setString(5, workplace);    stmt.setBoolean(6, fullacess);
@@ -87,7 +91,7 @@ public class MS_SQLUpdate {
 
     public static void UPDPosition(Connection connection, int s_count, int id, int type) throws SQLException {
         String addSTR = " [count] "; if (type == 1) addSTR += "+ "; else  if (type == 2) addSTR += "- ";
-        String query = "UPDATE MYAppData.[Product] SET [count] =" + (type > 0 ? " ": addSTR) + "? WHERE [ID] = " + id;
+        String query = "UPDATE MYAppData.[Product] SET [count] =" + (type > 0 ? addSTR: " ") + "? WHERE [ID] = " + id;
         PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, s_count); stmt.executeUpdate();
     }
@@ -103,10 +107,8 @@ public class MS_SQLUpdate {
         statement.registerOutParameter(7, java.sql.Types.INTEGER);
         statement.registerOutParameter(8, java.sql.Types.INTEGER);
         statement.execute(); ArrayList<Integer> returned = new ArrayList<>();
-        returned.add(statement.getInt(6));
-        returned.add(statement.getInt(7));
-        returned.add(statement.getInt(8));
-        return returned;
+        returned.add(statement.getInt(6)); returned.add(statement.getInt(7));
+        returned.add(statement.getInt(8)); return returned;
     }
 
     public static void UPDAdditionOrOrdersArriveInfo(Connection mssqlConnection, String email, String login,
@@ -119,4 +121,5 @@ public class MS_SQLUpdate {
         stmt.setInt(3, state); stmt.setInt(4, getChecker);
         stmt.executeUpdate();
     }
+
 }

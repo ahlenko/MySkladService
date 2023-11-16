@@ -233,7 +233,7 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                         runOnUiThread(new Runnable() {
                             public void run() { vibrator.vibrate(50);
                                 Intent intent = new Intent(A_I_AddWork.this, A_T_Task.class);
-                                Toast.makeText(context, R.string.ttl_btn_added, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.ttl_btn_task_deleted, Toast.LENGTH_SHORT).show();
                                 startActivity(intent); finish();
                             }
                         });

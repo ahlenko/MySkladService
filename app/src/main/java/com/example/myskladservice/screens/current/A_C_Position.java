@@ -106,7 +106,7 @@ public class A_C_Position extends AppCompatActivity {
                 } catch (SQLException e) {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 } runOnUiThread(new Runnable() { @Override public void run()
-                    {PositionData.SetData(activity, imageBytes);}
+                    {imageBytes = PositionData.SetData(activity, imageBytes);}
                 });
 
             }
@@ -155,9 +155,11 @@ public class A_C_Position extends AppCompatActivity {
                         boolean bark = false; try {
                             MS_SQLConnector msc = MS_SQLConnector.getConect();
                             Connection mssqlConnection = msc.connection;
+
                             ResultSet resultSet = MS_SQLSelect.UsedBarcode(mssqlConnection,
                                     s_code, data.getCompany()); resultSet.next();
-                            if (resultSet.getString("code") != null) bark = true;
+                            if (!s_code.equals(PositionData.code))
+                                if (resultSet.getString("code") != null) bark = true;
                             if (bark) throw new SmallException(0, getString(R.string.pol_is_using));
 
                             MS_SQLUpdate.UPDPosition(mssqlConnection,
@@ -177,8 +179,13 @@ public class A_C_Position extends AppCompatActivity {
                             });
                         } catch (SQLException e) {
                             MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
-                        } catch (SmallException e){ infostate.setText(e.getErrorMessage());
-                            e_code.setTextColor(getResources().getColor(R.color.red_note));
+                        } catch (SmallException e){ ;
+                            runOnUiThread(new Runnable() {
+                                public void run() { infostate.setText(e.getErrorMessage());
+                                    e_code.setTextColor(getColor(R.color.red_note));
+                                }
+                            });
+
                         }
                     }
                 }).start();
