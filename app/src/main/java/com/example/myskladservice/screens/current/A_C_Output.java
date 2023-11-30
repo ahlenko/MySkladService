@@ -41,6 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class A_C_Output extends AppCompatActivity {
+    int Sum_Count = 0;
     @Override
     public void onBackPressed() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -144,6 +145,8 @@ public class A_C_Output extends AppCompatActivity {
                         TextView ttn = temp.findViewById(R.id.view_ttncode);
                         TextView count = temp.findViewById(R.id.view_count);
 
+                        Sum_Count += resultSet.getInt("PCount");
+
                         String countStr = "x " + resultSet.getInt("count");
                         border.setAlpha(0F); if (i == 1) border.setAlpha(1F);
                         receiver.setText(resultSet.getString("adresser"));
@@ -180,6 +183,8 @@ public class A_C_Output extends AppCompatActivity {
                         Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDAdditionOrOrdersArriveInfo(mssqlConnection, data.getCompany(),
                                 data.getUserLogin(), 2, checker.GetChecker(), "OrdersArrive");
+                        MS_SQLUpdate.UPDStatistics(mssqlConnection, data.getCompany(), data.getUserLogin(),
+                                0, 0, Sum_Count, 0);
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.output_list_end, Toast.LENGTH_SHORT).show();

@@ -8,7 +8,7 @@ public class MS_SQLConnector extends Exception{
     private static String classe = "net.sourceforge.jtds.jdbc.Driver";
     private static String database = "MySkladService";
     private static String password = "02lbvf105";
-    private static String ip = "192.168.0.105";
+    private static String ip = "192.140.0.118";
     private static String username = "sa";
     private static String port = "57611";
     private static MS_SQLConnector conect;

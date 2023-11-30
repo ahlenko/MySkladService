@@ -225,10 +225,9 @@ public class A_C_User extends AppCompatActivity {
         });
 
         btn_del.setOnClickListener( enter -> {
-            if (check.GetPrivace()) DialogsViewer.twoButtonDialog(
-                        context,  new Intent(A_C_User.this, A_T_Users.class), activity,
-                        getString(R.string.confirmation), getString(R.string.delete_main_user),
-                        getString(R.string.btn_delete), getString(R.string.re_main_user), 5);
+            if (check.GetPrivace()) DialogsViewer.ChangeUserOrDeleteDialog(
+                        context, activity, new Intent(A_C_User.this, AM_Login.class),
+                        new Intent(A_C_User.this, A_C_User.class), check.GetChecker());
             else DialogsViewer.twoButtonDialog(
                         context,  new Intent(A_C_User.this, A_T_Users.class), activity,
                         getString(R.string.confirmation), getString(R.string.delete_user),

@@ -95,7 +95,7 @@ public class A_T_Packing extends AppCompatActivity {
 
         Thread PackingPrint = new Thread(new Runnable() {
             @Override public void run() {
-                try {
+                try { View_s.clear();
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTableInfo(mssqlConnection,
@@ -131,7 +131,7 @@ public class A_T_Packing extends AppCompatActivity {
                     MS_SQLError.ErrorOnUIThread(context, two_btn_intent, activity);
                 }
                 runOnUiThread(new Runnable() {
-                    public void run() {
+                    public void run() { TableView.removeAllViews();
                         if (View_s.isEmpty()) infostate.setText(R.string.packing_not_search);
                         else for (View userView : View_s) TableView.addView(userView);
                     }

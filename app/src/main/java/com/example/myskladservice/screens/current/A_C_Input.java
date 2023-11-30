@@ -176,13 +176,13 @@ public class A_C_Input extends AppCompatActivity {
                     try {
                         MS_SQLConnector msc = MS_SQLConnector.getConect(); Connection mssqlConnection = msc.connection;
                         MS_SQLUpdate.UPDAdditionOrOrdersArriveInfo(mssqlConnection,  data.getCompany(),
-                                data.getUserLogin(), 2, checker.GetChecker(), "Addition");
-
+                                data.getUserLogin(), 2, checker.GetChecker(), "Addition"); int sum_count = 0;
                         int i = 0; for(View temp : View_s){ TextView count = temp.findViewById(R.id.view_count);
                             String strCount = count.getText().toString().trim(); int index = strCount.indexOf("/");
-                            String result = strCount.substring(index + 1);
-                            MS_SQLUpdate.UPDPosition(mssqlConnection, prod_ids.get(i), Integer.parseInt(result), 1);
-                        }
+                            String result = strCount.substring(index + 1); sum_count += Integer.parseInt(result);
+                            MS_SQLUpdate.UPDPosition(mssqlConnection, Integer.parseInt(result), prod_ids.get(i), 1);
+                        } MS_SQLUpdate.UPDStatistics(mssqlConnection, data.getCompany(), data.getUserLogin(),
+                                0, sum_count, 0, 0);
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.input_list_end, Toast.LENGTH_SHORT).show();

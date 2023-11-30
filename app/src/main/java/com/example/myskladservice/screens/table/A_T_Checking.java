@@ -81,7 +81,7 @@ public class A_T_Checking extends AppCompatActivity {
         ExecutorService executor = Executors.newFixedThreadPool(1);
         Thread CheckingPrint = new Thread(new Runnable() {
             @Override public void run() {
-                try {
+                try { View_s.clear();
                     MS_SQLConnector msc = MS_SQLConnector.getConect();
                     Connection mssqlConnection = msc.connection;
                     ResultSet resultSet = MS_SQLSelect.ReadTableInfo(mssqlConnection,

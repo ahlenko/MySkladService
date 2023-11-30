@@ -27,6 +27,7 @@ import com.example.myskladservice.processing.database.MS_SQLDelete;
 import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLInsert;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
+import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.datastruct.TaskData;
 import com.example.myskladservice.processing.dialogs.DialogsViewer;
 import com.example.myskladservice.processing.exception.SmallException;
@@ -48,7 +49,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    int AdresserID = 0, CompanyID = 0, PerformerID = 0;
+    int AdresserID = 0, CompanyID = 0, PerformerID = 0; String LoginPerf = "";
     ArrayList<String> UserNames = new ArrayList<>();
     ArrayList<Integer> UserId = new ArrayList<>();
     @Override public void onBackPressed() {}
@@ -122,6 +123,7 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                                 String nameUser = resultSet.getString("surname") +
                                         " " + resultSet.getString("name") + " " +
                                         resultSet.getString("lastname");
+                                LoginPerf = resultSet.getString("login");
                                 nameUser = nameUser.length() > 23 ? nameUser.substring(0, 23) + "..." : nameUser;
                                 UserNames.add(nameUser);
                                 UserId.add(resultSet.getInt("id"));
@@ -230,6 +232,8 @@ public class A_I_AddWork extends AppCompatActivity implements AdapterView.OnItem
                     try { MS_SQLConnector msc = MS_SQLConnector.getConect();
                         Connection mssqlConnection = msc.connection;
                         MS_SQLDelete.DelTask(mssqlConnection, checker.GetChecker());
+                        MS_SQLUpdate.UPDStatistics(mssqlConnection, data.getCompany(), LoginPerf,
+                                1, 0, 0, 0);
                         runOnUiThread(new Runnable() {
                             public void run() { vibrator.vibrate(50);
                                 Intent intent = new Intent(A_I_AddWork.this, A_T_Task.class);

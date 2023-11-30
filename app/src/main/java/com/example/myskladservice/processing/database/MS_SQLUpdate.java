@@ -111,6 +111,14 @@ public class MS_SQLUpdate {
         returned.add(statement.getInt(8)); return returned;
     }
 
+    public static void UPDStatistics(Connection mssqlConnection, String email, String login,
+                                     int num_task, int num_input, int num_output, int num_orders)
+            throws SQLException { String query = "{CALL UpdateStatistics(?, ?, ?, ?, ?, ?)}";
+        CallableStatement statement = mssqlConnection.prepareCall(query); statement.setString(1, login);
+        statement.setString(2, email); statement.setInt(3, num_task); statement.setInt(4, num_input);
+        statement.setInt(5, num_output); statement.setInt(6, num_orders); statement.execute();
+    }
+
     public static void UPDAdditionOrOrdersArriveInfo(Connection mssqlConnection, String email, String login,
                                        int state, int getChecker, String table) throws SQLException {
         String query = "UPDATE MYAppData." + table + " SET [performer_id] = (SELECT E.id " +

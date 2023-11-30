@@ -86,13 +86,6 @@ public class ChoiseProcessor {
         }; return listener;
     }
 
-    public static ListenerProcessor deleteMainConfirm(Intent intent, AppCompatActivity activity, Context context){
- /*5*/  ListenerProcessor listener = new ListenerProcessor() {
-            @Override public void onPositiveButtonClick() {}
-            @Override public void onNegativeButtonClick() {}
-        }; return listener;
-    }
-
     public static ListenerProcessor deleteRegCompany(Intent intent, AppCompatActivity activity, Context context){
  /*6*/  ListenerProcessor listener = new ListenerProcessor() {
             final AppWorkData data = new AppWorkData(context);

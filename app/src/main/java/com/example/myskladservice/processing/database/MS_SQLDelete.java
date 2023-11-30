@@ -29,9 +29,9 @@ public class MS_SQLDelete extends Exception{
     }
 
     public static void DelRegCompany (Connection connection, String email) throws SQLException {
-        String query = "DELETE FROM MyAppData.Company WHERE email = '" + email + "'";
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
+        String query = "{CALL DeleteCompany(?)}";
+        CallableStatement statement = connection.prepareCall(query);
+        statement.setString(1, email); statement.execute();
     }
 
     public static void DelTask (Connection connection, int id) throws SQLException {

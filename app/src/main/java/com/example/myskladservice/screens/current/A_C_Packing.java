@@ -187,13 +187,13 @@ public class A_C_Packing extends AppCompatActivity {
                         Connection mssqlConnection = msc.connection;
                         ArrayList<Integer> returned = MS_SQLUpdate.UPDPackingInfo(mssqlConnection, data.getCompany(),
                                 data.getUserLogin(), TTNCode.get(), allItemCounter.get(), checker.GetChecker());
-
                         int i = 0; for(View temp : View_s){
                             TextView count = temp.findViewById(R.id.view_count); String strCount = count.getText().toString().trim();
                             int index = strCount.indexOf("/"); String result = strCount.substring(index + 1);
                             MS_SQLUpdate.UPDPosition(mssqlConnection, Integer.parseInt(result), prod_ids.get(i), 2);
                             MS_SQLInsert.NewArriveOrder(mssqlConnection, returned.get(0), returned.get(2), prod_ids.get(i), 1);
-                        }
+                        } MS_SQLUpdate.UPDStatistics(mssqlConnection, data.getCompany(), data.getUserLogin(),
+                                0, 0, 0, allItemCounter.get());
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(context, R.string.order_packing_continue, Toast.LENGTH_SHORT).show();

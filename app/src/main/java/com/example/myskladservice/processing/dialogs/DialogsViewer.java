@@ -8,8 +8,11 @@ import android.os.Vibrator;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +26,17 @@ import com.example.myskladservice.R;
 import com.example.myskladservice.processing.barcodescanner.BC_Scan;
 import com.example.myskladservice.processing.checkers.InputChecker;
 import com.example.myskladservice.processing.database.MS_SQLConnector;
+import com.example.myskladservice.processing.database.MS_SQLDelete;
+import com.example.myskladservice.processing.database.MS_SQLError;
 import com.example.myskladservice.processing.database.MS_SQLSelect;
+import com.example.myskladservice.processing.database.MS_SQLUpdate;
 import com.example.myskladservice.processing.exception.SmallException;
 import com.example.myskladservice.processing.shpreference.AppWorkData;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class DialogsViewer extends DialogFragment {
@@ -40,7 +47,6 @@ public class DialogsViewer extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(context);
         View customLayout = inflater.inflate(R.layout.dialog_simple, null);
         ListenerProcessor listener = ChoiseProcessor.defaultInitialize(); switch (type){
-            case 5: listener = ChoiseProcessor.deleteMainConfirm(intent, activity, context); break;
             case 6: listener = ChoiseProcessor.deleteRegCompany(intent, activity, context); break;
             case 9: listener = ChoiseProcessor.deletePosition(intent, activity, context); break;
             case 2: listener = ChoiseProcessor.incorectLogin(intent, activity, context); break;
@@ -222,6 +228,114 @@ public class DialogsViewer extends DialogFragment {
             if (scanned.getText().toString().trim().isEmpty() || scanned.getText().toString().trim().equals(activity.getString(R.string.scanning_not)))
                 scanned.setText(R.string.scanning_not);
             else { code.setText(scanned.getText().toString().trim()); dialog.dismiss();}
+        });
+    }
+
+
+
+    public static void ChangeUserOrDeleteDialog(Context context, AppCompatActivity activity, Intent intentToDel, Intent Problems, int old_user_id){
+        LayoutInflater inflater = LayoutInflater.from(context); AppWorkData data = new AppWorkData(context);
+        View customLayout = inflater.inflate(R.layout.dialog_mainuserdelete, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context); builder.setView(customLayout);
+        AlertDialog dialog = builder.create(); dialog.show();
+        final int[] empID = {0}; final int[] CompanyID = {0};
+        ArrayList<String> UserNames = new ArrayList<>();
+        ArrayList<Integer> UserId = new ArrayList<>();
+
+        ImageButton pos = customLayout.findViewById(R.id.positive_button);
+        ImageButton neg = customLayout.findViewById(R.id.negative_button);
+        Spinner chose_employee = customLayout.findViewById(R.id.select_of);
+        TextView enter_employee = customLayout.findViewById(R.id.enter_of);
+
+        AdapterView.OnItemSelectedListener list = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String text = adapterView.getItemAtPosition(i).toString();
+                enter_employee.setText(text); empID[0] = i;}
+            @Override public void onNothingSelected(AdapterView<?> adapterView) {}
+        };
+        chose_employee.setOnItemSelectedListener(list);
+
+        class UserSearch extends AsyncTask<Void, Void, Void> {
+            @Override protected Void doInBackground(Void... voids) {
+                try{
+                    MS_SQLConnector msc = MS_SQLConnector.getConect();
+                    Connection mssqlConnection = msc.connection;
+                    ResultSet resultSet = MS_SQLSelect.ReadEmployeeListAndManager
+                            (mssqlConnection, data.getCompany());
+                    while (resultSet.next()) { CompanyID[0] = resultSet.getInt("company_id");
+                        if (resultSet.getInt("id") != old_user_id){
+                        String nameUser = resultSet.getString("surname") +
+                                " " + resultSet.getString("name");
+                        nameUser = nameUser.length() > 23 ? nameUser.substring(0, 23) + "..." : nameUser;
+                        UserNames.add(nameUser); UserId.add(resultSet.getInt("id"));
+                        } else {pos.setEnabled(false); pos.setAlpha(0.7F);}
+                    }
+                } catch (SQLException e){
+                    MS_SQLError.ErrorOnUIThread(context, Problems, activity);
+                } return null;
+            }
+
+            protected void onPostExecute(Void result) {
+                if (UserNames.isEmpty()){ enter_employee.setText("...");
+                    chose_employee.setEnabled(false); } else {
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context,
+                            android.R.layout.simple_spinner_item, UserNames);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    chose_employee.setAdapter(adapter2); chose_employee.setSelection(0);
+                    enter_employee.setText(adapter2.getItem(0));
+                    chose_employee.setOnItemSelectedListener(list);
+                }
+            }
+        } UserSearch myTask = new UserSearch(); myTask.execute();
+
+        pos.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) { new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                        Connection mssqlConnection = msc.connection;
+                        MS_SQLUpdate.UpdManagerID(mssqlConnection, UserId.get(empID[0]), CompanyID[0]);
+                        MS_SQLDelete.DelUserByID(mssqlConnection, old_user_id);
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(context, R.string.employee_del_suc, Toast.LENGTH_SHORT).show();
+                                activity.startActivity(intentToDel); activity.finish(); data.ClearData();
+                            }
+                        });
+                    } catch (SQLException e) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(context, R.string.employee_del_err, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }).start(); dialog.dismiss();}
+        });
+
+        neg.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) { new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        MS_SQLConnector msc = MS_SQLConnector.getConect();
+                        Connection mssqlConnection = msc.connection;
+                        MS_SQLDelete.DelRegCompany(mssqlConnection, data.getCompany());
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(context, R.string.employee_main_del_suc, Toast.LENGTH_SHORT).show();
+                                activity.startActivity(intentToDel); activity.finish(); data.ClearData();
+                            }
+                        });
+                    } catch (SQLException e) {
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(context, R.string.company_del_err, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            }).start();dialog.dismiss();}
         });
     }
 }

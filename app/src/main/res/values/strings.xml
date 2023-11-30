@@ -1,5 +1,5 @@
 <resources>
-    <string name="delete_main_user">Видалення Вас як власника призведе до видалення компанії та її співробітників.\nВи можете виконати передачу права власності іншому співробітникові:</string>
+    <string name="delete_main_user">Видалення Вас як власника призведе до видалення компанії та її співробітників.Ви можете виконати передачу права власності іншому співробітникові:</string>
     <string name="employee_deleted">Збережений логін співробітника \n більше недійсний.\nБажаєте здійснити вхід з іншим логіном або до іншої компанії?</string>
     <string name="company_deleted">Компанію зі збереженим Email було видалено або змінено дані для входу.\n Вийдіть з додатку або увійдіть повторно:</string>
     <string name="prob_scanner">Помилка входу, сканер відбитків не знайдено, або відбиток пальця не зареестровано</string>
@@ -303,7 +303,19 @@
     <string name="print_doc_about_packing">Друк документів замовлення</string>
     <string name="print_doc_about_arrive">Друк транспортної документації до опрацьованих відправлень</string>
     <string name="pos_count_temple">Поточна к-сть</string>
+    <string name="week">"Tжд. "</string>
+    <string name="quart">"Кврт. "</string>
+    <string name="employee_main_del_suc">Компанію та співробітників успішно видалено</string>
 
+    <string-array name="days">
+        <item>ПН</item>
+        <item>ВТ</item>
+        <item>СР</item>
+        <item>ЧТ</item>
+        <item>ПТ</item>
+        <item>СБ</item>
+        <item>НД</item>
+    </string-array>
 
     <string-array name="language">
         <item>Українська</item>

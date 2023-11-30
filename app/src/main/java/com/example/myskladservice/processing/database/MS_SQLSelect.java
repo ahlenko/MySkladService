@@ -7,6 +7,7 @@ import com.example.myskladservice.processing.datastruct.TaskData;
 import com.example.myskladservice.processing.datastruct.UserData;
 import com.example.myskladservice.processing.datastruct.Worktime;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,7 +116,7 @@ public class MS_SQLSelect extends Exception {
     }
 
     public static ResultSet ReadAllOrderArrive(Connection mssqlConnection, int getChecker) throws SQLException {
-        String query = "SELECT OA.state, OA.sum_count, OAD.count, O.ttn_code, O.code, O.adresser " +
+        String query = "SELECT OA.state, OA.sum_count, OAD.count, O.ttn_code, O.code, O.adresser, O.sum_count AS PCount " +
                 "FROM MYAppData.OrdersArrive OA " +
                 "INNER JOIN MYAppData.OrdersArriveDetails OAD ON OA.id = OAD.ordersArrive_id " +
                 "INNER JOIN MYAppData.OrdersDetails OD ON OD.product_id = OAD.product_id " +
@@ -154,6 +155,17 @@ public class MS_SQLSelect extends Exception {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, login); preparedStatement.setString(2, ph_number);
         preparedStatement.setString(3, email); return preparedStatement.executeQuery();
+    }
+
+    public static ResultSet ReadUserStatistics (Connection connection, int employee_id, int type) throws SQLException{
+        String query = ""; switch (type){
+            case 0: query = "{call getDataForWeek(?)}"; break;
+            case 1: query = "{call getDataForMonth(?)}"; break;
+            case 2: query = "{call getDataForQuarter(?)}"; break;
+            case 3: query = "{call getDataForYear(?)}"; break;
+        }  CallableStatement statement = connection.prepareCall(query);
+        statement.setInt(1, employee_id); statement.execute();
+        return statement.getResultSet();
     }
 
     public static ResultSet ReadTableInfo(Connection connection, String email,

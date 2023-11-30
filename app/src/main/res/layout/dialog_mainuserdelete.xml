@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/lineVer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/enter_of"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="0"
+        android:background="@drawable/inpt_workenter1"
+        android:fontFamily="@font/roboto_light"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="40dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/fonts_color_blc"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/select_of"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_of"
+        app:layout_constraintTop_toTopOf="@+id/select_of"
+        tools:ignore="RtlCompat" />
+
+    <Spinner
+        android:id="@+id/select_of"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="2"
+        android:background="@drawable/strilka_spinner"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toBottomOf="@+id/title_of"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/select_border"
+        app:layout_constraintTop_toTopOf="@+id/title_of" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_light"
+        android:lineSpacingExtra="5sp"
+        android:text="@string/delete_main_user"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/title_of"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/roboto_light"
+        android:lineSpacingExtra="5sp"
+        android:text="@string/about_employee"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/confirmation"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/positive_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lineVer"
+        app:layout_constraintTop_toBottomOf="@+id/enter_of"
+        app:srcCompat="@drawable/sel_smallbtnpurple" />
+
+    <ImageButton
+        android:id="@+id/negative_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/lineVer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_of"
+        app:srcCompat="@drawable/sel_smallbtnred" />
+
+    <TextView
+        android:id="@+id/neg_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="@string/btn_delete"
+        android:textAlignment="center"
+        android:textColor="@color/back_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/negative_button"
+        app:layout_constraintEnd_toStartOf="@+id/lineVer"
+        app:layout_constraintStart_toStartOf="@+id/negative_button"
+        app:layout_constraintTop_toTopOf="@+id/negative_button" />
+
+    <TextView
+        android:id="@+id/pos_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_regular"
+        android:text="@string/re_main_user"
+        android:textAlignment="center"
+        android:textColor="@color/back_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/positive_button"
+        app:layout_constraintEnd_toEndOf="@+id/positive_button"
+        app:layout_constraintStart_toStartOf="@+id/lineVer"
+        app:layout_constraintTop_toTopOf="@+id/positive_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
